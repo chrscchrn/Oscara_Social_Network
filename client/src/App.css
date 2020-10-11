@@ -1,0 +1,14 @@
+html,
+body {
+  background-color: rgb(33, 34, 46);
+  background: rgb(33, 34, 46);
+}
+
+.MuiGrid-item {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
