@@ -24,7 +24,7 @@ const styles = {
 
 export class Post extends Component {
     render() {
-        const { classes, post : { body, createdAt, userImage, userHandle, likeCount, commentCount} } = this.props
+        const { classes, post : { body, createdAt, userImage, handle, likeCount, commentCount} } = this.props
         return (
             <Card className={classes.card}>
                 <CardMedia
@@ -34,9 +34,11 @@ export class Post extends Component {
                 />
                 
                 <CardContent className={classes.content}> {/*LINK TO OTHER PROFILEs? */}
-                    <Typography varient="h5" color="textPrimary">{userHandle}</Typography>
+                    <Typography variant="h5" color="textPrimary">{handle}</Typography>
                     <Typography variant="body2" color="textSecondary">{createdAt}</Typography>
                     <Typography variant="body1">{body}</Typography>
+                    <Typography variant="body2" color="textSecondary">Likes: {likeCount}</Typography>
+                    <Typography variant="body2" color="textSecondary">Comments: {commentCount}</Typography>
                 </CardContent>
             </Card>
         )

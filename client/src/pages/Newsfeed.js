@@ -44,7 +44,6 @@ class Newsfeed extends Component {
 
         return (
             <div>
-                <p>Newsfeed is working</p>
                 <Grid 
                 container 
                 spacing={0}

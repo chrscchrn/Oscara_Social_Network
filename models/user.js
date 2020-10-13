@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
       bio: {
         type: DataTypes.STRING,
         allowNull: true
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     });
 

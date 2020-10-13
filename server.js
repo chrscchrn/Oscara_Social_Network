@@ -14,12 +14,13 @@ app.use(express.json());
 //Add user to the database
 //dont forget to trim user details
 app.post("/api/adduser", (req, res) => {
-  console.log(req.params, req.query);
+  console.log(req.body);
   db.User.create({
     email: req.body.email,
     handle: req.body.handle,
     imageurl: req.body.imageurl,
     bio: req.body.bio,
+    location: req.body.location
   }).then((response) => {
       res.status(200);
       console.log(response);
@@ -39,20 +40,21 @@ app.get("/api/user/:email", (req, res) => {
 });
 
 //update user here
-app.put("/api/signup", (req, res) => {
+// app.put("/api/signup", (req, res) => {
 
-});
+// });
 
 //New Post.....GET USER ID FROM SEQUELIZE TO POST 
 app.post("/api/post", (req, res) => {
-  console.log(req.body);
   db.Post.create({
     body: req.body.body,
     likeCount: req.body.likeCount,
     commentCount: req.body.commentCount,
-    // UserId: req.body.email,
+    UserId: req.body.email,
+    handle: req.body.handle
   }).then((response) => {
     res.json(response);
+    console.log(response)
   }).catch(err => console.log(err));
 });
 

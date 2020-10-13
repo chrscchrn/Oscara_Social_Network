@@ -18,7 +18,10 @@ import "./App.css";
 import { Container } from '@material-ui/core';
 import { MuiThemeProvider as MuiThemeProvider } from '@material-ui/core/styles/';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-
+//two new libs
+//polish ui
+//mvc folder structure
+//protect api keys
 const theme = createMuiTheme({
   palette: {
     primary: {

@@ -8,7 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles({
   root: {
-    width: "50%",
+    width: "100%",
     backgroundColor: "lightGray",
     borderRadius: 5,
   },
