@@ -13,7 +13,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
@@ -23,7 +25,8 @@ db.sequelize.sync().then(() => {
 
 
 //API ROUTES ============================================================= API ROUTES
-app.post("/api/signup", (req, res) => {
+//Add user to the database
+app.post("/api/adduser", (req, res) => {
   console.log(req.params, req.query);
   db.User.create({
     email: req.body.email,
@@ -48,31 +51,31 @@ app.get("/api/user/:email", (req, res) => {
   });
 });
 
-app.put("/api/signup", (req, res) => {
 //update user here
+app.put("/api/signup", (req, res) => {
+
 });
 
+//New Post.....GET USER ID FROM SEQUELIZE TO POST 
 app.post("/api/post", (req, res) => {
-  console.log(req.body.user, req.body.user2);
+  console.log(req.body);
   db.Post.create({
     body: req.body.body,
     likeCount: req.body.likeCount,
     commentCount: req.body.commentCount,
-    // UserId: req.body.user,
-  }).then((res) => {
-    res.json(res);
+    // UserId: req.body.email,
+  }).then((response) => {
+    res.json(response);
   }).catch(err => console.log(err));
 });
 
+//Get Posts
 app.get("/api/posts", (req, res) => {
-  db.Post.find({})
+  db.Post.findAll({
+    order: [ ['createdAt', 'DESC'] ]
+  })
   .then(dbPosts => {
     res.json(dbPosts);
   }).catch(err => console.log(err));
 });
 
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
-
-//JW TOKENS ============================================================= JW TOKENS

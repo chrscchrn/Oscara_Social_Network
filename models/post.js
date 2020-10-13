@@ -16,13 +16,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
         },
     });
-    //User
-    //Uid
 
     Post.associate = function(models) {
       Post.belongsTo(models.User, { 
         foreignKey: {
-          allowNull: false
+          allowNull: true,
         }
       });
     };

@@ -8,26 +8,26 @@ import axios from 'axios';
 export default function Front() {
 
     const [userState, setUserState] = useState({
-        new_user: true
+        new_user: false
     });
 
     const { user, isAuthenticated, isLoading } = useAuth0();
     
-    if (isLoading) {
-        return <div>Loading ...</div>;
-    } else if (isAuthenticated && !isLoading) {
-        axios.get('/api/user/' + user.email)
-            .then(res => {
-                let obj = { new_user : userState.new_user }
-                if (res.data == null) {
-                    setUserState(obj)
-                } else {
-                    setUserState(obj)
-                }
-            }).catch(err => {
-                console.log(err);
-            })
-    }
+    // if (isLoading) {
+    //     return <div>Loading ...</div>;
+    // } else if (isAuthenticated && !isLoading) {
+    //     axios.get('/api/user/' + user.email)
+    //         .then(res => {
+    //             let obj = { new_user : userState.new_user }
+    //             if (res.data == null) {
+    //                 setUserState(obj)
+    //             } else {
+    //                 setUserState(obj)
+    //             }
+    //         }).catch(err => {
+    //             console.log(err);
+    //         })
+    // }
 
 ;
 

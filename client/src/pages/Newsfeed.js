@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Component } from "react";
 import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
-import FeedContainer from '../components/FeedContainer';
-
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Box, Grid } from '@material-ui/core';
+import Post from '../components/Post'
 
 // const classes = useStyles();
 // const useStyles = makeStyles((theme) => ({
@@ -26,16 +26,22 @@ class Newsfeed extends Component {
     }
 
     componentDidMount() {
-        // axios.get('/posts')
-        //     .then(res => {
-        //         this.setState({
-        //             posts: res.data
-        //         })
-        //     })
-        //     .catch(err => console.log(err));
+        axios.get('/api/posts')
+            .then(res => {
+                console.log(res);
+                this.setState({
+                    posts: res.data
+                })
+            })
+            .catch(err => console.log(err));
     }
     
     render() {
+
+        let recentPostsMarkup = this.state.posts ? (
+        this.state.posts.map(post => <Post post={post} />)
+        ) : <p>Loading...?</p>
+
         return (
             <div>
                 <p>Newsfeed is working</p>
@@ -58,10 +64,8 @@ class Newsfeed extends Component {
                 justify="space-between"
                 alignItems="stretch"
                 >
-                    <Grid item sm={12}  >  
-                        <div >
-                            <FeedContainer />
-                        </div>
+                    <Grid item sm={12}>  
+                        {recentPostsMarkup}
                     </Grid>
                 </Grid>
     

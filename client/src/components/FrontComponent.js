@@ -8,8 +8,7 @@ export default function FrontComponent() {
 
     return (
         <>
-            <LoginButton />
-            <p>Front but not logged in</p>
+            <p>Hey! Welcome to the new social network, Social Network!</p>
         </>
         
     );
