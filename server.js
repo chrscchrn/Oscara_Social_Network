@@ -9,23 +9,10 @@ require("dotenv").config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
-
-db.sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🌎 ==> API server now on port ${PORT}!`);
-  });
-});
-
 
 //API ROUTES ============================================================= API ROUTES
 //Add user to the database
+//dont forget to trim user details
 app.post("/api/adduser", (req, res) => {
   console.log(req.params, req.query);
   db.User.create({
@@ -74,8 +61,22 @@ app.get("/api/posts", (req, res) => {
   db.Post.findAll({
     order: [ ['createdAt', 'DESC'] ]
   })
-  .then(dbPosts => {
-    res.json(dbPosts);
+  .then(posts => {
+    console.log(posts)
+    res.json(posts);
   }).catch(err => console.log(err));
 });
 
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🌎 ==> API server now on port ${PORT}!`);
+  });
+});
