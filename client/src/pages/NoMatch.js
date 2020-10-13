@@ -16,12 +16,3 @@ function NoMatch() {
 }
 
 export default NoMatch;
-{/* <Container fluid>
-<Row>
-  <Col size="md-12">
-    <Jumbotron>
-
-    </Jumbotron>
-  </Col>
-</Row>
-</Container> */}

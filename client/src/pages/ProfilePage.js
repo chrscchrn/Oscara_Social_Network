@@ -1,39 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import Nav from '../components/Nav';
 import Grid from '@material-ui/core/Grid';
+import Profile from "../components/Profile";
 
-export default function ProfilePage() {
+class ProfilePage extends Component {
     
-    return (
-        <>
-            <Grid 
-            container 
-            spacing={0}
-            direction="row" 
-            justify="space-between"
-            alignItems="flex-start"
-            >
-                <Grid item sm={2}>  
-                    col
+    render() {
+
+        return (
+            <>
+                <Grid 
+                container 
+                spacing={0}
+                direction="row" 
+                justify="space-between"
+                alignItems="flex-start"
+                >
+                    <Grid item sm={2}>  
+                        col
+                    </Grid>
+                    <Grid item sm={8}>  
+                        <Profile />
+                    </Grid>
+                    <Grid item sm={2}>  
+                        col
+                    </Grid>
                 </Grid>
-                <Grid item sm={8}>  
-                    col
+                <Grid 
+                container 
+                spacing={0}
+                direction="row" 
+                justify="center"
+                alignItems="flex-end"
+                >
+                    <Grid item sm={6}>    
+                        <Nav />     
+                    </Grid>
                 </Grid>
-                <Grid item sm={2}>  
-                    col
-                </Grid>
-            </Grid>
-            <Grid 
-            container 
-            spacing={0}
-            direction="row" 
-            justify="center"
-            alignItems="flex-end"
-            >
-                <Grid item sm={12}>    
-                    <Nav />     
-                </Grid>
-            </Grid>
-        </>
-    );
+            </>
+        );
+    }
 }
+
+export default ProfilePage;

@@ -7,19 +7,25 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 240]
             }
         },
-        like: {
+        likeCount: {
             type: DataTypes.INTEGER,
             allowNull: true,
-        }
+        },
+        commentCount: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
     });
+    //User
+    //Uid
 
-    // Post.associate = function(models) {
-    //   Post.belongsTo(models.User, { 
-    //     foreignKey: {
-    //       allowNull: false
-    //     }
-    //   });
-    // };
+    Post.associate = function(models) {
+      Post.belongsTo(models.User, { 
+        foreignKey: {
+          allowNull: false
+        }
+      });
+    };
 
     return Post;
 };

@@ -8,7 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "50%",
     backgroundColor: "lightGray",
     borderRadius: 5,
   },
@@ -24,7 +24,7 @@ export default function SimpleBottomNavigation() {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
-      showLabels
+      showLabel
       className={classes.root}
     >
       <a href="/"><BottomNavigationAction label="Home" icon={<HomeIcon />} /></a>
