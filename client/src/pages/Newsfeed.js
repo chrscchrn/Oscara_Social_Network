@@ -3,21 +3,9 @@ import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Post from '../components/Post'
-
-// const classes = useStyles();
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         display: 'flex',
-//         flexWrap: 'wrap',
-//         '& > *': {
-//             margin: theme.spacing(0),
-//             width: "100%",
-//             height: theme.spacing(10),
-//         },
-//     },
-// }));
+import Loading from "../components/Loading";
 
 class Newsfeed extends Component {
 
@@ -37,19 +25,19 @@ class Newsfeed extends Component {
     }
     
     render() {
-
+            
         let recentPostsMarkup = this.state.posts ? (
         this.state.posts.map(post => <Post post={post} />)
-        ) : <p>Loading...?</p>
+        ) : "No Posts Yet!"
 
         return (
-            <div>
+            <>
                 <Grid 
-                container 
-                spacing={0}
-                direction="row" 
-                justify="space-between"
-                alignItems="stretch"
+                    container 
+                    spacing={0}
+                    direction="row" 
+                    justify="center"
+                    alignItems="center"
                 >
                     <Grid item sm={12}  >  
                         <NewPostContainer />
@@ -57,11 +45,11 @@ class Newsfeed extends Component {
                 </Grid>
     
                 <Grid 
-                container 
-                spacing={0}
-                direction="row" 
-                justify="space-between"
-                alignItems="stretch"
+                    container 
+                    spacing={0}
+                    direction="row" 
+                    justify="space-between"
+                    alignItems="stretch"
                 >
                     <Grid item sm={12}>  
                         {recentPostsMarkup}
@@ -69,17 +57,17 @@ class Newsfeed extends Component {
                 </Grid>
     
                 <Grid 
-                container 
-                spacing={0}
-                direction="row" 
-                justify="center"
-                alignItems="stretch"
+                    container 
+                    spacing={0}
+                    direction="row" 
+                    justify="center"
+                    alignItems="stretch"
                 >
                     <Grid item sm={6}>    
-                        <Nav />     
+                        <Nav/>
                     </Grid>
                 </Grid>
-            </div>
+            </>
         );
     }
     

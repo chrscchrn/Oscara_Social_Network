@@ -4,6 +4,8 @@ import Newsfeed from "./Newsfeed";
 import { useAuth0 } from "@auth0/auth0-react";
 import SignupSteps from "./SignupSteps";
 import axios from 'axios';
+import Loading from "../components/Loading";
+import Nav from '../components/Nav';
 
 export default function Front() {
 
@@ -35,10 +37,11 @@ export default function Front() {
 
     return (
         <>
-            {isLoading ? <div>Loading ...</div>: null}
-            {(isAuthenticated && userState.new_user) ? <SignupSteps /> 
-            : (isAuthenticated && !userState.new_user) ? <Newsfeed /> 
-            : <FrontComponent /> }
+            {isLoading ? <Loading/>: null}
+            { (isAuthenticated && userState.new_user) ? <SignupSteps /> 
+            : (isAuthenticated && !userState.new_user) ? <Newsfeed /> //not the best way to determine a new user
+            : null }
+            {!isAuthenticated && !isLoading ? <FrontComponent /> : null}
         </>
         
     );

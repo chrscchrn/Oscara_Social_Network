@@ -17,13 +17,11 @@ class ProfilePage extends Component {
                 alignItems="flex-start"
                 >
                     <Grid item sm={2}>  
-                        col
                     </Grid>
-                    <Grid item sm={8}>  
+                    <Grid item sm={12}>  
                         <Profile />
                     </Grid>
                     <Grid item sm={2}>  
-                        col
                     </Grid>
                 </Grid>
                 <Grid 

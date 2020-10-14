@@ -7,11 +7,22 @@ import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    backgroundColor: "lightGray",
+  bar: {
+    width: "60vw",
+    backgroundColor: "#d3d3d3b5",
     borderRadius: 5,
+    position: "fixed",
+    bottom: 20,
+    left: "19.5vw",
+    paddingBottom: 10,
+    justifyContent: "center",
   },
+  icon: {
+    width: 40,
+    height: 40,
+    marginLeft: 20,
+    marginRight: 20,
+  }
 });
 
 export default function SimpleBottomNavigation() {
@@ -25,10 +36,10 @@ export default function SimpleBottomNavigation() {
         setValue(newValue);
       }}
       showLabel
-      className={classes.root}
+      className={classes.bar}
     >
-      <a href="/"><BottomNavigationAction label="Home" icon={<HomeIcon />} /></a>
-      <a href="/profile"><BottomNavigationAction label="Profile" icon={<PersonIcon />} /></a>
+      <a href="/"><BottomNavigationAction label="Home" icon={<HomeIcon className={classes.icon} />} /></a>
+      <a href="/profile"><BottomNavigationAction label="Profile" icon={<PersonIcon className={classes.icon} />} /></a>
       {/* <a href="/"><BottomNavigationAction label="Settings" icon={<SettingsIcon />} /></a> */}
     </BottomNavigation>
   );

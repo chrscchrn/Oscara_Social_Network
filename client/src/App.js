@@ -2,7 +2,6 @@
 //React Specific
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route, withRouter } from "react-router-dom";
-//componentdidmount && useLocation hook react-router-dom
 //Pages
 import NoMatch from "./pages/NoMatch";
 import ProfilePage from "./pages/ProfilePage";
@@ -47,13 +46,12 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
-          <Top/>
           <Container maxWidth="lg">
+          <Top/>
             <BrowserRouter>
               <Switch>
                 <Route exact path="/" component={Front} />
                 <PrivateRoute exact path="/profile" component={ProfilePage} />
-                {/* <PrivateRoute path="/setup" component={SignupSteps}/> */}
                 <Route component={NoMatch} />
               </Switch>
             </BrowserRouter>
