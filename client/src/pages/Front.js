@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import FrontComponent from '../components/FrontComponent';
-import Newsfeed from "./Newsfeed";
-import { useAuth0 } from "@auth0/auth0-react";
-import SignupSteps from "./SignupSteps";
-import axios from 'axios';
 import Loading from "../components/Loading";
 import ImageHelper from "../components/ImageHelper";
+import Newsfeed from "./Newsfeed";
+import SignupSteps from "./SignupSteps";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import  { API_URL } from '../helpers/API_URL';
 
 export default function Front() {
 
@@ -47,7 +48,8 @@ export default function Front() {
                 if (response.data == null) {
                     setUserState({...userState, uploadedPic: false });
                 } else {
-                    setUserState({...userState, uploadedPic: true, imgLocation: response.data });
+                    console.log(response.data);
+                    setUserState({...userState, uploadedPic: true});
                     setSQLImages(response.data.data);
                     setImageName(response.data.fileName)
                     
@@ -58,8 +60,17 @@ export default function Front() {
     }, [isAuthenticated, isLoading]);
 
     useEffect(() => {
-        console.log(SQLImages, "|||", imageName);
+        // console.log(SQLImages, "|||", imageName);
+
+        const configureImage = image => {
+            return API_URL + image;
+        }
+
     }, [SQLImages, imageName]);
+
+    function refresh() {
+        window.location.reload();
+    }
 
 
     return (
@@ -69,14 +80,14 @@ export default function Front() {
             { (isAuthenticated && userState.new_user) ? 
             <SignupSteps /> 
             : (isAuthenticated && !userState.new_user && userState.uploadedPic) ? 
-            <Newsfeed image={userState.imgLocation}/> //not the best way to determine a new user
+            <Newsfeed images={SQLImages} imageName={imageName}/> //not the best way to determine a new user
             : (isAuthenticated && !userState.new_user && !userState.uploadedPic) ?
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >
                     Add a Profile Picture
                 </Typography>
                 <ImageHelper email={user.email}/>
-                <Button color="primary">
+                <Button color="primary" onClick={refresh}>
                     Add
                 </Button>
             </Card>  : null}

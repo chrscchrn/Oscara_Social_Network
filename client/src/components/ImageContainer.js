@@ -8,12 +8,13 @@ const ImageContainer = ({ newImage }) => {
     const [fallback, setFallBack ] = useState('');
     const getImages = async () => {
         try {
-            const res = await axios.get('api/images');
+            const res = await axios.get('/api/images');
             if (!res.data.files ) {
                 setFallBack(res.data.message);
                 return;
             } else {
                 setImages(res.data.files);
+                console.log(res.data.files);
             }
         } catch (err) {
             console.log(err.message);
@@ -25,7 +26,7 @@ const ImageContainer = ({ newImage }) => {
     }, [ newImage ]);
 
     const configureImage = image => {
-        return API_URL + image;
+        return API_URL + "/" + image;
     }
 
     console.log(images);

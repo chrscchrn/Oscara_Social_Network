@@ -10,6 +10,7 @@ import Loading from "./Loading";
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { CardMedia } from "@material-ui/core";
+import  { API_URL } from '../helpers/API_URL';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,12 +42,10 @@ const useStyles = makeStyles((theme) => ({
 
 //multer image upload, tiny png, express-fileupload
 
-function NewPostContainer() {
+function NewPostContainer(props) {
 
     const classes = useStyles();
-
     const [postState, setPostState] = useState({ body: "" });
-
     const [userMetadata, setUserMetadata] = useState({});
   
     useEffect(() => {
@@ -104,6 +103,10 @@ function NewPostContainer() {
             }
         }
     }
+
+    const configureImage = image => {
+        return API_URL + "/" + image;
+    }
     
     return (
         <div className={classes.root}>
@@ -114,8 +117,9 @@ function NewPostContainer() {
                     justify="space-around"
                     alignItems="flex-start"
                 >
-                    <CardMedia>
-                    </CardMedia>
+                    {props.images.map(image => (
+                        <img src={configureImage(image)} key={image} alt={image} width="200" height="200"/>
+                    ))}
                 </Grid>
                 <Grid
                     container
