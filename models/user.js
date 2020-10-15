@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
-      imageurl: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       bio: {
         type: DataTypes.STRING,
         allowNull: true

@@ -9,6 +9,7 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "./Loading";
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
+import { CardMedia } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,32 +49,31 @@ function NewPostContainer() {
 
     const [userMetadata, setUserMetadata] = useState({});
   
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "christophernc.us.auth0.com";
-  
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: "read:current_user",
-        });
-  
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-  
-        const { user_metadata } = await metadataResponse.json();
-        setUserMetadata(user_metadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-  
-    getUserMetadata();
-  }, []);
+    useEffect(() => {
+        const getUserMetadata = async () => {
+            const domain = "christophernc.us.auth0.com";
+        
+            try {
+                const accessToken = await getAccessTokenSilently({
+                audience: `https://${domain}/api/v2/`,
+                scope: "read:current_user",
+                });
+        
+                const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+                const metadataResponse = await fetch(userDetailsByIdUrl, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+        
+                const { user_metadata } = await metadataResponse.json();
+                setUserMetadata(user_metadata);
+            } catch (e) {
+                console.log(e.message);
+            }
+        };
+        getUserMetadata();
+    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -104,13 +104,22 @@ function NewPostContainer() {
             }
         }
     }
-
+    
     return (
         <div className={classes.root}>
             <Card className={classes.card} raised>
                 <Grid
                     container
-                    direction="row"
+                    direction="column"
+                    justify="space-around"
+                    alignItems="flex-start"
+                >
+                    <CardMedia>
+                    </CardMedia>
+                </Grid>
+                <Grid
+                    container
+                    direction="column"
                     justify="space-around"
                     alignItems="flex-start"
                 >

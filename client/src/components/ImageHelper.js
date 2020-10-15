@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ImageContainer from './ImageContainer';
 import ImageForm from './imageform';
 
-const ImageHelper = () => {
+const ImageHelper = (props) => {
     const [ newImage, setNewImage ] = useState([])
 
     const handleNewImage = () => {
@@ -12,7 +12,7 @@ const ImageHelper = () => {
     return (
         <div>
             <ImageContainer newImage={newImage} />
-            <ImageForm handleNewImage={handleNewImage} />
+            <ImageForm handleNewImage={handleNewImage} email={props.email}/>
         </div>
     )
 }

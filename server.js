@@ -6,23 +6,19 @@ const db = require("./models");
 require("dotenv").config();
 const fs = require("fs");
 const multer = require('multer');
-// var upload = multer({ dest: 'uploads/' }) 
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
 
-
 //API ROUTES ============================================================= API ROUTES
-//Add user to the database
 //dont forget to trim user details
 app.post("/api/adduser", (req, res) => {
   console.log(req.body);
   db.User.create({
     email: req.body.email,
     handle: req.body.handle,
-    imageurl: req.body.imageurl,
     bio: req.body.bio,
     location: req.body.location
   }).then((response) => {
@@ -35,7 +31,6 @@ app.post("/api/adduser", (req, res) => {
 
 //get single user to check if they are new
 app.get("/api/user/:email", (req, res) => {
-  console.log(req.params.email);
   db.User.findOne({ 
     where: { email: req.params.email } 
   }).then((dbUser) => {
@@ -48,7 +43,7 @@ app.get("/api/user/:email", (req, res) => {
 
 // });
 
-//New Post.....GET USER ID FROM SEQUELIZE TO POST 
+//New Post
 app.post("/api/post", (req, res) => {
   db.Post.create({
     body: req.body.body,
@@ -75,7 +70,7 @@ app.get("/api/posts", (req, res) => {
 //Image Upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads')
+    cb(null, '/client/public/uploads')
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname)
@@ -83,18 +78,44 @@ const storage = multer.diskStorage({
 });
 
 const uploads = multer({ storage });
-app.post('/api/images', uploads.single('image'), async (req, res) => {
+app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
-  console.log(uploads, "|||", image)
+  db.Image.create({
+    type: req.file.mimetype,
+    name: req.file.originalname, 
+    UserId: req.params.email,
+    data: fs.readFileSync(__dirname + "\\" + image)
+  }).then((img) => {
+    fs.writeFileSync( __dirname + "\\" + image, img.data);
+  })
   res.json({ message: 'image successfully created' });
-})
+});
 
+//preview images
 app.get("/api/images", (req, res) => {
   const uploadsDirectory = path.join('uploads');
   fs.readdir(uploadsDirectory, (err, files) => {
     if (err) return res.json( { message: err});
     if(files.length === 0) return res.json( { message: 'No Images Uploaded!'} );
     return res.json({ files });
+  })
+});
+
+app.get("/api/user/image/:email", (req, res) => {
+  db.Image.findOne({
+    where: { UserId: req.params.email }
+  }).then((blob) => {
+    fs.writeFileSync( __dirname + "\\" + "uploads\\user" + "\\" + blob.name, blob.data);
+    let name = blob.name;
+    const userUploadsDirectory = path.join('uploads/user');
+    fs.readdir(userUploadsDirectory, (err, files) => {
+      if (err) return res.json({ message: err });
+      if (files.length === 0) return res.json({ message: 'No Images Uploaded!' });
+      return res.json({ 
+        data: files, 
+        fileName: name 
+      });
+    })
   })
 });
 

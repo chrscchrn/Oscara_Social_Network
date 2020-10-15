@@ -25,7 +25,6 @@ class Newsfeed extends Component {
     }
     
     render() {
-            
         let recentPostsMarkup = this.state.posts ? (
         this.state.posts.map(post => <Post post={post} />)
         ) : "No Posts Yet!"
@@ -40,7 +39,7 @@ class Newsfeed extends Component {
                     alignItems="center"
                 >
                     <Grid item sm={12}  >  
-                        <NewPostContainer />
+                        <NewPostContainer/>
                     </Grid>
                 </Grid>
     

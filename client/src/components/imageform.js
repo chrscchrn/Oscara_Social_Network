@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { uploadAction } from '../helpers/uploadAction';
 
-const ImageForm = ({ handleNewImage }) => {
+const ImageForm = ({ handleNewImage, email }) => {
     const [ image, setImage ] = useState('');
     const [ preview, setPreview ] = useState(false);
 
@@ -17,7 +17,7 @@ const ImageForm = ({ handleNewImage }) => {
     }
 
     const handleSubmit = () => {
-        uploadAction(image);
+        uploadAction(image, email);
         setPreview(false);
         setImage(false);
         handleNewImage();

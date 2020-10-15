@@ -6,12 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Card from "@material-ui/core/Card";
 import Axios from "axios";
-import ImageHelper from "../components/ImageHelper";
 
 //step 1: add user handle
-//step 2: add profile image
-//step 3: add bio
-//step 4: add city
+//step 2: add bio
+//step 3: add city
 //complete: add user to the database
 // post('/api/adduser') to add user to the database LAST
 
@@ -57,6 +55,7 @@ export default function SignupSteps() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        console.log(name, value);
         setSetupState({...setupState, [name]: value})
     };
 
@@ -76,8 +75,7 @@ export default function SignupSteps() {
             location: setupState.location,
             email: user.email
         } 
-        
-        Axios.post('/api/addUser', newUser);
+        Axios.post('/api/addUser', newUser); //or chain the post to the response of this
         
         //metadata
         const domain = "christophernc.us.auth0.com";
@@ -89,8 +87,6 @@ export default function SignupSteps() {
                   audience: `https://${domain}/api/v2/`,
                   scope: "read:current_user",
                 });
-
-                console.log(accessToken);
 
                 var options = {
                     method: 'PATCH',
@@ -115,8 +111,6 @@ export default function SignupSteps() {
         }
 
         getToken();
-
-        
         count++;
         window.location.reload();
     }
@@ -124,7 +118,7 @@ export default function SignupSteps() {
     return (
         <> 
             <Typography className={classes.header} variant="h2" color="textPrimary" >
-                Step {setupState.step}/4
+                Step {setupState.step}/3
             </Typography>
             {
             setupState.step === 1 ? <div className={classes.root}>
@@ -138,7 +132,7 @@ export default function SignupSteps() {
                     noValidate 
                     autoComplete="off"
                     >
-                        <TextField onChange={handleInputChange} name="handle" id="outlined-basic" label="Handle" variant="outlined"/>
+                        <TextField onChange={handleInputChange} required name="handle" id="outlined-basic" label="Handle" variant="outlined" multiline/>
                         <Button className={classes.button} onClick={done} color="primary">
                             Add Handle
                         </Button>
@@ -149,12 +143,19 @@ export default function SignupSteps() {
             setupState.step === 2 ? <div className={classes.root}>
                 <Card className={classes.card} raised>
                     <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        Add a Profile Picture
+                        Add Where You're From
                     </Typography>
-                    <ImageHelper />
-                    <Button className={classes.button} type="submit" value="Submit" onClick={done} color="primary">
-                        Add
-                    </Button>
+                    <form 
+                    className={classes.form} 
+                    onSubmit={e => { e.preventDefault() }}
+                    noValidate 
+                    autoComplete="off"
+                    >
+                        <TextField onChange={handleInputChange} name="location" id="outlined-basic" label="City" variant="outlined" />
+                        <Button className={classes.button} onClick={done} color="primary">
+                            Done
+                        </Button>
+                    </form>
                 </Card>
             </div> :
 
@@ -170,31 +171,15 @@ export default function SignupSteps() {
                     autoComplete="off"
                     >
                         <TextField onChange={handleInputChange} name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline/>
-                        <Button className={classes.button} onClick={done} color="primary">
+                        <Button className={classes.button} onClick={addUser} color="primary">
                             Add Bio
                         </Button>
                     </form>
                 </Card>
             </div> :
-
-            setupState.step === 4 ? <div className={classes.root}>
-                <Card className={classes.card} raised>
-                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        Add Where You're From
-                    </Typography>
-                    <form 
-                    className={classes.form} 
-                    onSubmit={e => { e.preventDefault() }}
-                    noValidate 
-                    autoComplete="off"
-                    >
-                        <TextField onChange={handleInputChange} name="location" id="outlined-basic" label="City" variant="outlined" />
-                        <Button className={classes.button} onClick={addUser} color="primary">
-                            Done
-                        </Button>
-                    </form>
-                </Card>
-            </div> : 
+            //IF USER HAS ADDED USER, GOOD. MAKE ADDITIONAL LOGIC ON FRONTJS TO MAKE THEM UPLOAD AN IMAGE
+            //AFTER IMAGE IS UPLOADED, LET THEM USE APP BECAUSE I WILL NEED IMAGE ANYWAYS TO PUT ALL OVER THE APP
+            // setupState.step === 4 ? <div className={classes.root}>
 
             <div className={classes.root}>
                 <Typography className={classes.typography} variant="h5" color="textPrimary" >
@@ -205,3 +190,4 @@ export default function SignupSteps() {
         </>
     );
 }
+

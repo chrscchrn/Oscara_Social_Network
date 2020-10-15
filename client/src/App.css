@@ -19,6 +19,10 @@ body {
   margin: auto
 }
 
+.MuiCardMedia-root {
+  height: 100px;
+  width: 100px;
+}
 
 
 
