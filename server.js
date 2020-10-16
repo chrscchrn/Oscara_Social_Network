@@ -133,14 +133,19 @@ app.get("/api/images", (req, res) => {
   })
 });
 
-app.get("/api/user/image/:email", (req, res) => {
+app.get("/api/user/image/:email", async (req, res) => {
   db.Image.findOne({
     where: { UserId: req.params.email }
   }).then((blob) => {
     console.log(blob);
-    fs.writeFileSync( __dirname + "\\" + "uploads\\user" + "\\" + blob.name, blob.data);
+    try {
+      fs.writeFileSync( __dirname + "\\" + "uploads\\user" + "\\" + blob.name, blob.data);
+    } catch (error) {
+      console.log(error);
+      res.json(error)
+    }
     let name = blob.name;
-    const userUploadsDirectory = path.join('uploads/user');
+    const userUploadsDirectory = path.join('/');
     fs.readdir(userUploadsDirectory, (err, files) => {
       if (err) return res.json({ message: err });
       if (files.length === 0) return res.json({ message: 'No Images Uploaded!' });
