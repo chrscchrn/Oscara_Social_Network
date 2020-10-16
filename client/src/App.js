@@ -47,7 +47,7 @@ class App extends Component {
             <BrowserRouter>
               <Switch>
                 <Route exact path="/" component={Front} />
-                <Route path="/profile" component={Front} />
+                <Route path="/profile" component={ProfilePage} />
 
                 {/* <PrivateRoute exact path="/profile" component={ProfilePage} /> */}
                 <Route component={NoMatch} />
