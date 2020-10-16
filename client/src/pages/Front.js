@@ -50,8 +50,7 @@ export default function Front() {
                     console.log(response.data);
                     setUserState({...userState, uploadedPic: true});
                     setSQLImages(response.data.data);
-                    setImageName(response.data.fileName)
-                    
+                    setImageName(response.data.fileName);
                 }
             })
         }

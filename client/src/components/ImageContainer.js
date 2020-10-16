@@ -29,8 +29,6 @@ const ImageContainer = ({ newImage }) => {
         return API_URL + "/" + image;
     }
 
-    console.log(images);
-
     return (
         <div>
             {images.length > 0 ? 

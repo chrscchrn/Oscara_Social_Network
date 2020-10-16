@@ -105,8 +105,8 @@ app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
     data: fs.readFileSync(__dirname + "\\" + image)
   }).then((img) => {
     fs.writeFileSync( __dirname + "\\" + image, img.data);
-  })
-  res.json({ message: 'image successfully created' });
+    res.json({ message: 'image successfully created' });
+  }).catch(err => res.json(err));
 });
 
 //preview images
