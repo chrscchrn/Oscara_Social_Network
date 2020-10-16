@@ -98,15 +98,31 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
-  db.Image.create({
-    type: req.file.mimetype,
-    name: req.file.originalname, 
-    UserId: req.params.email,
-    data: fs.readFileSync(__dirname + "\\" + image)
-  }).then((img) => {
-    fs.writeFileSync( __dirname + "\\" + image, img.data);
-    res.json({ message: 'image successfully created' });
-  }).catch(err => res.json(err));
+  console.log(image, "|||", req.file, "|||", uploads, "|||", storage);
+
+  let imageData; 
+  try {
+    imageData = fs.readFileSync(__dirname + "\/" + image);
+  } catch (error) {
+    console.log(error);
+  }
+  if (imageData) {
+
+    db.Image.create({
+      type: req.file.mimetype,
+      name: req.file.originalname, 
+      UserId: req.params.email,
+      data: imageData,
+    }).then((img) => {
+      try {
+        fs.writeFileSync( __dirname + "\/" + image, img.data);  
+        res.json({ message: 'image successfully created' });
+      } catch (error) {
+        console.log(error);
+        res.json(error);
+      }
+    }).catch(err => res.json(err));
+  }
 });
 
 //preview images
