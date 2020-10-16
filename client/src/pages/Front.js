@@ -10,6 +10,10 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+function refresh() {
+    window.location.reload();
+}
+
 export default function Front() {
 
     const [ userState, setUserState ] = useState({
@@ -54,20 +58,16 @@ export default function Front() {
 
     }, [isAuthenticated, isLoading, userState.new_user]);
 
-    function refresh() {
-        window.location.reload();
-    }
-
     if (isLoading) {
         return <Loading/>;
     }
     if (!isAuthenticated && !isLoading) {
         return <FrontComponent/>;
     }
-    if (isAuthenticated && userState.new_user) {
+    if (isAuthenticated && userState.new_user && !isLoading) {
         return <SignupSteps/>;
     }
-    if (isAuthenticated && !userState.new_user && !userState.uploadedPic) {
+    if (isAuthenticated && !userState.new_user && !userState.uploadedPic && !isLoading) {
         return (
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >
@@ -80,7 +80,7 @@ export default function Front() {
             </Card>
         );
     }
-    if (isAuthenticated && !userState.new_user && userState.uploadedPic){
+    if (isAuthenticated && !userState.new_user && userState.uploadedPic && !isLoading){
         return <Newsfeed images={SQLImages} imageName={imageName}/>;
     }
 }

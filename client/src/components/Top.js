@@ -33,7 +33,6 @@ export default function Top() {
                     <Typography variant="h4" className={classes.title}>
                         SCARA
                     </Typography>
-                    {isLoading ? <Loading/>: null}
                     {!isLoading && isAuthenticated ? <LogoutButton className={classes.logout} color="inherit"/> :
                     !isLoading && !isAuthenticated ? <LoginButton className={classes.login} color="inherit"/> : null}
                 </Toolbar>
