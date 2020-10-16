@@ -8,7 +8,15 @@ export default function FrontComponent() {
 
     return (
         <>
-            <p>Hey! Welcome to the new social network, Oscara!</p>
+            <h1>Hey! Welcome to the new social network, Oscara!</h1>
+            <div>
+                <div>
+                    <img src="/images/osccir.png" />
+                </div>
+                <div>
+                    <img src="/images/osc.png" />
+                </div>
+            </div>
         </>
         
     );

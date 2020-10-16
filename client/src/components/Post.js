@@ -45,7 +45,7 @@ const styles = {
 export class Post extends Component {
     
     render() {
-        const { classes, post : { body, createdAt, userImage, handle, likeCount, commentCount} } = this.props
+        const { classes, post : { body, createdAt, image, handle, likeCount, commentCount} } = this.props
         var timeDate = new Date(createdAt);
         let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
         return (
@@ -57,8 +57,8 @@ export class Post extends Component {
                     justify="center"
                     alignItems="center"
                 >
-                    <CardMedia
-                        image={userImage}
+                    <img
+                        src={image}
                         title="Profile Image"
                         className={classes.image}
                     />

@@ -14,29 +14,28 @@ import  { API_URL } from '../helpers/API_URL';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-
+        overflow: "hidden",
+        boxShadow: "0px 0px 20px 0px #252525db",
+        borderRadius: 5,
     },
     form: {
       '& > *': {
-        margin: theme.spacing(1),
-        width: '40%',
+        margin: theme.spacing(0),
+        width: '150%',
       },
-    },
-    typography: {
-        padding: 20,
-        float: "left",
-        marginLeft: 10,
     },
     card: {
         width: "100%",
-        textAlign: "center",
+        padding: 10,
+        marginTop: "auto",
     },
     button: {
         margin: 5,
-        marginRight: "2%",
-        float: "right",
-        height: 65,
-        width: "25%"
+        height: 75,
+        width: "20%",
+    },
+    image: {
+        marginBottom: 5,
     }
 }));
 
@@ -47,6 +46,7 @@ function NewPostContainer(props) {
     const classes = useStyles();
     const [postState, setPostState] = useState({ body: "" });
     const [userMetadata, setUserMetadata] = useState({});
+    const [ profilePic, setProfilePic ] = useState({});
   
     useEffect(() => {
         const getUserMetadata = async () => {
@@ -92,6 +92,7 @@ function NewPostContainer(props) {
                     commentCount: 0,
                     UserId: user.email,
                     handle: userMetadata.handle,
+                    imageURL: configureImage(profilePic.profile),
                 }).then((response) => {
                     console.log(response);
                     window.location.reload();
@@ -107,43 +108,43 @@ function NewPostContainer(props) {
     const configureImage = image => {
         return API_URL + "/" + image;
     }
+
+    useEffect(() => {
+        setProfilePic({ profile: props.imageName })
+    }, [props.imageName]);
+
+    useEffect(() => {
+        console.log(profilePic.profile);
+    }, [profilePic.profile]);
     
     return (
         <div className={classes.root}>
             <Card className={classes.card} raised>
                 <Grid
                     container
-                    direction="column"
-                    justify="space-around"
-                    alignItems="flex-start"
-                >
-                    {props.images.map(image => (
-                        <img src={configureImage(image)} key={image} alt={image} width="200" height="200"/>
-                    ))}
-                </Grid>
-                <Grid
-                    container
-                    direction="column"
-                    justify="space-around"
-                    alignItems="flex-start"
-                >
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >       
                     <Typography className={classes.typography} variant="h5" color="textPrimary" >
                         Create Post
                     </Typography>
-                </Grid>
-                
+                </Grid>                    
                 <Grid
                     container
-                    direction="column"
+                    direction="row"
                     justify="space-around"
-                    alignItems="stretch"
+                    alignItems="center"
                 >
-                    <form className={classes.form} onSubmit={e => {e.preventDefault()}} noValidate autoComplete="off">
-                        <TextField onChange={handleInputChange} name="body" id="outlined-basic" label="What's on your mind?" variant="outlined"/>
-                        <Button className={classes.button} onClick={callAPI} color="primary">
-                            Post
-                        </Button>
-                    </form>
+                    {props.images.map(image => (
+                        image == props.imageName ? 
+                        <img src={configureImage(image)} className={classes.image} key={image} alt={image} width="150" height="150"/>
+                        : null
+                    ))}
+                    <TextField className={classes.form} multiline onChange={handleInputChange} name="body" id="outlined-basic" label="What's on your mind?" variant="outlined"/>
+                    <Button className={classes.button} onClick={callAPI} color="primary">
+                        Post
+                    </Button>
                 </Grid>
             </Card>
         </div>
