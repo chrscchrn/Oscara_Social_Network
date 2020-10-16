@@ -6,9 +6,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import ProfilePage from "./pages/ProfilePage";
 import Front from "./pages/Front";
-//redux
-import { Provider } from 'react-redux';
-import store from './redux/store';
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
@@ -45,7 +42,6 @@ class App extends Component {
 
     return (
       <MuiThemeProvider theme={theme}>
-        <Provider store={store}>
           <Container maxWidth="lg">
           <Top/>
             <BrowserRouter>
@@ -56,7 +52,6 @@ class App extends Component {
               </Switch>
             </BrowserRouter>
           </Container>
-        </Provider>
       </MuiThemeProvider>
     );
   }
