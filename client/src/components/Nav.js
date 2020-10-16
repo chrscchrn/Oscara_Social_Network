@@ -4,6 +4,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   bar: {
@@ -37,8 +38,8 @@ export default function SimpleBottomNavigation() {
       showlabel="true"
       className={classes.bar}
     >
-      <a href="/"><BottomNavigationAction label="Home" icon={<HomeIcon className={classes.icon} />} /></a>
-      <a href="/profile"><BottomNavigationAction label="Profile" icon={<PersonIcon className={classes.icon} />} /></a>
+      <Link to="/"><BottomNavigationAction label="Home" icon={<HomeIcon className={classes.icon} />} /></Link>
+      <Link to="/profile"><BottomNavigationAction label="Profile" icon={<PersonIcon className={classes.icon} />} /></Link>
       {/* <a href="/"><BottomNavigationAction label="Settings" icon={<SettingsIcon />} /></a> */}
     </BottomNavigation>
   );
