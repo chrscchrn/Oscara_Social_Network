@@ -29,8 +29,9 @@ export default function Top() {
         <div className={classes.root}>
             <AppBar color="primary">
                 <Toolbar className="top-container">
+                    <img src="/images/osccir.png" width="60" height="60"/>
                     <Typography variant="h4" className={classes.title}>
-                        OSCARA
+                        SCARA
                     </Typography>
                     {isLoading ? <Loading/>: null}
                     {!isLoading && isAuthenticated ? <LogoutButton className={classes.logout} color="inherit"/> :
