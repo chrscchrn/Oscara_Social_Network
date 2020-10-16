@@ -7,12 +7,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Card from "@material-ui/core/Card";
 import Axios from "axios";
 
-//step 1: add user handle
-//step 2: add bio
-//step 3: add city
-//complete: add user to the database
-// post('/api/adduser') to add user to the database LAST
-
 const useStyles = makeStyles((theme) => ({
     root: {
         position: "relative",
@@ -115,79 +109,162 @@ export default function SignupSteps() {
         window.location.reload();
     }
 
-    return (
-        <> 
-            <Typography className={classes.header} variant="h2" color="textPrimary" >
-                Step {setupState.step}/3
-            </Typography>
-            {
-            setupState.step === 1 ? <div className={classes.root}>
-                <Card className={classes.card} raised>
-                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        Create your user handle
+    switch(setupState.step) {
+        case 1:
+            return (
+                <>
+                    <Typography className={classes.header} variant="h2" color="textPrimary" >
+                        Step {setupState.step}/3
                     </Typography>
-                    <form 
-                    className={classes.form} 
-                    onSubmit={e => { e.preventDefault() }} 
-                    noValidate 
-                    autoComplete="off"
-                    >
-                        <TextField onChange={handleInputChange} required name="handle" id="outlined-basic" label="Handle" variant="outlined" multiline/>
-                        <Button className={classes.button} onClick={done} color="primary">
-                            Add Handle
-                        </Button>
-                    </form>
-                </Card>
-            </div> :
-
-            setupState.step === 2 ? <div className={classes.root}>
-                <Card className={classes.card} raised>
-                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        Add Where You're From
+                    <div className={classes.root}>
+                        <Card className={classes.card} raised>
+                            <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                                Create your user handle
+                            </Typography>
+                            <form 
+                            className={classes.form} 
+                            onSubmit={e => { e.preventDefault() }} 
+                            noValidate 
+                            autoComplete="off"
+                            >
+                                <TextField onChange={handleInputChange} required name="handle" id="outlined-basic" label="Handle" variant="outlined" multiline/>
+                                <Button className={classes.button} onClick={done} color="primary">
+                                    Add Handle
+                                </Button>
+                            </form>
+                        </Card>
+                    </div>
+                </>
+            );
+        case 2:
+            return (
+                <>
+                    <Typography className={classes.header} variant="h2" color="textPrimary" >
+                        Step {setupState.step}/3
                     </Typography>
-                    <form 
-                    className={classes.form} 
-                    onSubmit={e => { e.preventDefault() }}
-                    noValidate 
-                    autoComplete="off"
-                    >
-                        <TextField onChange={handleInputChange} name="location" id="outlined-basic" label="City" variant="outlined" />
-                        <Button className={classes.button} onClick={done} color="primary">
-                            Done
-                        </Button>
-                    </form>
-                </Card>
-            </div> :
-
-            setupState.step === 3 ? <div className={classes.root}>
-                <Card className={classes.card} raised>
-                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        Add a Bio
+                    <div className={classes.root}>
+                        <Card className={classes.card} raised>
+                            <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                                Add Where You're From
+                            </Typography>
+                            <form 
+                            className={classes.form} 
+                            onSubmit={e => { e.preventDefault() }}
+                            noValidate 
+                            autoComplete="off"
+                            >
+                                <TextField onChange={handleInputChange} name="location" id="outlined-basic" label="City" variant="outlined" />
+                                <Button className={classes.button} onClick={done} color="primary">
+                                    Done
+                                </Button>
+                            </form>
+                        </Card>
+                    </div>
+                </>
+            );
+        case 3:
+            return (
+                <>
+                    <Typography className={classes.header} variant="h2" color="textPrimary" >
+                        Step {setupState.step}/3
                     </Typography>
-                    <form 
-                    className={classes.form} 
-                    onSubmit={e => { e.preventDefault() }}
-                    noValidate 
-                    autoComplete="off"
-                    >
-                        <TextField onChange={handleInputChange} name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline/>
-                        <Button className={classes.button} onClick={addUser} color="primary">
-                            Add Bio
-                        </Button>
-                    </form>
-                </Card>
-            </div> :
-            //IF USER HAS ADDED USER, GOOD. MAKE ADDITIONAL LOGIC ON FRONTJS TO MAKE THEM UPLOAD AN IMAGE
-            //AFTER IMAGE IS UPLOADED, LET THEM USE APP BECAUSE I WILL NEED IMAGE ANYWAYS TO PUT ALL OVER THE APP
-            // setupState.step === 4 ? <div className={classes.root}>
+                    <div className={classes.root}>
+                        <Card className={classes.card} raised>
+                            <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                                Add a Bio
+                            </Typography>
+                            <form 
+                            className={classes.form} 
+                            onSubmit={e => { e.preventDefault() }}
+                            noValidate 
+                            autoComplete="off"
+                            >
+                                <TextField onChange={handleInputChange} name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline/>
+                                <Button className={classes.button} onClick={addUser} color="primary">
+                                    Add Bio
+                                </Button>
+                            </form>
+                        </Card>
+                    </div>
+                </>
+            );
+            default:
 
-            <div className={classes.root}>
-                <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                    Welcome!
-                </Typography>
-            </div>
-            } 
-        </>
-    );
+    }
+
+    // return (
+    //     <> 
+    //         {
+    //         setupState.step === 1 ? 
+    //         <div className={classes.root}>
+    //             <Card className={classes.card} raised>
+    //                 <Typography className={classes.typography} variant="h5" color="textPrimary" >
+    //                     Create your user handle
+    //                 </Typography>
+    //                 <form 
+    //                 className={classes.form} 
+    //                 onSubmit={e => { e.preventDefault() }} 
+    //                 noValidate 
+    //                 autoComplete="off"
+    //                 >
+    //                     <TextField onChange={handleInputChange} required name="handle" id="outlined-basic" label="Handle" variant="outlined" multiline/>
+    //                     <Button className={classes.button} onClick={done} color="primary">
+    //                         Add Handle
+    //                     </Button>
+    //                 </form>
+    //             </Card>
+    //         </div> :
+
+    //         setupState.step === 2 ? 
+    //         <div className={classes.root}>
+    //             <Card className={classes.card} raised>
+    //                 <Typography className={classes.typography} variant="h5" color="textPrimary" >
+    //                     Add Where You're From
+    //                 </Typography>
+    //                 <form 
+    //                 className={classes.form} 
+    //                 onSubmit={e => { e.preventDefault() }}
+    //                 noValidate 
+    //                 autoComplete="off"
+    //                 >
+    //                     <TextField onChange={handleInputChange} name="location" id="outlined-basic" label="City" variant="outlined" />
+    //                     <Button className={classes.button} onClick={done} color="primary">
+    //                         Done
+    //                     </Button>
+    //                 </form>
+    //             </Card>
+    //         </div> :
+
+    //         setupState.step === 3 ? 
+    //         <div className={classes.root}>
+    //             <Card className={classes.card} raised>
+    //                 <Typography className={classes.typography} variant="h5" color="textPrimary" >
+    //                     Add a Bio
+    //                 </Typography>
+    //                 <form 
+    //                 className={classes.form} 
+    //                 onSubmit={e => { e.preventDefault() }}
+    //                 noValidate 
+    //                 autoComplete="off"
+    //                 >
+    //                     <TextField onChange={handleInputChange} name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline/>
+    //                     <Button className={classes.button} onClick={addUser} color="primary">
+    //                         Add Bio
+    //                     </Button>
+    //                 </form>
+    //             </Card>
+    //         </div> :
+    //         //IF USER HAS ADDED USER, GOOD. MAKE ADDITIONAL LOGIC ON FRONTJS TO MAKE THEM UPLOAD AN IMAGE
+    //         //AFTER IMAGE IS UPLOADED, LET THEM USE APP BECAUSE I WILL NEED IMAGE ANYWAYS TO PUT ALL OVER THE APP
+    //         // setupState.step === 4 ? <div className={classes.root}>
+
+    //         <div className={classes.root}>
+    //             <Typography className={classes.typography} variant="h5" color="textPrimary" >
+    //                 Welcome!
+    //             </Typography>
+    //         </div>
+    //         } 
+    //     </>
+    // );
 }
 

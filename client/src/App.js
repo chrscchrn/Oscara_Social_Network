@@ -9,6 +9,7 @@ import Front from "./pages/Front";
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
+import FrontComponent from './components/FrontComponent';
 import "./App.css";
 //Material UI
 import { Container } from '@material-ui/core';
@@ -36,10 +37,7 @@ const theme = createMuiTheme({
 })
 
 class App extends Component {
-
-
   render() {
-
     return (
       <MuiThemeProvider theme={theme}>
           <Container maxWidth="lg">
@@ -47,9 +45,7 @@ class App extends Component {
             <BrowserRouter>
               <Switch>
                 <Route exact path="/" component={Front} />
-                <Route path="/profile" component={ProfilePage} />
-
-                {/* <PrivateRoute exact path="/profile" component={ProfilePage} /> */}
+                <PrivateRoute exact path="/profile" component={ProfilePage} />
                 <Route component={NoMatch} />
               </Switch>
             </BrowserRouter>

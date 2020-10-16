@@ -43,32 +43,40 @@ function NewPostContainer(props) {
 
     const classes = useStyles();
     const [postState, setPostState] = useState({ body: "" });
-    const [userMetadata, setUserMetadata] = useState({});
+    const [ userInfo, setUserInfo ] = useState({});
+
+    // const [userMetadata, setUserMetadata] = useState({});
   
     useEffect(() => {
-        const getUserMetadata = async () => {
-            const domain = "christophernc.us.auth0.com";
+        axios.get('/api/user/' + user.email)
+        .then(res  => {
+          setUserInfo(res.data);
+        }).catch(err => {
+          console.log(err);
+        });
+        // const getUserMetadata = async () => {
+        //     const domain = "christophernc.us.auth0.com";
         
-            try {
-                const accessToken = await getAccessTokenSilently({
-                audience: `https://${domain}/api/v2/`,
-                scope: "read:current_user",
-                });
+        //     try {
+        //         const accessToken = await getAccessTokenSilently({
+        //         audience: `https://${domain}/api/v2/`,
+        //         scope: "read:current_user",
+        //         });
         
-                const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-                const metadataResponse = await fetch(userDetailsByIdUrl, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
+        //         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+        //         const metadataResponse = await fetch(userDetailsByIdUrl, {
+        //             headers: {
+        //                 Authorization: `Bearer ${accessToken}`,
+        //             },
+        //         });
         
-                const { user_metadata } = await metadataResponse.json();
-                setUserMetadata(user_metadata);
-            } catch (e) {
-                console.log(e.message);
-            }
-        };
-        getUserMetadata();
+        //         const { user_metadata } = await metadataResponse.json();
+        //         setUserMetadata(user_metadata);
+        //     } catch (e) {
+        //         console.log(e.message);
+        //     }
+        // };
+        // getUserMetadata();
     }, []);
 
     const handleInputChange = (event) => {
@@ -89,7 +97,7 @@ function NewPostContainer(props) {
                         likeCount: 0,
                         commentCount: 0,
                         UserId: user.email,
-                        handle: userMetadata.handle,
+                        handle: userInfo.handle,
                         image: props.imageName,
                     }).then((response) => {
                         console.log(response);

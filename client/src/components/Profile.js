@@ -34,48 +34,54 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [userMetadata, setUserMetadata] = useState({});
-  const [imageName, setImageName] = useState({});
+  // const [ userMetadata, setUserMetadata ] = useState({});
+  const [ imageName, setImageName ] = useState({});
+  const [ userInfo, setUserInfo ] = useState({});
   
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "christophernc.us.auth0.com";
+  // useEffect(() => {
+  //   const getUserMetadata = async () => {
+  //     const domain = "christophernc.us.auth0.com";
   
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: "read:current_user",
-        });
+  //     try {
+  //       const accessToken = await getAccessTokenSilently({
+  //         audience: `https://${domain}/api/v2/`,
+  //         scope: "read:current_user",
+  //       });
   
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+  //       const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+  //       const metadataResponse = await fetch(userDetailsByIdUrl, {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
   
-        const { user_metadata } = await metadataResponse.json();
-        setUserMetadata(user_metadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+  //       const { user_metadata } = await metadataResponse.json();
+  //       setUserMetadata(user_metadata);
+  //     } catch (e) {
+  //       console.log(e.message);
+  //     }
+  //   };
   
-    getUserMetadata();
-  }, []);
+  //   getUserMetadata();
+  // }, []);
   
   //get profile pic
   useEffect(() => {
     if (isAuthenticated) {
-        axios.get('/api/user/image/' + user.email)
+      axios.get('/api/user/image/' + user.email)
         .then(response  => {
           setImageName({ img: response.data.fileName });
         }).catch(err => {
           console.log(err);
         });
+      axios.get('/api/user/' + user.email)
+        .then(res  => {
+          setUserInfo(res.data);
+        }).catch(err => {
+          console.log(err);
+        });
     }
-
-}, [isAuthenticated, isLoading]);
+  }, [isAuthenticated, isLoading]);
 
   if (isLoading) return <Loading/>;
   return (
@@ -83,10 +89,10 @@ const Profile = () => {
       <Card raised className={classes.card} container>
         <img src={imageName.img} alt={user.name} className={classes.image} height="250" width="250"/>
         <CardContent className={classes.content}>
-          <Typography variant="h3" color="textPrimary">{userMetadata.handle}</Typography>
-          <Typography variant="body1" color="textSecondary">{userMetadata.location}</Typography>
+          <Typography variant="h3" color="textPrimary">{userInfo.handle}</Typography>
+          <Typography variant="body1" color="textSecondary">{userInfo.location}</Typography>
           <Typography variant="h5" color="textPrimary">Bio: </Typography>
-          <Typography variant="body1">{userMetadata.bio}</Typography>
+          <Typography variant="body1">{userInfo.bio}</Typography>
         </CardContent>
       </Card>
     )

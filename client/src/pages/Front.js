@@ -58,15 +58,17 @@ export default function Front() {
         window.location.reload();
     }
 
-    return (
-        <>
-            {isLoading ? <Loading/>: null}
-            {!isAuthenticated && !isLoading ? <FrontComponent /> : null}
-            { (isAuthenticated && userState.new_user) ? 
-            <SignupSteps /> 
-            : (isAuthenticated && !userState.new_user && userState.uploadedPic) ? 
-            <Newsfeed images={SQLImages} imageName={imageName}/> 
-            : (isAuthenticated && !userState.new_user && !userState.uploadedPic) ?
+    if (isLoading) {
+        return <Loading/>;
+    }
+    if (!isAuthenticated && !isLoading) {
+        return <FrontComponent/>;
+    }
+    if (isAuthenticated && userState.new_user) {
+        return <SignupSteps/>;
+    }
+    if (isAuthenticated && !userState.new_user && !userState.uploadedPic) {
+        return (
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >
                     Add a Profile Picture
@@ -75,9 +77,11 @@ export default function Front() {
                 <Button color="primary" onClick={refresh}>
                     Add
                 </Button>
-            </Card>  : null}
-        </>
-        
-    );
+            </Card>
+        );
+    }
+    if (isAuthenticated && !userState.new_user && userState.uploadedPic){
+        return <Newsfeed images={SQLImages} imageName={imageName}/>;
+    }
 }
 
