@@ -17,30 +17,28 @@ export default function Front() {
     });
     const [ SQLImages, setSQLImages ] = useState([]);
     const [ imageName, setImageName ] = useState([]);
-
     const { user, isAuthenticated, isLoading } = useAuth0();
     
     useEffect(() => {
-
+        
         if (isAuthenticated) {
             axios.get('/api/user/' + user.email)
-                .then(res => {
-                    if (res.data == null) {
-                        setUserState({
-                            ...userState,
-                            new_user: true
-                        })
-                    }
-                }).catch(err => {
-                    console.log(err);
-                });
+            .then(res => {
+                if (res.data.email !== null) {
+                    console.log("newuser is not new");
+                    setUserState({
+                        new_user: false
+                    })
+                }
+            }).catch(err => {
+                console.log(err);
+            });
         }
-
+        
         //get profile image here then make a bool to see if they uploaded one yet
-        if (isAuthenticated && !isLoading  && !userState.new_user) {
+        if (isAuthenticated && !isLoading && !userState.new_user) {
             axios.get('/api/user/image/' + user.email)
-            .then(response  => {
-                console.log(response);
+            .then(response => {
                 if (response.data == null) {
                     setUserState({...userState, uploadedPic: false });
                 } else {
@@ -50,11 +48,11 @@ export default function Front() {
                     setImageName(response.data.fileName);
                 }
             }).catch(err => {
-                console.log(err);
+                console.log(err, "happy cat error");
             });
         }
 
-    }, [isAuthenticated, isLoading]);
+    }, [isAuthenticated, isLoading, userState.new_user]);
 
     function refresh() {
         window.location.reload();
@@ -67,7 +65,7 @@ export default function Front() {
             { (isAuthenticated && userState.new_user) ? 
             <SignupSteps /> 
             : (isAuthenticated && !userState.new_user && userState.uploadedPic) ? 
-            <Newsfeed images={SQLImages} imageName={imageName}/> //not the best way to determine a new user
+            <Newsfeed images={SQLImages} imageName={imageName}/> 
             : (isAuthenticated && !userState.new_user && !userState.uploadedPic) ?
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >

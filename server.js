@@ -46,11 +46,6 @@ app.get("/api/user/:email", (req, res) => {
   });
 });
 
-//update user here
-// app.put("/api/signup", (req, res) => {
-
-// });
-
 //New Post
 app.post("/api/post", (req, res) => {
   db.Post.create({
@@ -116,8 +111,8 @@ app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  if (imageData) {
 
+  if (imageData) {
     db.Image.create({
       type: req.file.mimetype,
       name: req.file.originalname, 
@@ -150,10 +145,11 @@ app.get("/api/images", (req, res) => {
 });
 
 app.get("/api/user/image/:email", (req, res) => {
+  console.log(req.params, "is this working???");
   db.Image.findOne({
     where: { UserId: req.params.email }
   }).then((blob) => {
-    console.log(blob);
+    console.log(blob, "BLOB HAPPY CAt");
     fs.writeFileSync( __dirname + "\\" + "uploads\\user" + "\\" + blob.name, blob.data);
     let name = blob.name;
     const userUploadsDirectory = path.join('uploads/user');

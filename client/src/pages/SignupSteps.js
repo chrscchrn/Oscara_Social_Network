@@ -82,13 +82,13 @@ export default function SignupSteps() {
         const domain = "christophernc.us.auth0.com";
         let accessToken;
         const getToken = async () => {
-            
             try {
                 accessToken = await getAccessTokenSilently({
                   audience: `https://${domain}/api/v2/`,
                   scope: "read:current_user",
                 });
-
+                
+                //add sql user data to auth0 metadata 
                 var options = {
                     method: 'PATCH',
                     url: `https://${domain}/api/v2/users/${user.sub}`,

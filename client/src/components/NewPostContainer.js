@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//multer image upload, tiny png, express-fileupload
-
 function NewPostContainer(props) {
 
     const classes = useStyles();

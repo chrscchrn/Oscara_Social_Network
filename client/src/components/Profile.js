@@ -63,7 +63,8 @@ const Profile = () => {
   
     getUserMetadata();
   }, []);
-
+  
+  //get profile pic
   useEffect(() => {
     if (isAuthenticated) {
         axios.get('/api/user/image/' + user.email)
