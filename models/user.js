@@ -28,6 +28,10 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.Post, {
         onDelete: "cascade"
       });
+
+      User.hasMany(models.Image, {
+        onDelete: "cascade"
+      });
     };
     
     return User;
