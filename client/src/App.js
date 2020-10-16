@@ -1,13 +1,13 @@
 //https://community.auth0.com/t/react-with-auth0-spa-looses-login-after-refresh/35461
 //React Specific
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route, withRouter } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
 import NoMatch from "./pages/NoMatch";
 import ProfilePage from "./pages/ProfilePage";
 import Front from "./pages/Front";
 //redux
-import { Provider, provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './redux/store';
 //Components
 import PrivateRoute from "./components/private";
@@ -15,7 +15,7 @@ import Top from './components/Top';
 import "./App.css";
 //Material UI
 import { Container } from '@material-ui/core';
-import { MuiThemeProvider as MuiThemeProvider } from '@material-ui/core/styles/';
+import { MuiThemeProvider } from '@material-ui/core/styles/';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 //two new libs
 //polish ui

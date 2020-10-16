@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Top() {
 
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { isAuthenticated, isLoading } = useAuth0();
     const classes = useStyles();
 
     return (

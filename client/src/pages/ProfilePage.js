@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { Component } from "react";
 import Nav from '../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Profile from "../components/Profile";

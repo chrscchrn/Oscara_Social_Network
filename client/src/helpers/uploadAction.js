@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { API_URL } from '../helpers/API_URL';
 
 export const uploadAction = async (image, email) => {
     const fd = new FormData();

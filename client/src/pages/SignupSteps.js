@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignupSteps() {
 
-    const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+    const { user, getAccessTokenSilently } = useAuth0();
     const classes = useStyles();
 
     const [setupState, setSetupState] = useState({ 
@@ -59,11 +59,9 @@ export default function SignupSteps() {
         setSetupState({...setupState, [name]: value})
     };
 
-    let count = 0;
     const done = () => {
         //if user leaves the step blank return so they dont mess up functionality
         setSetupState({...setupState, step: setupState.step + 1, })
-        count++;
         console.log(setupState);
     }
 
@@ -111,7 +109,6 @@ export default function SignupSteps() {
         }
 
         getToken();
-        count++;
         window.location.reload();
     }
 

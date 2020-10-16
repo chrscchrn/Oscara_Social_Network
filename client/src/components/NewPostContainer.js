@@ -9,7 +9,6 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "./Loading";
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import { CardMedia } from "@material-ui/core";
 import  { API_URL } from '../helpers/API_URL';
 
 const useStyles = makeStyles((theme) => ({
@@ -79,12 +78,12 @@ function NewPostContainer(props) {
         setPostState({...postState, [name]: value})
     };
 
-    const { user, isAuthenticated, getAccessTokenSilently, isloading } = useAuth0();
+    const { user, getAccessTokenSilently, isloading } = useAuth0();
     const callAPI = async () => {
         if (!isloading) {
             try {
-                const token = await getAccessTokenSilently();
-                var decoded = jwt_decode(token);
+                // const token = await getAccessTokenSilently();
+                // var decoded = jwt_decode(token);
                 console.log(postState, userMetadata.handle);
                 axios.post('/api/post', {
                     body: postState.body,
@@ -137,7 +136,7 @@ function NewPostContainer(props) {
                     alignItems="center"
                 >
                     {props.images.map(image => (
-                        image == props.imageName ? 
+                        image === props.imageName ? 
                         <img src={configureImage(image)} className={classes.image} key={image} alt={image} width="150" height="150"/>
                         : null
                     ))}

@@ -59,14 +59,14 @@ export default function Front() {
 
     }, [isAuthenticated, isLoading]);
 
-    useEffect(() => {
-        // console.log(SQLImages, "|||", imageName);
+    // useEffect(() => {
+    //     // console.log(SQLImages, "|||", imageName);
 
-        const configureImage = image => {
-            return API_URL + image;
-        }
+    //     const configureImage = image => {
+    //         return API_URL + image;
+    //     }
 
-    }, [SQLImages, imageName]);
+    // }, [SQLImages, imageName]);
 
     function refresh() {
         window.location.reload();

@@ -1,11 +1,9 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { Component } from "react";
 import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import Post from '../components/Post'
-import Loading from "../components/Loading";
 
 class Newsfeed extends Component {
 
