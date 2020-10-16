@@ -12,7 +12,9 @@ import Typography from '@material-ui/core/Typography';
 
 export default function Front() {
 
-    const [ userState, setUserState ] = useState({});
+    const [ userState, setUserState ] = useState({
+        new_user: true
+    });
     const [ SQLImages, setSQLImages ] = useState([]);
     const [ imageName, setImageName ] = useState([]);
 
@@ -20,18 +22,13 @@ export default function Front() {
     
     useEffect(() => {
 
-        if (isAuthenticated && !isLoading) {
+        if (isAuthenticated) {
             axios.get('/api/user/' + user.email)
                 .then(res => {
                     if (res.data == null) {
                         setUserState({
                             ...userState,
                             new_user: true
-                        })
-                    } else {
-                        setUserState({
-                            ...userState,
-                            new_user: false
                         })
                     }
                 }).catch(err => {
