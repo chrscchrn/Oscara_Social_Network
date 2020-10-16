@@ -76,7 +76,6 @@ export default function SignupSteps() {
         Axios.post('/api/addUser', newUser)
             .catch(err => {
                 console.log(err);
-                res.json(err);
             });
         
         //metadata

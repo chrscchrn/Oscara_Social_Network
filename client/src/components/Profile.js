@@ -71,7 +71,6 @@ const Profile = () => {
           setImageName({ img: response.data.fileName });
         }).catch(err => {
           console.log(err);
-          res.json(err);
         });
     }
 

@@ -20,8 +20,7 @@ function ProfilePage() {
                 setPosts({
                     posts: res.data
                 })
-            })
-            .catch(err => console.log(err));
+            }).catch(err => console.log(err));
         }
     }, [user, isLoading])
     
