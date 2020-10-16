@@ -36,11 +36,11 @@ export default function Front() {
                     }
                 }).catch(err => {
                     console.log(err);
-                })
+                });
         }
 
         //get profile image here then make a bool to see if they uploaded one yet
-        if (isAuthenticated) {
+        if (isAuthenticated && !isLoading  && !userState.new_user) {
             axios.get('/api/user/image/' + user.email)
             .then(response  => {
                 console.log(response);
@@ -52,7 +52,9 @@ export default function Front() {
                     setSQLImages(response.data.data);
                     setImageName(response.data.fileName);
                 }
-            })
+            }).catch(err => {
+                console.log(err);
+            });
         }
 
     }, [isAuthenticated, isLoading]);

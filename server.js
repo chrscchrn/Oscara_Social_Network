@@ -76,7 +76,7 @@ app.get("/api/posts", (req, res) => {
     console.log(err);
     res.status(500);
     res.json(err);
-  });;
+  });
 });
 
 //Get user posts
@@ -146,7 +146,10 @@ app.get("/api/images", (req, res) => {
     if (err) return res.json( { message: err});
     if(files.length === 0) return res.json( { message: 'No Images Uploaded!'} );
     return res.json({ files });
-  })
+  }).catch(err => {
+    console.log(err);
+    res.json(err);
+  }); 
 });
 
 app.get("/api/user/image/:email", (req, res) => {

@@ -73,7 +73,11 @@ export default function SignupSteps() {
             location: setupState.location,
             email: user.email
         } 
-        Axios.post('/api/addUser', newUser); //or chain the post to the response of this
+        Axios.post('/api/addUser', newUser)
+            .catch(err => {
+                console.log(err);
+                res.json(err);
+            });
         
         //metadata
         const domain = "christophernc.us.auth0.com";

@@ -69,7 +69,10 @@ const Profile = () => {
         axios.get('/api/user/image/' + user.email)
         .then(response  => {
           setImageName({ img: response.data.fileName });
-        })
+        }).catch(err => {
+          console.log(err);
+          res.json(err);
+        });
     }
 
 }, [isAuthenticated, isLoading]);
