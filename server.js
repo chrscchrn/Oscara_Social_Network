@@ -149,8 +149,9 @@ app.get("/api/user/image/:email", (req, res) => {
   db.Image.findOne({
     where: { UserId: req.params.email }
   }).then((blob) => {
+    console.log(blob.dataValues, "THIS IS THE BLOB")
     fs.writeFileSync( __dirname + "/uploads/user/" + blob.name, blob.data);
-    let name = blob.name;
+    let name = blob.dataValues.name;
     const userUploadsDirectory = path.join('uploads/user');
     fs.readdir(userUploadsDirectory, (err, files) => {
       if (err) return res.json({ message: err });
