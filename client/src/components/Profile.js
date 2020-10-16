@@ -3,9 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./Loading";
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +35,7 @@ const Profile = () => {
   const classes = useStyles();
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState({});
+  const [imageName, setImageName] = useState({});
   
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -63,19 +64,25 @@ const Profile = () => {
     getUserMetadata();
   }, []);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+        axios.get('/api/user/image/' + user.email)
+        .then(response  => {
+          setImageName({ img: response.data.fileName });
+        })
+    }
+
+}, [isAuthenticated, isLoading]);
+
   if (isLoading) return <Loading/>;
   return (
     isAuthenticated && (
       <Card raised className={classes.card} container>
-        <CardMedia
-          image={user.picture}
-          title={user.name}
-        />
-        <img src={user.picture} alt={user.name} className={classes.image}/>
+        <img src={imageName.img} alt={user.name} className={classes.image} height="250" width="250"/>
         <CardContent className={classes.content}>
-          <Typography variant="h4" color="textPrimary">{userMetadata.handle}</Typography>
-          <Typography variant="body2" color="textSecondary">{userMetadata.location}</Typography>
-          <Typography variant="h6" color="textPrimary">Bio</Typography>
+          <Typography variant="h3" color="textPrimary">{userMetadata.handle}</Typography>
+          <Typography variant="body1" color="textSecondary">{userMetadata.location}</Typography>
+          <Typography variant="h5" color="textPrimary">Bio: </Typography>
           <Typography variant="body1">{userMetadata.bio}</Typography>
         </CardContent>
       </Card>

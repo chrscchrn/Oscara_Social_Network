@@ -11,10 +11,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      commentCount: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
       handle: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -22,8 +18,9 @@ module.exports = function (sequelize, DataTypes) {
           len: [1, 50]
         }
       },
-      imageURL: {
+      image: {
         type: DataTypes.STRING,
+        allowNull: false,
       }
     });
 

@@ -7,9 +7,6 @@ export default function FrontComponent() {
             <h1>Hey! Welcome to the new social network, Oscara!</h1>
             <div>
                 <div>
-                    <img src="/images/osccir.png" alt="Oscar"/>
-                </div>
-                <div>
                     <img src="/images/osc.png" alt="Oscar"/>
                 </div>
             </div>

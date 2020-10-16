@@ -52,9 +52,9 @@ app.post("/api/post", (req, res) => {
   db.Post.create({
     body: req.body.body,
     likeCount: req.body.likeCount,
-    commentCount: req.body.commentCount,
     UserId: req.body.UserId,
-    handle: req.body.handle
+    handle: req.body.handle,
+    image: req.body.image
   }).then((response) => {
     res.json(response);
     console.log(response)
@@ -64,6 +64,20 @@ app.post("/api/post", (req, res) => {
 //Get Posts
 app.get("/api/posts", (req, res) => {
   db.Post.findAll({
+    order: [ ['createdAt', 'DESC'] ]
+  })
+  .then(posts => {
+    res.json(posts);
+  }).catch(err => console.log(err));
+});
+
+//Get user posts
+app.get("/api/posts/:email", (req, res) => {
+  console.log(req.params.email);
+  db.Post.findAll({
+    where: {
+      UserId: req.params.email
+    },
     order: [ ['createdAt', 'DESC'] ]
   })
   .then(posts => {

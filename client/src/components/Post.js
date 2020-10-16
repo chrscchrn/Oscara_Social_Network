@@ -19,13 +19,15 @@ const styles = {
         background: "rgb (240, 245, 245)",
     },
     image: {
-        minWidth: "20%",
-        objectFit: 'cover',
-        float: "left",
+        // width: "50%",
+        // objectFit: 'cover',
+        // float: "left",
         // border radius to a circle!
+        borderRadius: "131px",
     },
     content: {
         padding: 25,
+        alignSelf: "baseline"
     },
     button: {
         // marginTop: "1em",
@@ -48,8 +50,8 @@ export class Post extends Component {
         var timeDate = new Date(createdAt);
         let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
         return (
+            
             <Card className={classes.card} raised>
-
                 <Grid
                     container
                     direction="column"
@@ -60,6 +62,7 @@ export class Post extends Component {
                         src={image}
                         title="Profile Image"
                         className={classes.image}
+                        width="150" height="150"
                     />
                 </Grid>
 
@@ -69,12 +72,11 @@ export class Post extends Component {
                     justify="center"
                     alignItems="center"
                 >
-                    <CardContent className={classes.content}> {/*LINK TO OTHER PROFILEs? */}
+                    <CardContent className={classes.content}>
                         <Typography className={classes.typography} variant="h5" color="textPrimary">{handle}</Typography>
                         <Typography className={classes.typography} variant="body2" color="textSecondary">{when}</Typography>
                         <Typography className={classes.typography} variant="body1">{body}</Typography>
                         <Typography className={classes.typography} variant="body2" color="textSecondary">Likes: {likeCount}</Typography>
-                        <Typography className={classes.typography} variant="body2" color="textSecondary">Comments: {commentCount}</Typography>
                     </CardContent>
                 </Grid>
 
@@ -86,9 +88,6 @@ export class Post extends Component {
                 >
                     <Button className={classes.button} color="primary">
                         Like
-                    </Button>
-                    <Button className={classes.button} color="primary">
-                        Comment
                     </Button>
                 </Grid>
             </Card>

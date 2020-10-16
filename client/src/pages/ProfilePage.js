@@ -1,11 +1,36 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from '../components/Nav';
-import Grid from '@material-ui/core/Grid';
 import Profile from "../components/Profile";
+import Post from '../components/Post';
+import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
-class ProfilePage extends Component {
+
+function ProfilePage() {
+
+    const [ posts, setPosts ] = useState({})
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
+    useEffect(() => {
+        if (!isLoading) {
+            axios.get('/api/posts/' + user.email)
+            .then(res => {
+                console.log(res);
+                setPosts({
+                    posts: res.data
+                })
+            })
+            .catch(err => console.log(err));
+        }
+    }, [user, isLoading])
     
-    render() {
+
+    
+
+        let recentUserPostsMarkup = posts.posts ? (
+            posts.posts.map(post => <Post post={post} />)
+        ) : "No Posts Yet!"
 
         return (
             <>
@@ -28,6 +53,21 @@ class ProfilePage extends Component {
                 container 
                 spacing={0}
                 direction="row" 
+                justify="space-between"
+                alignItems="flex-start"
+                >
+                    <Grid item sm={2}>  
+                    </Grid>
+                    <Grid item sm={12}>  
+                        {recentUserPostsMarkup}
+                    </Grid>
+                    <Grid item sm={2}>  
+                    </Grid>
+                </Grid>
+                <Grid 
+                container 
+                spacing={0}
+                direction="row" 
                 justify="center"
                 alignItems="flex-end"
                 >
@@ -37,7 +77,6 @@ class ProfilePage extends Component {
                 </Grid>
             </>
         );
-    }
 }
 
 export default ProfilePage;

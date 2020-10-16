@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "./Loading";
 import axios from 'axios';
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 import  { API_URL } from '../helpers/API_URL';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         width: "20%",
     },
     image: {
-        marginBottom: 5,
+        borderRadius: "131px",
     }
 }));
 
@@ -46,7 +46,6 @@ function NewPostContainer(props) {
     const classes = useStyles();
     const [postState, setPostState] = useState({ body: "" });
     const [userMetadata, setUserMetadata] = useState({});
-    const [ profilePic, setProfilePic ] = useState({});
   
     useEffect(() => {
         const getUserMetadata = async () => {
@@ -85,20 +84,22 @@ function NewPostContainer(props) {
             try {
                 // const token = await getAccessTokenSilently();
                 // var decoded = jwt_decode(token);
-                console.log(postState, userMetadata.handle);
-                axios.post('/api/post', {
-                    body: postState.body,
-                    likeCount: 0,
-                    commentCount: 0,
-                    UserId: user.email,
-                    handle: userMetadata.handle,
-                    imageURL: configureImage(profilePic.profile),
-                }).then((response) => {
-                    console.log(response);
-                    window.location.reload();
-                }).catch((error) => {
-                    console.log(error);
-                });
+                if (props.imageName.includes('.')) {
+                    console.log(props.imageName)
+                    axios.post('/api/post', {
+                        body: postState.body,
+                        likeCount: 0,
+                        commentCount: 0,
+                        UserId: user.email,
+                        handle: userMetadata.handle,
+                        image: props.imageName,
+                    }).then((response) => {
+                        console.log(response);
+                        window.location.reload();
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                }
             } catch(err) {
                 console.log(err)
             }
@@ -108,14 +109,6 @@ function NewPostContainer(props) {
     const configureImage = image => {
         return API_URL + "/" + image;
     }
-
-    useEffect(() => {
-        setProfilePic({ profile: props.imageName })
-    }, [props.imageName]);
-
-    useEffect(() => {
-        console.log(profilePic.profile);
-    }, [profilePic.profile]);
     
     return (
         <div className={classes.root}>

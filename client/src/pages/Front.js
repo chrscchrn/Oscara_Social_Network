@@ -9,7 +9,6 @@ import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import  { API_URL } from '../helpers/API_URL';
 
 export default function Front() {
 
@@ -59,19 +58,9 @@ export default function Front() {
 
     }, [isAuthenticated, isLoading]);
 
-    // useEffect(() => {
-    //     // console.log(SQLImages, "|||", imageName);
-
-    //     const configureImage = image => {
-    //         return API_URL + image;
-    //     }
-
-    // }, [SQLImages, imageName]);
-
     function refresh() {
         window.location.reload();
     }
-
 
     return (
         <>
