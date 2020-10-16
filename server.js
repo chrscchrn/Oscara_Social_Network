@@ -39,6 +39,10 @@ app.get("/api/user/:email", (req, res) => {
     where: { email: req.params.email } 
   }).then((dbUser) => {
     res.json(dbUser);
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
   });
 });
 
@@ -68,7 +72,11 @@ app.get("/api/posts", (req, res) => {
   })
   .then(posts => {
     res.json(posts);
-  }).catch(err => console.log(err));
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  });;
 });
 
 //Get user posts
@@ -82,7 +90,11 @@ app.get("/api/posts/:email", (req, res) => {
   })
   .then(posts => {
     res.json(posts);
-  }).catch(err => console.log(err));
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  });
 });
 
 //Image Upload
@@ -119,7 +131,11 @@ app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
         console.log(error);
         res.json(error);
       }
-    }).catch(err => res.json(err));
+    }).catch(err => {
+      console.log(err);
+      res.status(500);
+      res.json(err);
+    });
   }
 });
 
@@ -149,7 +165,11 @@ app.get("/api/user/image/:email", (req, res) => {
         fileName: name 
       });
     })
-  })
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  });
 });
 
 app.get("*", (req, res) => {
