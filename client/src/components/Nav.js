@@ -8,7 +8,7 @@ import HomeIcon from '@material-ui/icons/Home';
 const useStyles = makeStyles({
   bar: {
     width: "60vw",
-    backgroundColor: "#d3d3d3b5",
+    backgroundColor: "#c8c1c199",
     borderRadius: 5,
     position: "fixed",
     bottom: 20,

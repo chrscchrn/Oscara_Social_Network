@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden",
         boxShadow: "0px 0px 20px 0px #252525db",
         borderRadius: 5,
+        background: "rgb (240, 245, 245)",
     },
     form: {
       '& > *': {

@@ -15,7 +15,8 @@ const styles = {
         display: 'flex',
         marginBottom: 10,
         marginTop: 10,
-        overflow: "hidden"
+        overflow: "hidden",
+        background: "rgb (240, 245, 245)",
     },
     image: {
         minWidth: "20%",
