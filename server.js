@@ -98,8 +98,6 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
-  console.log(image, "|||", req.file, "|||", uploads, "|||", storage);
-
   let imageData; 
   try {
     imageData = fs.readFileSync(__dirname + "\/" + image);
@@ -139,6 +137,7 @@ app.get("/api/user/image/:email", (req, res) => {
   db.Image.findOne({
     where: { UserId: req.params.email }
   }).then((blob) => {
+    console.log(blob);
     fs.writeFileSync( __dirname + "\\" + "uploads\\user" + "\\" + blob.name, blob.data);
     let name = blob.name;
     const userUploadsDirectory = path.join('uploads/user');
