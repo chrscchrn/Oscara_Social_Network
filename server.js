@@ -145,7 +145,7 @@ app.get("/api/user/image/:email", async (req, res) => {
       res.json(error)
     }
     let name = blob.name;
-    const userUploadsDirectory = path.join('/');
+    const userUploadsDirectory = path.join('uploads');
     fs.readdir(userUploadsDirectory, (err, files) => {
       if (err) return res.json({ message: err });
       if (files.length === 0) return res.json({ message: 'No Images Uploaded!' });
