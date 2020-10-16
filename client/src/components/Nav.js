@@ -34,7 +34,7 @@ export default function SimpleBottomNavigation() {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
-      showLabel
+      showlabel="true"
       className={classes.bar}
     >
       <a href="/"><BottomNavigationAction label="Home" icon={<HomeIcon className={classes.icon} />} /></a>
