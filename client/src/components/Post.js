@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const styles = {
     card: {
@@ -46,10 +47,19 @@ const styles = {
 export class Post extends Component {
     
     render() {
-
-        const { classes, post : { body, createdAt, image, handle, likeCount, id} } = this.props
+        const { classes, post : { body, createdAt, image, handle, likeCount, id} } = this.props;
         var timeDate = new Date(createdAt);
         let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
+        let userHandle = this.props.userHandle;
+        function like(event) {
+            event.preventDefault();
+            event.persist();
+            console.log(event.target.id);
+            let postId = event.target.id;
+                Axios.get("/api/post/like/" + postId + "/" + userHandle)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
 
         // const like = (identification, likeCount) => {
         //     likeCount + 1;
@@ -101,9 +111,11 @@ export class Post extends Component {
                     justify="center"
                     alignItems="center"
                 >
-                    <Button className={classes.button} color="primary">
-                        Like
-                    </Button>
+                    <form onSubmit={like} name={id} id={id} key={id} value={id}>
+                        <Button type="submit" className={classes.button} color="primary" key={id} name={id} value={id}>
+                            Like
+                        </Button>
+                    </form>
                 </Grid>
             </Card>
         )

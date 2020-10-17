@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react/";
 import Loading from "./Loading";
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import axios from 'axios';
-import { Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
   const classes = useStyles();
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   // const [ userMetadata, setUserMetadata ] = useState({});
   const [ imageName, setImageName ] = useState({});
   const [ userInfo, setUserInfo ] = useState({});
@@ -98,9 +99,12 @@ const Profile = () => {
           </Grid>
           <Grid item sm={6}>
             <CardContent className={classes.content}>
-              <Typography variant="h3" color="textPrimary">{userInfo.handle}</Typography>
+              <Typography variant="h3" color="textPrimary">
+                  <PersonIcon color="disabled"/>
+                  {userInfo.handle}
+                </Typography>
               <Typography variant="body1" color="textSecondary">
-                <LocationOnIcon/>
+                <LocationOnIcon color="disabled"/>
                 {userInfo.location}
               </Typography>
               <Typography variant="h5" color="textPrimary">Bio: </Typography>

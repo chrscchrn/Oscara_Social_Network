@@ -16,9 +16,7 @@ function refresh() {
 
 export default function Front() {
 
-    const [ userState, setUserState ] = useState({
-        new_user: true
-    });
+    const [ userState, setUserState ] = useState({ new_user: true });
     const [ SQLImages, setSQLImages ] = useState([]);
     const [ imageName, setImageName ] = useState([]);
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -81,7 +79,11 @@ export default function Front() {
         );
     }
     if (isAuthenticated && !userState.new_user && userState.uploadedPic && !isLoading){
-        return <Newsfeed images={SQLImages} imageName={imageName} handle={userState.handle}/>;
+        return <Newsfeed 
+            images={SQLImages} 
+            imageName={imageName} 
+            handle={userState.handle}
+        />;
     }
 }
 

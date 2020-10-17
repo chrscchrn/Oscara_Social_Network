@@ -68,6 +68,7 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
       id: req.params.id
     }
   }).then( response => {
+    console.log(response.dataValues, "|| STEP 1 ||");
     if (response.dataValues) {
       postData = response.dataValues;
       db.Like.findOne({
@@ -76,21 +77,24 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
           handle: req.params.handle,
         }
       }).then( data => {
+        console.log(data, "|| STEP 2 ||");
         if (!data) {
           db.Like.create({
             PostId: req.params.id,
             handle: req.params.handle,
-          }).success(result => {
+          }).then(result => {
+            console.log(result, "|||", postData.likeCount, "|| STEP 3 ||");
             postData.likeCount += 1;
             console.log(postData);
-            db.Post.update({
-              where: {
-                id: req.params.id
-              },
-            },
-            {
-              likeCount: postData.likeCount
-            })
+            let values = { likeCount: postData.likeCount } 
+            let selector = { where: { id: req.params.id } }
+            db.Post.update(values, selector)
+              .then(responseTwo => console.log(responseTwo, "|| STEP 4 ||"))
+              .catch(err => {
+                console.log(err);
+                res.status(500);
+                res.json(err);
+              })
           }).catch( err => {
             console.log(err);
             res.status(500);

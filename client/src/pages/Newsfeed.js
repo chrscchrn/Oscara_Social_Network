@@ -31,7 +31,7 @@ class Newsfeed extends Component {
     
     render() {
         let recentPosts = this.state.posts ? (
-        this.state.posts.map(post => <Post post={post} key={post.id}/>)
+        this.state.posts.map(post => <Post userHandle={this.props.handle} post={post} key={post.id}/>)
         ) : "No Posts Yet!"
 
         return (
