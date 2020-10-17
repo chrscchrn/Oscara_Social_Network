@@ -54,29 +54,6 @@ function NewPostContainer(props) {
         }).catch(err => {
           console.log(err);
         });
-        // const getUserMetadata = async () => {
-        //     const domain = "christophernc.us.auth0.com";
-        
-        //     try {
-        //         const accessToken = await getAccessTokenSilently({
-        //         audience: `https://${domain}/api/v2/`,
-        //         scope: "read:current_user",
-        //         });
-        
-        //         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-        //         const metadataResponse = await fetch(userDetailsByIdUrl, {
-        //             headers: {
-        //                 Authorization: `Bearer ${accessToken}`,
-        //             },
-        //         });
-        
-        //         const { user_metadata } = await metadataResponse.json();
-        //         setUserMetadata(user_metadata);
-        //     } catch (e) {
-        //         console.log(e.message);
-        //     }
-        // };
-        // getUserMetadata();
     }, []);
 
     const handleInputChange = (event) => {
@@ -122,12 +99,21 @@ function NewPostContainer(props) {
                 <Grid
                     container
                     direction="row"
-                    justify="center"
+                    justify="space-around"
                     alignItems="center"
-                >       
-                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        Create Post
-                    </Typography>
+                >   
+                    <Grid item sm={2}  >  
+                        <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                            {props.handle}
+                        </Typography> 
+                    </Grid>
+                    <Grid item sm={2}  >  
+                        <Typography className={classes.typography} variant="h4" color="textPrimary" >
+                            Create Post
+                        </Typography>
+                    </Grid>
+                    <Grid item sm={2}  >  
+                    </Grid>           
                 </Grid>                    
                 <Grid
                     container

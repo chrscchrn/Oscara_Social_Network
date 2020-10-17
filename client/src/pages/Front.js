@@ -29,9 +29,10 @@ export default function Front() {
             axios.get('/api/user/' + user.email)
             .then(res => {
                 if (res.data.email !== null) {
-                    console.log("newuser is not new");
                     setUserState({
-                        new_user: false
+                        ...userState,
+                        new_user: false,
+                        handle: res.data.handle
                     })
                 }
             }).catch(err => {
@@ -46,13 +47,12 @@ export default function Front() {
                 if (response.data == null) {
                     setUserState({...userState, uploadedPic: false });
                 } else {
-                    console.log(response.data);
                     setUserState({...userState, uploadedPic: true});
                     setSQLImages(response.data.data);
                     setImageName(response.data.fileName);
                 }
             }).catch(err => {
-                console.log(err, "happy cat error");
+                console.log(err);
             });
         }
 
@@ -81,7 +81,7 @@ export default function Front() {
         );
     }
     if (isAuthenticated && !userState.new_user && userState.uploadedPic && !isLoading){
-        return <Newsfeed images={SQLImages} imageName={imageName}/>;
+        return <Newsfeed images={SQLImages} imageName={imageName} handle={userState.handle}/>;
     }
 }
 

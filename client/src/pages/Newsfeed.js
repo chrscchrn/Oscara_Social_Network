@@ -5,18 +5,11 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import Post from '../components/Post'
 
-
-
-function getAndWriteImages() {
-
-}
-
 class Newsfeed extends Component {
 
     state = {
         posts: null
     }
-
 
     componentDidMount() {
         axios.get('/api/posts')
@@ -27,7 +20,7 @@ class Newsfeed extends Component {
             })
         })
         .catch(err => console.log(err));
-        
+
         axios.get('/api/images/all')
         .then(res => {
             console.log(res);
@@ -38,7 +31,7 @@ class Newsfeed extends Component {
     
     render() {
         let recentPostsMarkup = this.state.posts ? (
-        this.state.posts.map(post => <Post post={post} />)
+        this.state.posts.map(post => <Post post={post} key={post.id}/>)
         ) : "No Posts Yet!"
 
         return (
@@ -51,7 +44,7 @@ class Newsfeed extends Component {
                     alignItems="center"
                 >
                     <Grid item sm={12}  >  
-                        <NewPostContainer images={this.props.images} imageName={this.props.imageName}/>
+                        <NewPostContainer images={this.props.images} imageName={this.props.imageName} handle={this.props.handle}/>
                     </Grid>
                 </Grid>
     

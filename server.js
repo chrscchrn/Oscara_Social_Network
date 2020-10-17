@@ -56,11 +56,20 @@ app.post("/api/post", (req, res) => {
     image: req.body.image
   }).then((response) => {
     res.json(response);
-    console.log(response)
   }).catch(err => console.log(err));
 });
 
-//Get Posts
+// //New Post
+// app.put("/api/post/like", (req, res) => {
+//   db.Post.update({
+//     id: req.body.id,
+//     likeCount: req.body.newcount//do some addition or sum
+//   }).then(response => {
+//     res.json(response);
+//   }).catch(err => console.log(err));
+// });
+
+//Get All Posts  LIMIT EVENTUALLY
 app.get("/api/posts", (req, res) => {
   db.Post.findAll({
     order: [ ['createdAt', 'DESC'] ]
@@ -92,7 +101,7 @@ app.get("/api/posts/:email", (req, res) => {
   });
 });
 
-//Image Upload
+//Image storage config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads')
@@ -102,6 +111,7 @@ const storage = multer.diskStorage({
   }
 });
 
+//yeah we uploading photos
 const uploads = multer({ storage });
 app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
@@ -144,12 +154,11 @@ app.get("/api/images", (req, res) => {
   })
 });
 
+//get single image, might be useless...
 app.get("/api/user/image/:email", (req, res) => {
-  console.log(req.params, "is this working???");
   db.Image.findOne({
     where: { UserId: req.params.email }
-  }).then((blob) => {
-    console.log(blob.dataValues, "THIS IS THE BLOB")
+  }).then(blob => {
     fs.writeFileSync( __dirname + "/uploads/user/" + blob.name, blob.data);
     let name = blob.dataValues.name;
     const userUploadsDirectory = path.join('uploads/user');
@@ -168,9 +177,10 @@ app.get("/api/user/image/:email", (req, res) => {
   });
 });
 
+//get ALL images and write them to the uploads dir
 app.get("/api/images/all", (req, res) => {
   db.Image.findAll({})
-    .then((blob) => {
+    .then(blob => {
       const userUploadsDirectory = path.join('uploads');
       fs.readdir(userUploadsDirectory, (err, files) => {
         if (err) return res.json({ message: err });
