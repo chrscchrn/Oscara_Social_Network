@@ -17,13 +17,14 @@ const styles = {
         marginTop: 10,
         overflow: "hidden",
         background: "rgb (240, 245, 245)",
+        padding: 10,
     },
     image: {
         borderRadius: "131px",
     },
     content: {
-        padding: 25,
-        alignSelf: "baseline"
+        // padding: 25,
+        alignSelf: "flex-start"
     },
     button: {
         width: "12em",

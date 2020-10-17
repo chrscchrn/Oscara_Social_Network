@@ -59,15 +59,62 @@ app.post("/api/post", (req, res) => {
   }).catch(err => console.log(err));
 });
 
-// //New Post
-// app.put("/api/post/like", (req, res) => {
-//   db.Post.update({
-//     id: req.body.id,
-//     likeCount: req.body.newcount//do some addition or sum
-//   }).then(response => {
-//     res.json(response);
-//   }).catch(err => console.log(err));
-// });
+//========================================================================== TEMP
+//like Post
+app.get("/api/post/like/:id/:handle", (req, res) => {
+  let postData = {};
+  db.Post.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then( response => {
+    if (response.dataValues) {
+      postData = response.dataValues;
+      db.Like.findOne({
+        where: {
+          PostId: req.params.id,
+          handle: req.params.handle,
+        }
+      }).then( data => {
+        if (!data) {
+          db.Like.create({
+            PostId: req.params.id,
+            handle: req.params.handle,
+          }).success(result => {
+            postData.likeCount += 1;
+            console.log(postData);
+            db.Post.update({
+              where: {
+                id: req.params.id
+              },
+            },
+            {
+              likeCount: postData.likeCount
+            })
+          }).catch( err => {
+            console.log(err);
+            res.status(500);
+            res.json(err);
+          })
+        } else {
+          res.status(400).json({ error: 'Post already liked'});
+        }
+      }).catch(err => {
+        console.log(err);
+        res.status(500);
+        res.json(err);
+      })
+    } else {
+      res.status(404).json({ error: 'Post not found' })
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  })
+});
+
+//==========================================================================  TEMP
 
 //Get All Posts  LIMIT EVENTUALLY
 app.get("/api/posts", (req, res) => {

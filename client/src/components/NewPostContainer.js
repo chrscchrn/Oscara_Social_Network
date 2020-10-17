@@ -19,34 +19,37 @@ const useStyles = makeStyles((theme) => ({
         background: "rgb (240, 245, 245)",
     },
     form: {
-      '& > *': {
-        margin: theme.spacing(0),
-        width: '150%',
-      },
+        '& > *': {
+            margin: theme.spacing(0),
+            width: '150%',
+        },
     },
     card: {
         width: "100%",
         padding: 10,
         marginTop: "auto",
+        display: 'flex',
     },
     button: {
-        margin: 5,
-        height: 75,
-        width: "20%",
+        width: "12em",
+        height: "7em",
+        padding: "1em, 2em",
+        overflow: "auto",
     },
     image: {
         borderRadius: "131px",
-    }
+    },
+    typography: {
+        padding: 5,
+    },
 }));
 
 function NewPostContainer(props) {
 
     const classes = useStyles();
-    const [postState, setPostState] = useState({ body: "" });
+    const [ postState, setPostState ] = useState({ body: "" });
     const [ userInfo, setUserInfo ] = useState({});
 
-    // const [userMetadata, setUserMetadata] = useState({});
-  
     useEffect(() => {
         axios.get('/api/user/' + user.email)
         .then(res  => {
@@ -61,12 +64,10 @@ function NewPostContainer(props) {
         setPostState({...postState, [name]: value})
     };
 
-    const { user, getAccessTokenSilently, isloading } = useAuth0();
+    const { user, isloading } = useAuth0();
     const callAPI = async () => {
         if (!isloading) {
             try {
-                // const token = await getAccessTokenSilently();
-                // var decoded = jwt_decode(token);
                 if (props.imageName.includes('.')) {
                     console.log(props.imageName)
                     axios.post('/api/post', {
@@ -98,35 +99,54 @@ function NewPostContainer(props) {
             <Card className={classes.card} raised>
                 <Grid
                     container
-                    direction="row"
-                    justify="space-around"
+                    direction="column"
+                    justify="center"
                     alignItems="center"
                 >   
-                    <Grid item sm={2}  >  
-                        <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                            {props.handle}
-                        </Typography> 
-                    </Grid>
-                    <Grid item sm={2}  >  
-                        <Typography className={classes.typography} variant="h4" color="textPrimary" >
-                            Create Post
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={2}  >  
-                    </Grid>           
+                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                        {props.handle}
+                    </Typography> 
+                    {props.images.map(image => (
+                        image === props.imageName ? 
+                        <img 
+                        src={configureImage(image)} 
+                        className={classes.image} 
+                        key={image} 
+                        alt={image} 
+                        width="150" 
+                        height="150"
+                        />
+                        : null
+                    ))}
                 </Grid>                    
                 <Grid
                     container
-                    direction="row"
-                    justify="space-around"
+                    direction="column"
+                    justify="center"
                     alignItems="center"
-                >
-                    {props.images.map(image => (
-                        image === props.imageName ? 
-                        <img src={configureImage(image)} className={classes.image} key={image} alt={image} width="150" height="150"/>
-                        : null
-                    ))}
-                    <TextField className={classes.form} multiline onChange={handleInputChange} name="body" id="outlined-basic" label="What's on your mind?" variant="outlined"/>
+                >   
+                    <div style={{alignSelf: "flex-start"}}>
+                        <Typography className={classes.typography} variant="h5" color="textPrimary">
+                            Create Post
+                        </Typography>
+                        <TextField 
+                            className={classes.form} 
+                            multiline 
+                            onChange={handleInputChange} 
+                            name="body" 
+                            id="outlined-basic" 
+                            label="What's on your mind?" 
+                            variant="outlined"
+                            rows={5}
+                            />
+                    </div>
+                </Grid>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >   
                     <Button className={classes.button} onClick={callAPI} color="primary">
                         Post
                     </Button>
