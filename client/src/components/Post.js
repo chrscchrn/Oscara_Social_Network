@@ -13,22 +13,28 @@ const styles = {
             width: '55%',
           },
         display: 'flex',
+        margin: "0 auto",
         marginBottom: 10,
         marginTop: 10,
         overflow: "hidden",
         background: "rgb (240, 245, 245)",
-        padding: 10,
     },
     image: {
-        borderRadius: "131px",
+        // // maxHeight: "100%",
+        borderRadius: "180px",
+        maxHeight: "200px",
+        maxWidth: "200px",
+        objectFit: "cover",
     },
     content: {
         // padding: 25,
-        alignSelf: "flex-start"
+        // alignSelf: "flex-start"
     },
     button: {
-        width: "12em",
-        height: "7em",
+        width: "7em",
+        height: "5em",
+        marginTop: "2.5em",
+        marginLeft: "1.70em",
         padding: "1em, 2em",
         overflow: "auto",
     },
@@ -70,15 +76,16 @@ export class Post extends Component {
                         src={image}
                         title="Profile Image"
                         className={classes.image}
-                        width="150" height="150"
+                        height="150"
+                        width="150"
                     />
                 </Grid>
 
                 <Grid
                     container
                     direction="column"
-                    justify="center"
-                    alignItems="center"
+                    justify="flex-start"
+                    alignItems="stretch"
                 >
                     <CardContent className={classes.content}>
                         <Typography className={classes.typography} variant="h5" color="textPrimary">{handle}</Typography>

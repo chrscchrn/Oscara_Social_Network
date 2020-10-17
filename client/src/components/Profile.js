@@ -6,27 +6,27 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-
+import { Grid } from "@material-ui/core";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    display: 'flex',
+    display: 'center',
     marginBottom: 10,
     marginTop: 10,
     overflow: "hidden"
   },
   image: {
-    minWidth: "20%",
-    objectFit: 'cover',
-    float: "left",
-    borderRadius: 1000,
+    // borderRadius: "180px",
+    maxHeight: "50%",
+    maxWidth: "50%",
+    objectFit: "cover",
   },
   content: {
-    padding: 25,
+    padding: 5,
   },
   typography: {
     padding: 20,
-    float: "left"
   },
 }));
 
@@ -86,14 +86,28 @@ const Profile = () => {
   if (isLoading) return <Loading/>;
   return (
     isAuthenticated && (
-      <Card raised className={classes.card} container>
-        <img src={imageName.img} alt={user.name} className={classes.image} height="250" width="250"/>
-        <CardContent className={classes.content}>
-          <Typography variant="h3" color="textPrimary">{userInfo.handle}</Typography>
-          <Typography variant="body1" color="textSecondary">{userInfo.location}</Typography>
-          <Typography variant="h5" color="textPrimary">Bio: </Typography>
-          <Typography variant="body1">{userInfo.bio}</Typography>
-        </CardContent>
+      <Card raised className={classes.card}>
+        <Grid 
+        container
+        direction="row"
+        justify="space-evenly"
+        alignItems="center"
+        >
+          <Grid item sm={6}>
+            <img src={imageName.img} alt={user.name} className={classes.image}/>
+          </Grid>
+          <Grid item sm={6}>
+            <CardContent className={classes.content}>
+              <Typography variant="h3" color="textPrimary">{userInfo.handle}</Typography>
+              <Typography variant="body1" color="textSecondary">
+                <LocationOnIcon/>
+                {userInfo.location}
+              </Typography>
+              <Typography variant="h5" color="textPrimary">Bio: </Typography>
+              <Typography variant="body1">{userInfo.bio}</Typography>
+            </CardContent>
+          </Grid>
+        </Grid>
       </Card>
     )
   );

@@ -15,8 +15,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         overflow: "hidden",
         boxShadow: "0px 0px 20px 0px #252525db",
-        borderRadius: 5,
+        borderRadius: 4,
         background: "rgb (240, 245, 245)",
+        marginBottom: 10,
+        marginTop: 10,
     },
     form: {
         '& > *': {
@@ -31,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     button: {
-        width: "12em",
-        height: "7em",
+        width: "8em",
+        height: "5em",
+        marginTop: "2.5em",
         padding: "1em, 2em",
         overflow: "auto",
     },
     image: {
-        borderRadius: "131px",
+        borderRadius: "180px",
+        maxHeight: "200px",
+        maxWidth: "200px",
+        objectFit: "cover",
     },
     typography: {
         padding: 5,
@@ -102,10 +108,7 @@ function NewPostContainer(props) {
                     direction="column"
                     justify="center"
                     alignItems="center"
-                >   
-                    <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                        {props.handle}
-                    </Typography> 
+                >    
                     {props.images.map(image => (
                         image === props.imageName ? 
                         <img 
@@ -113,8 +116,8 @@ function NewPostContainer(props) {
                         className={classes.image} 
                         key={image} 
                         alt={image} 
-                        width="150" 
-                        height="150"
+                        height="160"
+                        width="160"
                         />
                         : null
                     ))}
@@ -122,21 +125,21 @@ function NewPostContainer(props) {
                 <Grid
                     container
                     direction="column"
-                    justify="center"
-                    alignItems="center"
+                    justify="flex-start"
+                    alignItems="stretch"
                 >   
-                    <div style={{alignSelf: "flex-start"}}>
-                        <Typography className={classes.typography} variant="h5" color="textPrimary">
-                            Create Post
+                    <div>
+                        <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                            {props.handle}
                         </Typography>
                         <TextField 
                             className={classes.form} 
                             multiline 
                             onChange={handleInputChange} 
                             name="body" 
-                            id="outlined-basic" 
+                            id="filled-basic" 
                             label="What's on your mind?" 
-                            variant="outlined"
+                            variant="filled"
                             rows={5}
                             />
                     </div>
@@ -147,7 +150,7 @@ function NewPostContainer(props) {
                     justify="center"
                     alignItems="center"
                 >   
-                    <Button className={classes.button} onClick={callAPI} color="primary">
+                    <Button className={classes.button} onClick={callAPI} variant="outlined" color="primary">
                         Post
                     </Button>
                 </Grid>
