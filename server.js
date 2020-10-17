@@ -168,6 +168,26 @@ app.get("/api/user/image/:email", (req, res) => {
   });
 });
 
+app.get("/api/images/all", (req, res) => {
+  db.Image.findAll({})
+    .then((blob) => {
+      const userUploadsDirectory = path.join('uploads');
+      fs.readdir(userUploadsDirectory, (err, files) => {
+        if (err) return res.json({ message: err });
+        if (files.length < blob.length) {
+          for (let i = 0; i < blob.length; i++) {
+            fs.writeFileSync( __dirname + "/uploads/" + blob[i].dataValues.name, blob[i].dataValues.data);
+          }
+        }
+        return res.json({ data: files });
+      })
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  });
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });

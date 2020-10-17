@@ -5,21 +5,35 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import Post from '../components/Post'
 
+
+
+function getAndWriteImages() {
+
+}
+
 class Newsfeed extends Component {
 
     state = {
         posts: null
     }
 
+
     componentDidMount() {
         axios.get('/api/posts')
-            .then(res => {
-                console.log(res);
-                this.setState({
-                    posts: res.data
-                })
+        .then(res => {
+            console.log(res);
+            this.setState({
+                posts: res.data
             })
-            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+        
+        axios.get('/api/images/all')
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => console.log(err));
+
     }
     
     render() {

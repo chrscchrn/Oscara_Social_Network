@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-//MUI
 const styles = {
     card: {
         '& > *': {
@@ -19,10 +18,6 @@ const styles = {
         background: "rgb (240, 245, 245)",
     },
     image: {
-        // width: "50%",
-        // objectFit: 'cover',
-        // float: "left",
-        // border radius to a circle!
         borderRadius: "131px",
     },
     content: {
@@ -30,16 +25,13 @@ const styles = {
         alignSelf: "baseline"
     },
     button: {
-        // marginTop: "1em",
         width: "12em",
         height: "7em",
         padding: "1em, 2em",
         overflow: "auto",
-        // right: 0,
     },
     typography: {
         padding: 5,
-        // float: "left"
     },
 }
 
