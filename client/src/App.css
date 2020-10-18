@@ -15,6 +15,10 @@ body {
   height: 100%;
 }
 
+.post-form {
+  width: 115%;
+}
+
 .top-container {
   margin: auto
 }
@@ -29,16 +33,20 @@ body {
     font-size: 16px;
     font-weight: bold;
   }
-  .post-button {
-    left: 4px;
-  }
   .image {
-    max-width: 60px;
-    max-height: 80px;
-    padding-left: 5px;    
+    max-width: 90%;
+    max-height: 80%;
+    display: table-cell;
+    vertical-align: middle;
+    /* border-radius: 180px; */
+    padding-left: 5px;
+    object-fit: cover; 
   }
   #one-point-one-rem {
     font-size: 1.1rem;
+  }
+  .post-form {
+    width: 110%;
   }
 }
 

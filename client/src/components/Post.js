@@ -27,6 +27,8 @@ const styles = {
         objectFit: "cover",
     },
     content: {
+        width: "-webkit-fill-available",
+        minWidth: 120,
         // padding: 25,
         // alignSelf: "flex-start"
     },
@@ -77,20 +79,22 @@ export class Post extends Component {
                     direction="column"
                     justify="center"
                     alignItems="center"
+                    sm={4}
                 >
                     <img
                         src={image}
                         title="Profile Image"
                         className={classes.image, "image"}
-                        height="150"
+                        width="150"
                     />
                 </Grid>
 
                 <Grid
                     container
                     direction="column"
-                    justify="flex-start"
-                    alignItems="stretch"
+                    justify="space-around"
+                    alignItems="baseline"
+                    sm={5}
                 >
                     <CardContent className={classes.content}>
                         <Typography className={classes.typography}  variant="h5" color="textPrimary">
@@ -107,13 +111,13 @@ export class Post extends Component {
                         </Typography>
                     </CardContent>
                 </Grid>
-
                 <Grid
                     container
                     direction="column"
                     justify="center"
                     alignItems="center"
-                >
+                    sm={3}
+                >   
                     <form onSubmit={like} id={id} key={id}>
                         <Button type="submit" className={classes.button} color="primary" key={id} onClick={this.forceUpdate}>
                             Like

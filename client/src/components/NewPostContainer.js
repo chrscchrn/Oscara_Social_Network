@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 10,
         marginTop: 10,
     },
-    form: {
-        width: "-webkit-fill-available",
+    grid: {
+        width: "120%",
     },
     card: {
         // width: "100%",
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
         width: "8em",
         height: "5em",
         marginTop: "2.5em",
+        marginRight: "10",
         padding: "1em, 2em",
         overflow: "auto",
     },
@@ -128,7 +129,8 @@ function NewPostContainer(props) {
                     container
                     direction="column"
                     justify="center"
-                    alignItems="flex-start"
+                    alignItems="center"
+                    sm={4}
                 >   
                      
                     {props.imageName ? 
@@ -137,7 +139,7 @@ function NewPostContainer(props) {
                         className={classes.image, "image"} 
                         key={props.imageName} 
                         alt={props.imageName} 
-                        height="150"
+                        width="125"
                         />
                         : <p>no image</p>
                     }
@@ -148,11 +150,13 @@ function NewPostContainer(props) {
                     direction="column"
                     justify="flex-start"
                     alignItems="stretch"
+                    sm={5}
+                    className={classes.grid}
                 >   
                     <div className="profile-header">
                         {BreakpointHelper()}
                         <TextField 
-                            className={classes.form} 
+                            className={"post-form"}
                             multiline 
                             onChange={handleInputChange} 
                             name="body" 
@@ -169,6 +173,7 @@ function NewPostContainer(props) {
                     direction="column"
                     justify="center"
                     alignItems="center"
+                    sm={3}
                 >   
                     <Button className={classes.button, "post-button"} onClick={callAPI} variant="outlined" color="primary">
                         Post
