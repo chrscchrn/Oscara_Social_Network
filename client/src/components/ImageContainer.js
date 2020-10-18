@@ -10,6 +10,7 @@ const ImageContainer = ({ newImage }) => {
         try {
             const res = await axios.get('/api/images');
             if (!res.data.files ) {
+                console.log(res.data.message, "<=HERE");
                 setFallBack(res.data.message);
                 return;
             } else {
@@ -40,7 +41,7 @@ const ImageContainer = ({ newImage }) => {
             :
             <>
                 <h1>
-                    {fallback}
+                    {fallback.path}
                 </h1>
                 <hr />
                 <h3>Upload Images in the Form Below</h3>

@@ -205,7 +205,7 @@ app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
 //preview images
 app.get("/api/images", (req, res) => {
   // const uploadsDirectory = path.join('uploads');
-  const uploadsDirectory = path.join('/');
+  const uploadsDirectory = path.join('uploads');
   fs.readdir(uploadsDirectory, (err, files) => {
     if (err) return res.json( { message: err});
     if(files.length === 0) return res.json( { message: 'No Images Uploaded!'} );
@@ -223,11 +223,11 @@ app.get("/api/user/image/:email", (req, res) => {
       return;
     }
     
-    // fs.writeFileSync( __dirname + "/uploads/user/" + blob.name, blob.data);
-    fs.writeFileSync( __dirname + "/" + blob.name, blob.data);
+    // fs.writeFileSync( __dirname + "/uploads/" + blob.name, blob.data);
+    // fs.writeFileSync( __dirname + "/client/public/images/" + blob.name, blob.data);
     let name = blob.dataValues.name;
     // const userUploadsDirectory = path.join('uploads/user');
-    const userUploadsDirectory = path.join('/');
+    const userUploadsDirectory = path.join('uploads');
     fs.readdir(userUploadsDirectory, (err, files) => {
       if (err) return res.json({ message: err });
       if (files.length === 0) return res.json({ message: 'No Images Uploaded!' });
@@ -253,9 +253,7 @@ app.get("/api/images/all", (req, res) => {
         if (err) return res.json({ message: err });
         if (files.length < blob.length) {
           for (let i = 0; i < blob.length; i++) {
-            // fs.writeFileSync( __dirname + "/uploads/" + blob[i].dataValues.name, blob[i].dataValues.data);
-            // fs.writeFileSync( __dirname + "/uploads/user/" + blob[i].dataValues.name, blob[i].dataValues.data);
-            fs.writeFileSync( __dirname + "/" + blob[i].dataValues.name, blob[i].dataValues.data);
+            fs.writeFileSync( __dirname + "/uploads/" + blob[i].dataValues.name, blob[i].dataValues.data);
           }
         }
         return res.json({ data: files });
