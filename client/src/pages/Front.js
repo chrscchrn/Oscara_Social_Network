@@ -26,6 +26,7 @@ export default function Front() {
         if (isAuthenticated) {
             axios.get('/api/user/' + user.email)
             .then(res => {
+                console.log(res, "<= test ||");
                 if (res.data.email !== null) {
                     setUserState({
                         ...userState,
@@ -37,7 +38,9 @@ export default function Front() {
                 console.log(err);
             });
         }
-        
+    }, [isAuthenticated]);    
+
+    useEffect(() => {
         //get profile image here then make a bool to see if they uploaded one yet
         if (isAuthenticated && !isLoading && !userState.new_user) {
             axios.get('/api/user/image/' + user.email)
@@ -55,7 +58,7 @@ export default function Front() {
                 });
         }
 
-    }, [isAuthenticated, isLoading, userState.new_user]);
+    }, [userState.new_user]);
     console.log(userState);
     if (isLoading) {
         return <Loading/>;
@@ -79,7 +82,7 @@ export default function Front() {
             </Card>
         );
     }
-    if (isAuthenticated && !userState.new_user && userState.uploadedPic && !isLoading){
+    if (!isLoading && isAuthenticated && !userState.new_user && userState.uploadedPic){
         return <Newsfeed 
             images={"user state: ", userState, "user state: ", SQLImages, "user state: ", imageName} 
             imageName={imageName} 
