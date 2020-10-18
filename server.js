@@ -167,13 +167,14 @@ const storage = multer.diskStorage({
   }
 });
 
-//yeah we uploading photos
 const uploads = multer({ storage });
+
 app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
   let imageData; 
   try {
-    imageData = fs.readFileSync(__dirname + "\/" + image);
+    imageData = fs.readFileSync(__dirname + "/" + image);
+    console.log(image, imageData, "<= WHAT IS THIS <=|||")
   } catch (error) {
     console.log(error);
   }
