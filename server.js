@@ -242,6 +242,7 @@ app.get("/api/user/image/:email", (req, res) => {
 
 //get ALL images and write them to the uploads dir
 app.get("/api/images/all", (req, res) => {
+  console.log("|||get all images|||")
   db.Image.findAll({})
     .then(blob => {
       const userUploadsDirectory = path.join('uploads');
@@ -250,6 +251,7 @@ app.get("/api/images/all", (req, res) => {
         if (files.length < blob.length) {
           for (let i = 0; i < blob.length; i++) {
             fs.writeFileSync( __dirname + "/uploads/" + blob[i].dataValues.name, blob[i].dataValues.data);
+            fs.writeFileSync( __dirname + "/uploads/user/" + blob[i].dataValues.name, blob[i].dataValues.data);
           }
         }
         return res.json({ data: files });
