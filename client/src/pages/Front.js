@@ -40,11 +40,10 @@ export default function Front() {
         
         //get profile image here then make a bool to see if they uploaded one yet
         if (isAuthenticated && !isLoading && !userState.new_user) {
-            console.log('am i INSANE')
             axios.get('/api/user/image/' + user.email)
                 .then(response => {
-                    console.log(response);
-                    if (response.data === null) {
+                    console.log("moment of truth", response);
+                    if (response.data.data === null) {
                         setUserState({...userState, uploadedPic: false });
                     } else {
                         setUserState({...userState, uploadedPic: true});
@@ -56,8 +55,8 @@ export default function Front() {
                 });
         }
 
-    }, [isAuthenticated, isLoading, userState.new_user, ]);
-
+    }, [isAuthenticated, isLoading, userState.new_user]);
+    console.log(userState);
     if (isLoading) {
         return <Loading/>;
     }
@@ -82,7 +81,7 @@ export default function Front() {
     }
     if (isAuthenticated && !userState.new_user && userState.uploadedPic && !isLoading){
         return <Newsfeed 
-            images={SQLImages} 
+            images={"user state: ", userState, "user state: ", SQLImages, "user state: ", imageName} 
             imageName={imageName} 
             handle={userState.handle}
         />;

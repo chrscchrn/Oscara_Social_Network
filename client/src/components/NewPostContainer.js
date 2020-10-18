@@ -10,6 +10,7 @@ import Loading from "./Loading";
 import axios from 'axios';
 // import jwt_decode from "jwt-decode";
 import  { API_URL } from '../helpers/API_URL';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 
 const useStyles = makeStyles((theme) => ({
     root: {
