@@ -108,19 +108,19 @@ function NewPostContainer(props) {
                     direction="column"
                     justify="center"
                     alignItems="center"
-                >    
-                    {props.images.map(image => (
-                        image === props.imageName ? 
+                >   
+                     
+                    {props.imageName ? 
                         <img 
-                        src={configureImage(image)} 
+                        src={configureImage(props.imageName)} 
                         className={classes.image} 
-                        key={image} 
-                        alt={image} 
+                        key={props.imageName} 
+                        alt={props.imageName} 
                         height="160"
                         width="160"
                         />
-                        : null
-                    ))}
+                        : <p>no image</p>
+                    }
                 </Grid>                    
                 <Grid
                     container

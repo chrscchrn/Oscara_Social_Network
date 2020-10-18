@@ -217,6 +217,11 @@ app.get("/api/user/image/:email", (req, res) => {
   db.Image.findOne({
     where: { UserId: req.params.email }
   }).then(blob => {
+    if (!blob) {
+      res.json({ data: blob });
+      return;
+    }
+    
     fs.writeFileSync( __dirname + "/uploads/user/" + blob.name, blob.data);
     let name = blob.dataValues.name;
     const userUploadsDirectory = path.join('uploads/user');

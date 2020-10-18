@@ -40,9 +40,11 @@ export default function Front() {
         
         //get profile image here then make a bool to see if they uploaded one yet
         if (isAuthenticated && !isLoading && !userState.new_user) {
+            console.log('am i INSANE')
             axios.get('/api/user/image/' + user.email)
                 .then(response => {
-                    if (response.data == null) {
+                    console.log(response);
+                    if (response.data === null) {
                         setUserState({...userState, uploadedPic: false });
                     } else {
                         setUserState({...userState, uploadedPic: true});
@@ -54,7 +56,7 @@ export default function Front() {
                 });
         }
 
-    }, [isAuthenticated, isLoading, userState.new_user]);
+    }, [isAuthenticated, isLoading, userState.new_user, ]);
 
     if (isLoading) {
         return <Loading/>;
