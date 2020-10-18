@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const styles = {
     card: {
@@ -45,33 +44,31 @@ const styles = {
 }
 
 export class Post extends Component {
-    
+
     render() {
         const { classes, post : { body, createdAt, image, handle, likeCount, id} } = this.props;
         var timeDate = new Date(createdAt);
         let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
         let userHandle = this.props.userHandle;
+
         function like(event) {
             event.preventDefault();
             event.persist();
             console.log(event.target.id);
             let postId = event.target.id;
                 Axios.get("/api/post/like/" + postId + "/" + userHandle)
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+                .then(res => {
+                    if (res.data.error) {
+                        alert(res.data.error);
+                        return;
+                    }
+                    console.log("generic res: ", res.data[0]); //<== if successful its the number of likes this post should have
+                    window.location.reload();
+                }).catch(err => {
+                    console.log("error: ", err);
+                    alert("other error", err);
+                });
         }
-
-        // const like = (identification, likeCount) => {
-        //     likeCount + 1;
-        //     let postInfo = {
-        //         id: identification,
-        //         count: likecount,
-        //     }
-        //     Axios.put('/api/post/like', postInfo)
-        //         .then(res => console.log(res))
-        //         .catch(err => console.log(err));
-        //     return 'disabled'
-        // } //disable button after
 
         return (
             
@@ -98,10 +95,18 @@ export class Post extends Component {
                     alignItems="stretch"
                 >
                     <CardContent className={classes.content}>
-                        <Typography className={classes.typography} variant="h5" color="textPrimary">{handle}</Typography>
-                        <Typography className={classes.typography} variant="body2" color="textSecondary">{when}</Typography>
-                        <Typography className={classes.typography} variant="body1">{body}</Typography>
-                        <Typography className={classes.typography} variant="body2" color="textSecondary">Likes: {likeCount}</Typography>
+                        <Typography className={classes.typography} variant="h5" color="textPrimary">
+                            <strong>{handle}</strong>
+                        </Typography>
+                        <Typography className={classes.typography} variant="body2" color="textSecondary">
+                            {when}
+                        </Typography>
+                        <Typography className={classes.typography} variant="body1">
+                            {body}
+                        </Typography>
+                        <Typography className={classes.typography} variant="body2" color="textSecondary">
+                            {likeCount} Likes
+                        </Typography>
                     </CardContent>
                 </Grid>
 
@@ -111,8 +116,8 @@ export class Post extends Component {
                     justify="center"
                     alignItems="center"
                 >
-                    <form onSubmit={like} name={id} id={id} key={id} value={id}>
-                        <Button type="submit" className={classes.button} color="primary" key={id} name={id} value={id}>
+                    <form onSubmit={like} id={id} key={id}>
+                        <Button type="submit" className={classes.button} color="primary" key={id} onClick={this.forceUpdate}>
                             Like
                         </Button>
                     </form>

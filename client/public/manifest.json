@@ -1,15 +1,15 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "oscara",
+  "name": "Oscara, the New Social Network",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "192x192",
+      "sizes": "48x48",
       "type": "image/png"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#aa1836",
+  "background_color": "#1f5e63"
 }

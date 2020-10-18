@@ -130,7 +130,7 @@ function NewPostContainer(props) {
                 >   
                     <div>
                         <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                            {props.handle}
+                            <strong>{props.handle}</strong>
                         </Typography>
                         <TextField 
                             className={classes.form} 

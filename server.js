@@ -89,32 +89,37 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
             let values = { likeCount: postData.likeCount } 
             let selector = { where: { id: req.params.id } }
             db.Post.update(values, selector)
-              .then(responseTwo => console.log(responseTwo, "|| STEP 4 ||"))
+              .then(responseTwo => {
+                console.log(responseTwo, "|| STEP 4 ||");
+                res.json(responseTwo);
+              })
               .catch(err => {
                 console.log(err);
                 res.status(500);
                 res.json(err);
-              })
-          }).catch( err => {
+              });
+          }).catch(err => {
             console.log(err);
             res.status(500);
             res.json(err);
           })
         } else {
-          res.status(400).json({ error: 'Post already liked'});
+          res.json({ error: 'Post already liked'});
+          res.status(400);
         }
       }).catch(err => {
         console.log(err);
-        res.status(500);
         res.json(err);
+        res.status(500);
       })
     } else {
-      res.status(404).json({ error: 'Post not found' })
+      res.json({ error: 'Post not found' })
+      res.status(404)
     }
   }).catch(err => {
     console.log(err);
-    res.status(500);
     res.json(err);
+    res.status(500);
   })
 });
 
