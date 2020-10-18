@@ -8,7 +8,12 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import axios from 'axios';
 import Grid from "@material-ui/core/Grid";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PersonIcon from '@material-ui/icons/Person';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -19,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     // borderRadius: "180px",
-    maxHeight: "50%",
-    maxWidth: "50%",
-    objectFit: "cover",
+    maxHeight: "350px",
+    maxWidth: "350px",
+    // objectFit: "cover",
   },
   content: {
     padding: 5,
@@ -29,8 +34,11 @@ const useStyles = makeStyles((theme) => ({
   typography: {
     padding: 20,
   },
+  largeIcon: {
+    width: "40px",
+    height: "40px",
+  }
 }));
-
 
 const Profile = () => {
   const classes = useStyles();
@@ -38,33 +46,6 @@ const Profile = () => {
   // const [ userMetadata, setUserMetadata ] = useState({});
   const [ imageName, setImageName ] = useState({});
   const [ userInfo, setUserInfo ] = useState({});
-  
-  // useEffect(() => {
-  //   const getUserMetadata = async () => {
-  //     const domain = "christophernc.us.auth0.com";
-  
-  //     try {
-  //       const accessToken = await getAccessTokenSilently({
-  //         audience: `https://${domain}/api/v2/`,
-  //         scope: "read:current_user",
-  //       });
-  
-  //       const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-  //       const metadataResponse = await fetch(userDetailsByIdUrl, {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       });
-  
-  //       const { user_metadata } = await metadataResponse.json();
-  //       setUserMetadata(user_metadata);
-  //     } catch (e) {
-  //       console.log(e.message);
-  //     }
-  //   };
-  
-  //   getUserMetadata();
-  // }, []);
   
   //get profile pic
   useEffect(() => {
@@ -84,6 +65,29 @@ const Profile = () => {
     }
   }, [isAuthenticated, isLoading]);
 
+  const BreakpointHelper = () => {
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("sm"));
+    
+    if (matches) {
+      console.log("this size");
+      return (
+        <Typography variant="h3" color="textPrimary">
+          <AlternateEmailIcon className={classes.largeIcon} size="large"/>
+          {userInfo.handle}
+        </Typography>
+      );
+    } else {
+      console.log("other size");
+      return (
+      <Typography variant="h5" color="textPrimary">
+        <AlternateEmailIcon/>
+        {userInfo.handle}
+      </Typography>
+      );
+    }
+  }
+
   if (isLoading) return <Loading/>;
   return (
     isAuthenticated && (
@@ -94,15 +98,12 @@ const Profile = () => {
         justify="space-evenly"
         alignItems="center"
         >
-          <Grid item sm={6}>
-            <img src={imageName.img} alt={user.name} className={classes.image}/>
+          <Grid item sm={4}>
+            <img className={classes.image, "image"} src={imageName.img} alt={user.name} height="250"/>
           </Grid>
-          <Grid item sm={6}>
+          <Grid item sm={8}>
             <CardContent className={classes.content}>
-              <Typography variant="h3" color="textPrimary">
-                  <PersonIcon color="disabled"/>
-                  {userInfo.handle}
-                </Typography>
+              {BreakpointHelper()}
               <Typography variant="body1" color="textSecondary">
                 <LocationOnIcon color="disabled"/>
                 {userInfo.location}

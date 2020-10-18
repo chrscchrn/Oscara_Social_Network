@@ -12,15 +12,15 @@ const styles = {
         '& > *': {
             width: '55%',
           },
+        padding: 5,
         display: 'flex',
         margin: "0 auto",
         marginBottom: 10,
         marginTop: 10,
-        overflow: "hidden",
+        // overflow: "hidden",
         background: "rgb (240, 245, 245)",
     },
     image: {
-        // // maxHeight: "100%",
         borderRadius: "180px",
         maxHeight: "200px",
         maxWidth: "200px",
@@ -34,7 +34,7 @@ const styles = {
         width: "7em",
         height: "5em",
         marginTop: "2.5em",
-        marginLeft: "1.70em",
+        // marginLeft: "1.70em",
         padding: "1em, 2em",
         overflow: "auto",
     },
@@ -71,7 +71,6 @@ export class Post extends Component {
         }
 
         return (
-            
             <Card className={classes.card} raised>
                 <Grid
                     container
@@ -82,9 +81,8 @@ export class Post extends Component {
                     <img
                         src={image}
                         title="Profile Image"
-                        className={classes.image}
+                        className={classes.image, "image"}
                         height="150"
-                        width="150"
                     />
                 </Grid>
 
@@ -95,8 +93,8 @@ export class Post extends Component {
                     alignItems="stretch"
                 >
                     <CardContent className={classes.content}>
-                        <Typography className={classes.typography} variant="h5" color="textPrimary">
-                            <strong>{handle}</strong>
+                        <Typography className={classes.typography}  variant="h5" color="textPrimary">
+                            <strong id="one-point-one-rem">{handle}</strong>
                         </Typography>
                         <Typography className={classes.typography} variant="body2" color="textSecondary">
                             {when}

@@ -29,7 +29,7 @@ export default function Top() {
         <div className={classes.root}>
             <AppBar color="primary">
                 <Toolbar className="top-container">
-                    <img src="/images/osccir.png" width="60" height="60"/>
+                    <img src="/images/osccircle.png" width="50" height="50"/>
                     <Typography variant="h4" className={classes.title}>
                         SCARA
                     </Typography>

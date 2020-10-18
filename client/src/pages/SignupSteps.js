@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
         margin: 5,
         float: "right",
         height: 60
+    },
+    header: {
+        color: "white",
     }
 }));
 

@@ -8,9 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "./Loading";
 import axios from 'axios';
-// import jwt_decode from "jwt-decode";
 import  { API_URL } from '../helpers/API_URL';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,14 +23,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 10,
     },
     form: {
-        '& > *': {
-            margin: theme.spacing(0),
-            width: '150%',
-        },
+        width: "-webkit-fill-available",
     },
     card: {
-        width: "100%",
-        padding: 10,
+        // width: "100%",
+        padding: 5,
         marginTop: "auto",
         display: 'flex',
     },
@@ -100,6 +98,28 @@ function NewPostContainer(props) {
     const configureImage = image => {
         return API_URL + "/" + image;
     }
+
+    const BreakpointHelper = () => {
+        const theme = useTheme();
+        const matches = useMediaQuery(theme.breakpoints.up("sm"));
+        
+        if (matches) {
+          console.log("this size");
+          return (
+            <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                <AlternateEmailIcon/>
+                <strong>{props.handle}</strong>
+            </Typography>
+          );
+        } else {
+          console.log("other size");
+          return (
+            <Typography className={classes.typography} variant="subtitle1" color="textPrimary" >
+                <strong>{props.handle}</strong>
+            </Typography>
+          );
+        }
+    }
     
     return (
         <div className={classes.root}>
@@ -108,31 +128,29 @@ function NewPostContainer(props) {
                     container
                     direction="column"
                     justify="center"
-                    alignItems="center"
+                    alignItems="flex-start"
                 >   
                      
                     {props.imageName ? 
                         <img 
                         src={configureImage(props.imageName)} 
-                        className={classes.image} 
+                        className={classes.image, "image"} 
                         key={props.imageName} 
                         alt={props.imageName} 
-                        height="160"
-                        width="160"
+                        height="150"
                         />
                         : <p>no image</p>
                     }
-                </Grid>                    
+                </Grid>        
+
                 <Grid
                     container
                     direction="column"
                     justify="flex-start"
                     alignItems="stretch"
                 >   
-                    <div>
-                        <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                            <strong>{props.handle}</strong>
-                        </Typography>
+                    <div className="profile-header">
+                        {BreakpointHelper()}
                         <TextField 
                             className={classes.form} 
                             multiline 
@@ -145,13 +163,14 @@ function NewPostContainer(props) {
                             />
                     </div>
                 </Grid>
+
                 <Grid
                     container
                     direction="column"
                     justify="center"
                     alignItems="center"
                 >   
-                    <Button className={classes.button} onClick={callAPI} variant="outlined" color="primary">
+                    <Button className={classes.button, "post-button"} onClick={callAPI} variant="outlined" color="primary">
                         Post
                     </Button>
                 </Grid>
