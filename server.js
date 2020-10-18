@@ -16,8 +16,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-//API ROUTES ============================================================= API ROUTES
-//dont forget to trim user details
+//USER ROUTES ============================================================= USER ROUTES
 app.post("/api/adduser", (req, res) => {
   console.log(req.body);
   db.User.create({
@@ -47,7 +46,6 @@ app.get("/api/user/:email", (req, res) => {
   });
 });
 
-//USER ROUTES ============================================================= USER ROUTES
 
 //New Post
 app.post("/api/post", (req, res) => {
