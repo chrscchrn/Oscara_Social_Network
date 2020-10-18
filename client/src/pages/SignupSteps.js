@@ -180,7 +180,7 @@ export default function SignupSteps() {
                             autoComplete="off"
                             >
                                 <TextField onChange={handleInputChange} name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline/>
-                                <Button className={classes.button} onClick={addUser()} color="primary">
+                                <Button className={classes.button} onClick={addUser} color="primary">
                                     Add Bio
                                 </Button>
                             </form>
