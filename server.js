@@ -26,10 +26,11 @@ app.post("/api/adduser", (req, res) => {
     bio: req.body.bio,
     location: req.body.location
   }).then((response) => {
-      res.status(200);
-      console.log(response);
+    console.log(response);
+    res.status(200);
   }).catch(err => {
-      console.error(err);
+    console.error(err);
+    res.status(500).json({ error: 'add user error'});
   });
 })
 
@@ -46,6 +47,8 @@ app.get("/api/user/:email", (req, res) => {
   });
 });
 
+//USER ROUTES ============================================================= USER ROUTES
+
 //New Post
 app.post("/api/post", (req, res) => {
   db.Post.create({
@@ -59,8 +62,7 @@ app.post("/api/post", (req, res) => {
   }).catch(err => console.log(err));
 });
 
-//========================================================================== TEMP
-//like Post
+//like Post ========================================================================== LIKES
 app.get("/api/post/like/:id/:handle", (req, res) => {
   let postData = {};
   db.Post.findOne({

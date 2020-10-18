@@ -41,17 +41,17 @@ export default function Front() {
         //get profile image here then make a bool to see if they uploaded one yet
         if (isAuthenticated && !isLoading && !userState.new_user) {
             axios.get('/api/user/image/' + user.email)
-            .then(response => {
-                if (response.data == null) {
-                    setUserState({...userState, uploadedPic: false });
-                } else {
-                    setUserState({...userState, uploadedPic: true});
-                    setSQLImages(response.data.data);
-                    setImageName(response.data.fileName);
-                }
-            }).catch(err => {
-                console.log(err);
-            });
+                .then(response => {
+                    if (response.data == null) {
+                        setUserState({...userState, uploadedPic: false });
+                    } else {
+                        setUserState({...userState, uploadedPic: true});
+                        setSQLImages(response.data.data);
+                        setImageName(response.data.fileName);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
         }
 
     }, [isAuthenticated, isLoading, userState.new_user]);
@@ -59,13 +59,13 @@ export default function Front() {
     if (isLoading) {
         return <Loading/>;
     }
-    if (!isAuthenticated && !isLoading) {
+    if (!isLoading && !isAuthenticated) {
         return <FrontComponent/>;
     }
-    if (isAuthenticated && userState.new_user && !isLoading) {
+    if (!isLoading && isAuthenticated && userState.new_user) {
         return <SignupSteps/>;
     }
-    if (isAuthenticated && !userState.new_user && !userState.uploadedPic && !isLoading) {
+    if (!isLoading && isAuthenticated && !userState.new_user && !userState.uploadedPic)  {
         return (
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >

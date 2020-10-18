@@ -71,7 +71,6 @@ export default function SignupSteps() {
             .catch(err => {
                 console.log(err);
             });
-        
         //metadata
         const domain = "christophernc.us.auth0.com";
         let accessToken;
@@ -81,7 +80,6 @@ export default function SignupSteps() {
                   audience: `https://${domain}/api/v2/`,
                   scope: "read:current_user",
                 });
-                
                 //add sql user data to auth0 metadata 
                 var options = {
                     method: 'PATCH',
@@ -93,13 +91,11 @@ export default function SignupSteps() {
                         location: setupState.location,
                     }}
                 };
-        
                 Axios.request(options).then((response) => {
                     console.log(response.data);
                 }).catch((error) => {
                     console.error(error);
                 });
-
             } catch (e) {
                 console.log(e.message);
             }

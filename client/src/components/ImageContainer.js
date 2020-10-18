@@ -5,7 +5,7 @@ import  { API_URL } from '../helpers/API_URL';
 const ImageContainer = ({ newImage }) => {
 
     const [ images, setImages ] = useState([]);
-    const [fallback, setFallBack ] = useState('');
+    const [ fallback, setFallBack ] = useState('');
     const getImages = async () => {
         try {
             const res = await axios.get('/api/images');
