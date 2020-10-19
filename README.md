@@ -21,7 +21,7 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
 
 ## Screenshots
 <img src="./uploads/user/newsfeed.png"/>
-<img src="./uploads/user/profile.png"/>
+<img src="./uploads/user/Profile.png"/>
 
 ## Technologies
  - React/React-Router-Dom
