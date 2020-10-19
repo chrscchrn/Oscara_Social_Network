@@ -57,7 +57,6 @@ export default function Front() {
                     console.log(err);
                 });
         }
-
     }, [userState.new_user]);
     console.log(userState);
     if (isLoading) {
@@ -69,7 +68,7 @@ export default function Front() {
     if (!isLoading && isAuthenticated && userState.new_user) {
         return <SignupSteps/>;
     }
-    if (!isLoading && isAuthenticated && !userState.new_user && !userState.uploadedPic)  {
+    if (!isLoading && isAuthenticated && !userState.new_user && !userState.uploadedPic) {
         return (
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >
@@ -82,9 +81,9 @@ export default function Front() {
             </Card>
         );
     }
-    if (!isLoading && isAuthenticated && !userState.new_user && userState.uploadedPic){
+    if (!isLoading && isAuthenticated && !userState.new_user && userState.uploadedPic) {
         return <Newsfeed 
-            images={"user state: ", userState, "user state: ", SQLImages, "user state: ", imageName} 
+            images={SQLImages} 
             imageName={imageName} 
             handle={userState.handle}
         />;

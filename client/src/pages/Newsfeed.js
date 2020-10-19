@@ -44,7 +44,11 @@ class Newsfeed extends Component {
                     alignItems="center"
                 >
                     <Grid item sm={12}  >  
-                        <NewPostContainer images={this.props.images} imageName={this.props.imageName} handle={this.props.handle}/>
+                        <NewPostContainer 
+                            images={this.props.images} 
+                            imageName={this.props.imageName} 
+                            handle={this.props.handle}
+                        />
                     </Grid>
                 </Grid>
     

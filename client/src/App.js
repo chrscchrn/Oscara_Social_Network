@@ -9,7 +9,6 @@ import Front from "./pages/Front";
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
-import FrontComponent from './components/FrontComponent';
 import "./App.css";
 //Material UI
 import { Container } from '@material-ui/core';

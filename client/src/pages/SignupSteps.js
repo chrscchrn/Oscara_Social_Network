@@ -170,7 +170,9 @@ export default function SignupSteps() {
                     </Typography>
                     <div className={classes.root}>
                         <Card className={classes.card} raised>
-                            <Typography className={classes.typography} variant="h5" color="textPrimary" >
+                            <Typography 
+                                className={classes.typography} 
+                                variant="h5" color="textPrimary" >
                                 Add a Bio
                             </Typography>
                             <form 
@@ -179,8 +181,15 @@ export default function SignupSteps() {
                             noValidate 
                             autoComplete="off"
                             >
-                                <TextField onChange={handleInputChange} name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline/>
-                                <Button className={classes.button} onClick={addUser} color="primary">
+                                <TextField 
+                                    onChange={handleInputChange} 
+                                    name="bio" id="outlined-basic" 
+                                    label="Bio" variant="outlined" 
+                                    multiline
+                                />
+                                <Button 
+                                    className={classes.button} 
+                                    onClick={addUser} color="primary">
                                     Add Bio
                                 </Button>
                             </form>
@@ -189,6 +198,5 @@ export default function SignupSteps() {
                 </>
             );
             default:
-
     }
 }

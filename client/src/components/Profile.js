@@ -12,9 +12,6 @@ import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
 
-
-
-
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'center',
