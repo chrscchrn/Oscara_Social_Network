@@ -4,7 +4,7 @@
 ## Project Description
 This is my final project for the Rice University Coding Bootcamp.
 
-This website 
+Oscara is a social media website where the user can create a portolfio, post, and like other posts.
 
 
 ## Usage
