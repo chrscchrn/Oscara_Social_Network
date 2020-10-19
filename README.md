@@ -19,6 +19,10 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
 ### Deployed [Here](https://oscara.herokuapp.com/)
 
 
+## Screenshots
+<img src="./uploads/user/newsfeed.png"/>
+<img src="./uploads/user/profile.png"/>
+
 ## Technologies
  - React/React-Router-Dom
  - Sequelize/mySQL
@@ -62,3 +66,7 @@ npm start
 ```
 
 Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+
+## Github & Email
+    https://github.com/chrscchrn
+    cochranschris@gmail.com
