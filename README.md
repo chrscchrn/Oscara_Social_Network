@@ -1,13 +1,52 @@
-# Create React Express App
+# Oscara: The Social Network
 
-## About This Boilerplate
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+## Project Description
+This is my final project for the Rice University Coding Bootcamp.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+This website 
+
+
+## Usage
+To demo this application sign up with an email and password or use these credentials: 
+ - example@email.com
+ - Password1
+
+After signing up, the user is taken to the sign-up-steps page where they can expect to enter a user handle(required), location(optional), and bio(optional). Then they will be able to upload a profile picture(required) which will be stored in a database. After selecting a photo then the user should click 'upload picture' before pressing the 'add' button. After adding the picture the user has access to the main site which includes their own profile and the newsfeed by engaging with transparent nav bar at the bottom. The user then can post a up to 240 characters and like posts. 
+
+**** If the site doesnt follow these steps, refresh the page ****
+
+### Deployed [Here](https://oscara.herokuapp.com/)
+
+
+## Technologies
+ - React/React-Router-Dom
+ - Sequelize/mySQL
+ - Auth0 for authentication
+ - Material UI
+ - JSON Web Tokens
+ - Multer for uploading profile pictures
+ - Service Worker and Manifest
+
+
+## Database
+Sequelize is used throughout this project. While it is not needed, the sequelize cli is very useful for setting up your local development environment:
+
+```
+npm i -g sequelize-cli
+sequelize db:create
+```
+
+Sequelize is configured to run from the config/config.js which needs the following environment variables set:
+
+```
+DB_USERNAME=
+DB_PASSWORD=
+DB_NAME=
+```
+
 
 ## Starting the app locally
-
 Start by installing front and backend dependencies. While in this directory, run the following command:
 
 ```
@@ -23,7 +62,3 @@ npm start
 ```
 
 Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
