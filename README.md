@@ -1,10 +1,6 @@
 # Oscara: The Social Network
 
-
-## Project Description
-This is my final project for the Rice University Coding Bootcamp.
-
-Oscara is a social media website where the user can create a profile, post, and like other posts.
+Oscara is my final project for the Rice University Coding Bootcamp. Oscara is a social media website where the user can create a profile with a profile picture, handle, and and other optional info. The can also post status update and like each others posts. Its a great way to explore and connect with anyone online!
 
 
 ## Usage
