@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import ProfilePage from "./pages/ProfilePage";
 import Front from "./pages/Front";
+import UsersPage from "./pages/UsersPage";
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
@@ -45,6 +46,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={Front} />
                 <PrivateRoute exact path="/profile" component={ProfilePage} />
+                <PrivateRoute path="/u/" component={UsersPage} />
                 <Route component={NoMatch} />
               </Switch>
             </BrowserRouter>

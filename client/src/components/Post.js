@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const styles = {
     card: {
@@ -97,9 +98,11 @@ export class Post extends Component {
                     sm={5}
                 >
                     <CardContent className={classes.content}>
-                        <Typography className={classes.typography}  variant="h5" color="textPrimary">
-                            <strong id="one-point-one-rem">{handle}</strong>
-                        </Typography>
+                        <Link to={"/u/" + handle}>
+                            <Typography className={classes.typography}  variant="h5" color="textPrimary">
+                                <strong id="one-point-one-rem">{handle}</strong>
+                            </Typography>
+                        </Link>
                         <Typography className={classes.typography} variant="body2" color="textSecondary">
                             {when}
                         </Typography>

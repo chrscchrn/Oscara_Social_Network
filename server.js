@@ -46,6 +46,20 @@ app.get("/api/user/:email", (req, res) => {
   });
 });
 
+//get single user by handle
+app.get("/api/userhandle/:handle", (req, res) => {
+  db.User.findOne({ 
+    where: { handle: req.params.handle } 
+  }).then((dbUser) => {
+    console.log(dbUser)
+    res.json(dbUser);
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  });
+});
+
 
 //New Post
 app.post("/api/post", (req, res) => {
@@ -139,7 +153,7 @@ app.get("/api/posts", (req, res) => {
   });
 });
 
-//Get user posts
+//Get specific user posts
 app.get("/api/posts/:email", (req, res) => {
   console.log(req.params.email);
   db.Post.findAll({

@@ -18,8 +18,6 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
 <img src="./uploads/user/steps.png"/>
 
 
-
-
 ## Newsfeed
 <img src="./uploads/user/newsfeed.png"/>
 
@@ -34,7 +32,6 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
  - JSON Web Tokens
  - Multer for uploading profile pictures
  - Service Worker and Manifest
-
 
 ## Database
 Sequelize is used throughout this project. While it is not needed, the sequelize cli is very useful for setting up your local development environment:
