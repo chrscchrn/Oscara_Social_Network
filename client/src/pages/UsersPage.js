@@ -30,7 +30,7 @@ function UsersPage() {
     }, [user])
     
     let recentUserPosts = posts.posts ? (
-        posts.posts.map(post => <Post post={post} />)
+        posts.posts.map(post => <Post post={post} key={post.id} otherUser={true} />)
     ) : "No Posts Yet!"
     return (
         <>
@@ -45,7 +45,7 @@ function UsersPage() {
                 </Grid>
                 <Grid item sm={12}>  
                 {/* BUILD PROFILE PAGE FOR OTHER PEOPLE */}
-                    {/* <Profile /> */}
+                    <Profile />
                 </Grid>
                 <Grid item sm={2}>  
                 </Grid>

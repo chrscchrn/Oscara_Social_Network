@@ -30,14 +30,11 @@ const styles = {
     content: {
         width: "-webkit-fill-available",
         minWidth: 120,
-        // padding: 25,
-        // alignSelf: "flex-start"
     },
     button: {
         width: "7em",
         height: "5em",
         marginTop: "2.5em",
-        // marginLeft: "1.70em",
         padding: "1em, 2em",
         overflow: "auto",
     },
@@ -80,14 +77,24 @@ export class Post extends Component {
                     direction="column"
                     justify="center"
                     alignItems="center"
-                    sm={4}
                 >
+                    {this.props.otherUser ? 
                     <img
+                        alt="This User's Profile Image"
+                        src={"../" + image}
+                        title="Profile Image"
+                        className={classes.image, "image"}
+                        width="150"
+                    /> 
+                    :
+                    <img
+                        alt="This User's Profile Image"
                         src={image}
                         title="Profile Image"
                         className={classes.image, "image"}
                         width="150"
-                    />
+                    />}
+
                 </Grid>
 
                 <Grid
@@ -95,7 +102,6 @@ export class Post extends Component {
                     direction="column"
                     justify="space-around"
                     alignItems="baseline"
-                    sm={5}
                 >
                     <CardContent className={classes.content}>
                         <Link to={"/u/" + handle}>
@@ -119,7 +125,6 @@ export class Post extends Component {
                     direction="column"
                     justify="center"
                     alignItems="center"
-                    sm={3}
                 >   
                     <form onSubmit={like} id={id} key={id}>
                         <Button type="submit" className={classes.button} color="primary" key={id} onClick={this.forceUpdate}>

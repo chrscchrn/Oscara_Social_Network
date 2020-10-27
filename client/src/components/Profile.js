@@ -67,7 +67,6 @@ const Profile = () => {
     const matches = useMediaQuery(theme.breakpoints.up("sm"));
     
     if (matches) {
-      console.log("this size");
       return (
         <Typography variant="h3" color="textPrimary">
           <AlternateEmailIcon className={classes.largeIcon} size="large"/>
@@ -75,7 +74,6 @@ const Profile = () => {
         </Typography>
       );
     } else {
-      console.log("other size");
       return (
       <Typography variant="h5" color="textPrimary">
         <AlternateEmailIcon/>

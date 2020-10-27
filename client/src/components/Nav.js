@@ -40,7 +40,6 @@ export default function SimpleBottomNavigation() {
     >
       <Link to="/"><BottomNavigationAction label="Home" icon={<HomeIcon className={classes.icon} />} /></Link>
       <Link to="/profile"><BottomNavigationAction label="Profile" icon={<PersonIcon className={classes.icon} />} /></Link>
-      {/* <a href="/"><BottomNavigationAction label="Settings" icon={<SettingsIcon />} /></a> */}
     </BottomNavigation>
   );
 }

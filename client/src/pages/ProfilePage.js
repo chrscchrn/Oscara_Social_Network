@@ -13,7 +13,7 @@ function ProfilePage() {
     const { user, isAuthenticated, isLoading } = useAuth0();
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && isAuthenticated) {
             axios.get('/api/posts/' + user.email)
             .then(res => {
                 console.log(res);
