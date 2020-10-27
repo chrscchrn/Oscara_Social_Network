@@ -55,7 +55,7 @@ export class Post extends Component {
         function like(event) {
             event.preventDefault();
             event.persist();
-            console.log(event.target.id);
+            // console.log(event.target.id);
             let postId = event.target.id;
                 Axios.get("/api/post/like/" + postId + "/" + userHandle)
                 .then(res => {

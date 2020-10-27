@@ -18,15 +18,15 @@ function UsersPage() {
         .then(res => {
             setUser(res.data);
         }).catch(err => console.log(err));
-    }, [])
+    }, []);
     
     useEffect(() => {
         axios.get('/api/posts/' + user.email)
-        .then(res => {
-            setPosts({
-                posts: res.data
-            });
-        }).catch(err => console.log(err));
+            .then(res => {
+                setPosts({
+                    posts: res.data
+                });
+            }).catch(err => console.log(err));
     }, [user])
     
     let recentUserPosts = posts.posts ? (
@@ -45,7 +45,7 @@ function UsersPage() {
                 </Grid>
                 <Grid item sm={12}>  
                 {/* BUILD PROFILE PAGE FOR OTHER PEOPLE */}
-                    <UserProfile />
+                    <UserProfile userData={user} postData={posts}/>
                 </Grid>
                 <Grid item sm={2}>  
                 </Grid>
