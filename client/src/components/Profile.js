@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  // const [ userMetadata, setUserMetadata ] = useState({});
   const [ imageName, setImageName ] = useState({});
   const [ userInfo, setUserInfo ] = useState({});
   
@@ -48,7 +47,7 @@ const Profile = () => {
   useEffect(() => {
     if (isAuthenticated) {
       axios.get('/api/user/image/' + user.email)
-        .then(response  => {
+        .then(response => {
           setImageName({ img: response.data.fileName });
         }).catch(err => {
           console.log(err);

@@ -40,6 +40,7 @@ const styles = {
     },
     typography: {
         padding: 5,
+        textDecoration: "none",
     },
 }
 
@@ -104,8 +105,8 @@ export class Post extends Component {
                     alignItems="baseline"
                 >
                     <CardContent className={classes.content}>
-                        <Link to={"/u/" + handle}>
-                            <Typography className={classes.typography}  variant="h5" color="textPrimary">
+                        <Link to={"/u/" + handle} className={classes.typography}>
+                            <Typography variant="h5" color="textPrimary">
                                 <strong id="one-point-one-rem">{handle}</strong>
                             </Typography>
                         </Link>
