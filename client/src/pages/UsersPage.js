@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from '../components/Nav';
-import Profile from "../components/Profile";
+import UserProfile from '../components/userProfile';
 import Post from '../components/Post';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
@@ -45,7 +45,7 @@ function UsersPage() {
                 </Grid>
                 <Grid item sm={12}>  
                 {/* BUILD PROFILE PAGE FOR OTHER PEOPLE */}
-                    <Profile />
+                    <UserProfile />
                 </Grid>
                 <Grid item sm={2}>  
                 </Grid>
