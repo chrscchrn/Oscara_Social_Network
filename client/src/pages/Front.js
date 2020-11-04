@@ -58,7 +58,9 @@ export default function Front() {
                 });
         }
     }, [userState.new_user]);
+
     console.log(userState);
+
     if (isLoading) {
         return <Loading/>;
     }

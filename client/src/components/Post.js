@@ -81,7 +81,7 @@ export class Post extends Component {
                 >
                     {this.props.otherUser ? 
                     <img
-                        alt="This User's Profile Image"
+                        alt={image}
                         src={"../" + image}
                         title="Profile Image"
                         className={classes.image, "image"}
@@ -89,7 +89,7 @@ export class Post extends Component {
                     /> 
                     :
                     <img
-                        alt="This User's Profile Image"
+                        alt={image}
                         src={image}
                         title="Profile Image"
                         className={classes.image, "image"}

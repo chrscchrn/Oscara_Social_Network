@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const userProfile = (props) => {
+    
     const classes = useStyles();
     const { isAuthenticated, isLoading } = useAuth0();
     const [ imageName, setImageName ] = useState({});
