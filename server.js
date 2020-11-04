@@ -60,7 +60,6 @@ app.get("/api/userhandle/:handle", (req, res) => {
   });
 });
 
-
 //New Post
 app.post("/api/post", (req, res) => {
   db.Post.create({
@@ -221,7 +220,7 @@ app.get("/api/images", (req, res) => {
   const uploadsDirectory = path.join('uploads');
   fs.readdir(uploadsDirectory, (err, files) => {
     if (err) return res.json( { message: err});
-    if(files.length === 0) return res.json( { message: 'No Images Uploaded!'} );
+    if (files.length === 0) return res.json( { message: 'No Images Uploaded!'} );
     return res.json({ files });
   })
 });
