@@ -105,7 +105,7 @@ export class Post extends Component {
                     alignItems="baseline"
                 >
                     <CardContent className={classes.content}>
-                        <Link to={"/u/" + handle} className={classes.typography}>
+                        <Link to={"/user/" + handle} className={classes.typography}>
                             <Typography variant="h5" color="textPrimary">
                                 <strong id="one-point-one-rem">{handle}</strong>
                             </Typography>

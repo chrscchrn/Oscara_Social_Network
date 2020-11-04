@@ -13,7 +13,13 @@ function UsersPage() {
 
     //get the email first, then the profile info and posts
     useEffect(() => {
-        var handle = window.location.href.slice(window.location.href.indexOf('u') + 2);
+        // var handle = window.location.href.slice(window.location.href.indexOf('x') + 2);
+        var handle = window.location.href[window.location.href.length - 1];
+        console.log('START=>', handle);
+        for (let i = window.location.href.length - 2; i > 0, window.location.href[i] != '/'; i--) {
+            handle = window.location.href[i] + handle
+            console.log(handle);
+        }
         axios.get('/api/userhandle/' + handle)
         .then(res => {
             setUser(res.data);
