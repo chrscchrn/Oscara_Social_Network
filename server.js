@@ -60,6 +60,7 @@ app.get("/api/userhandle/:handle", (req, res) => {
   });
 });
 
+
 //New Post
 app.post("/api/post", (req, res) => {
   db.Post.create({
