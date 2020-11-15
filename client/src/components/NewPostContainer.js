@@ -162,7 +162,7 @@ function NewPostContainer(props) {
                             label="What's on your mind?" 
                             variant="filled"
                             rows={5}
-                            />
+                        />
                     </div>
                 </Grid>
 
