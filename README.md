@@ -22,7 +22,7 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
 ## Newsfeed
 <img src="./uploads/user/newsfeed.png"/>
 
-## profile
+## Profile
 <img src="./uploads/user/Profile.png"/>
 
 ## Technologies
