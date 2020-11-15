@@ -84,7 +84,7 @@ export class Post extends Component {
                     alignItems="center"
                 >
                     {console.log(this.props.otherUser, image, this.props)}
-                    {this.props.otherUser ? 
+                    {this.props.otherUser === undefined ? 
                     // <img
                     //     alt={image}
                     //     src={"../" + image}
@@ -92,7 +92,7 @@ export class Post extends Component {
                     //     className={classes.image, "image"}
                     //     width="150"
                     // /> 
-                    <Avatar alt={image} src={"../" + image} className={classes.large}/>
+                    <Avatar alt={image} src={image} className={classes.large}/>
                     :
                     // <img
                     //     alt={image}
@@ -101,7 +101,7 @@ export class Post extends Component {
                     //     className={classes.image, "image"}
                     //     width="150"
                     // />
-                    <Avatar alt={image} src={image} className={classes.large}/>
+                    <Avatar alt={image} src={"../" + image} className={classes.large}/>
                     }
 
                 </Grid>

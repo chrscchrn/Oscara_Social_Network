@@ -28,6 +28,10 @@ body {
   width: 100px;
 }
 
+#one-point-one-rem:hover {
+  color: #aa1836
+}
+
 @media only screen and (max-width: 636px) {
   html {
     font-size: 16px;
