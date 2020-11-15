@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Avatar } from '@material-ui/core';
 
 const styles = {
     card: {
@@ -42,6 +43,10 @@ const styles = {
         padding: 5,
         textDecoration: "none",
     },
+    large: {
+        width: "200px",
+        height: "200px",
+    },
 }
 
 export class Post extends Component {
@@ -55,7 +60,6 @@ export class Post extends Component {
         function like(event) {
             event.preventDefault();
             event.persist();
-            // console.log(event.target.id);
             let postId = event.target.id;
                 Axios.get("/api/post/like/" + postId + "/" + userHandle)
                 .then(res => {
@@ -63,7 +67,7 @@ export class Post extends Component {
                         alert(res.data.error);
                         return;
                     }
-                    console.log("generic res: ", res.data[0]); //<== if successful its the number of likes this post should have
+                    console.log("generic res: ", res.data[0]); 
                     window.location.reload();
                 }).catch(err => {
                     console.log("error: ", err);
@@ -80,21 +84,24 @@ export class Post extends Component {
                     alignItems="center"
                 >
                     {this.props.otherUser ? 
-                    <img
-                        alt={image}
-                        src={"../" + image}
-                        title="Profile Image"
-                        className={classes.image, "image"}
-                        width="150"
-                    /> 
+                    // <img
+                    //     alt={image}
+                    //     src={"../" + image}
+                    //     title="Profile Image"
+                    //     className={classes.image, "image"}
+                    //     width="150"
+                    // /> 
+                    <Avatar alt={image} src={"../" + image} className={classes.large}/>
                     :
-                    <img
-                        alt={image}
-                        src={image}
-                        title="Profile Image"
-                        className={classes.image, "image"}
-                        width="150"
-                    />}
+                    // <img
+                    //     alt={image}
+                    //     src={image}
+                    //     title="Profile Image"
+                    //     className={classes.image, "image"}
+                    //     width="150"
+                    // />
+                    <Avatar alt={image} src={image} className={classes.large}/>
+                    }
 
                 </Grid>
 
