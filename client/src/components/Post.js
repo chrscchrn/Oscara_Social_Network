@@ -19,7 +19,6 @@ const styles = {
         margin: "0 auto",
         marginBottom: 10,
         marginTop: 10,
-        // overflow: "hidden",
         background: "rgb (240, 245, 245)",
     },
     image: {
@@ -83,7 +82,6 @@ export class Post extends Component {
                     justify="center"
                     alignItems="center"
                 >
-                    {console.log(this.props.otherUser, image, this.props)}
                     {this.props.otherUser ? 
                     // <img
                     //     alt={image}

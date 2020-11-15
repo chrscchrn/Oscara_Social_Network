@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import Loading from "./Loading";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Grid from '@material-ui/core/Grid';
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "./Loading";
-import axios from 'axios';
 import  { API_URL } from '../helpers/API_URL';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,10 +41,10 @@ const useStyles = makeStyles((theme) => ({
         overflow: "auto",
     },
     image: {
-        borderRadius: "180px",
+        // borderRadius: "180px",
         maxHeight: "200px",
         maxWidth: "200px",
-        objectFit: "cover",
+        // objectFit: "cover",
     },
     typography: {
         padding: 5,
@@ -131,18 +132,15 @@ function NewPostContainer(props) {
                     justify="center"
                     alignItems="center"
                     sm={4}
+                    style={{height: "200px", width: "200px"}}
                 >   
-                     
-                    {props.imageName ? 
-                        <img 
+                    <Avatar 
                         src={configureImage(props.imageName)} 
                         className={classes.image, "image"} 
                         key={props.imageName} 
-                        alt={props.imageName} 
-                        width="125"
-                        />
-                        : <p>no image</p>
-                    }
+                        alt={props.imageName}
+                        style={{height: "200px", width: "200px"}}
+                    />
                 </Grid>        
 
                 <Grid

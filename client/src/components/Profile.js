@@ -18,14 +18,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'center',
     marginBottom: 10,
     marginTop: 10,
-    overflow: "hidden"
+    overflow: "hidden",
+    padding: 5,
   },
-  image: {
-    // borderRadius: "180px",
-    maxHeight: "350px",
-    maxWidth: "350px",
-    // objectFit: "cover",
-  },
+  // image: {
+  //   // borderRadius: "180px",
+  //   width: "200px !important",
+  //   height: "200px !important",
+  //   // objectFit: "cover",
+  // },
   content: {
     padding: 5,
   },
@@ -90,11 +91,12 @@ const Profile = () => {
         <Grid 
         container
         direction="row"
-        justify="space-evenly"
+        justify="center"
         alignItems="center"
         >
-          <Grid item sm={4}>
-            <img className={classes.image, "image"} src={imageName.img} alt={user.name} height="250"/>
+          <Grid item sm={4} className={classes.image} style={{textAlign: "-webkit-center"}}>
+            <Avatar className={classes.image, "image"} src={imageName.img} alt={user.name} style={{height: "200px", width: "200px"}} />
+            {/* <img className={classes.image, "image"} src={imageName.img} alt={user.name} height="250"/> */}
           </Grid>
           <Grid item sm={8}>
             <CardContent className={classes.content}>

@@ -11,20 +11,22 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     card: {
         display: 'center',
         marginBottom: 10,
         marginTop: 10,
-        overflow: "hidden"
+        overflow: "hidden",
+        padding: 5,
     },
-    image: {
-        // borderRadius: "180px",
-        maxHeight: "350px",
-        maxWidth: "350px",
-        // objectFit: "cover",
-    },
+    // image: {
+    //     // borderRadius: "180px",
+    //     maxHeight: "350px",
+    //     maxWidth: "350px",
+    //     // objectFit: "cover",
+    // },
     content: {
         padding: 5,
     },
@@ -84,8 +86,9 @@ const userProfile = (props) => {
                     justify="space-evenly"
                     alignItems="center"
                 >
-                    <Grid item sm={4}>
-                        <img className={classes.image, "image"} src={"../" + imageName.img} alt={"@" + props.userData.handle} height="250"/>
+                    <Grid item sm={4} className={classes.image} style={{textAlign: "-webkit-center"}}>
+                        <Avatar className={classes.image, "image"} src={"../" + imageName.img} alt={"@" + props.userData.handle} style={{height: "200px", width: "200px"}} />
+                        {/* <img className={classes.image, "image"} src={"../" + imageName.img} alt={"@" + props.userData.handle} height="250"/> */}
                     </Grid>
                     <Grid item sm={8}>
                         <CardContent className={classes.content}>
