@@ -12,7 +12,8 @@ To demo this application sign up with an email and password or use these credent
  - Password1
 
 After signing up, the user is taken to the sign-up-steps page where they can expect to enter a user handle(required), location(optional), and bio(optional). Then they will be able to upload a profile picture(required) which will be stored in a database. After selecting a photo then the user should click 'upload picture' before pressing the 'add' button. After adding the picture the user has access to the main site which includes their own profile, other user's profiles and the newsfeed by engaging with transparent nav bar at the bottom. The user then can post a up to 240 characters and like posts. 
-**** If the site doesnt follow these steps, refresh the page ****
+
+*If the site doesnt follow these steps, refresh the page
 
 ## Signup Steps
 <img src="./uploads/user/steps.png"/>
