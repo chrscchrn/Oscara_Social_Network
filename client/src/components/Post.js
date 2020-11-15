@@ -83,7 +83,7 @@ export class Post extends Component {
                     justify="center"
                     alignItems="center"
                 >
-                    {console.log(otherUser, image)}
+                    {console.log(this.props.otherUser, image, this.props)}
                     {this.props.otherUser ? 
                     // <img
                     //     alt={image}
