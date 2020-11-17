@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
 import axios from 'axios';
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import Post from '../components/Post'
 
 class Newsfeed extends Component {
@@ -31,8 +31,14 @@ class Newsfeed extends Component {
     
     render() {
         let recentPosts = this.state.posts ? (
-        this.state.posts.map(post => <Post userHandle={this.props.handle} post={post} key={post.id}/>)
+        this.state.posts.slice(0, 15).map(post => <Post userHandle={this.props.handle} post={post} key={post.id}/>)
         ) : "No Posts Yet!"
+             
+        
+        // function loadMorePosts() {
+
+        //     recentPosts.concat(this.state.posts.slice(16));
+        // }
 
         return (
             <>
@@ -56,14 +62,33 @@ class Newsfeed extends Component {
                     container 
                     spacing={0}
                     direction="row" 
-                    justify="space-between"
-                    alignItems="stretch"
+                    justify="center"
+                    alignItems="center"
                 >
                     <Grid item sm={12}>  
                         {recentPosts}
+                        {/* more posts */}
                     </Grid>
                 </Grid>
-    
+                <Grid 
+                    container 
+                    spacing={0}
+                    direction="row" 
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Grid item sm={12} style={{textAlign: "-webkit-center"}}>  
+                        <Button style={{marginBottom: "120px", 
+                            marginTop: "50px", 
+                            color: "#3d4647", 
+                            backgroundColor: "#c8c1c199"}}
+                            // onClick={loadMorePosts}
+                        >
+                            <strong>Load More Posts</strong>
+                        </Button>
+                    </Grid>
+                </Grid>
+
                 <Grid 
                     container 
                     spacing={0}

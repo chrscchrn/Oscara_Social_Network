@@ -68,8 +68,8 @@ export default function viewComments() {
                             alignItems="center"
                         >
                             <h2 id="transition-modal-title">Replies for X's Status</h2>
-                        <p>he sucks</p>
-                        <p>Yeah I hate Him</p>
+                        <p>Yuh</p>
+                        <p>Reply guy says what</p>
                         <p>Lol</p>    
                         </Grid>
                     </div>

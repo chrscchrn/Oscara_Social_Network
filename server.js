@@ -6,7 +6,8 @@ const db = require("./models");
 require("dotenv").config();
 const fs = require("fs");
 const multer = require('multer');
-// require('newrelic');
+
+// DELETE PICTURES BEFORE PUSHING TO HEROKU UNLESS YOU WANT TO SUFFER
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -143,7 +144,7 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
 //Get All Posts  LIMIT EVENTUALLY
 app.get("/api/posts", (req, res) => {
   db.Post.findAll({
-    order: [ ['createdAt', 'DESC'] ]
+    order: [ ['createdAt', 'DESC'] ] //limit posts here or maybe just do that in the front end ? >:) ?
   })
   .then(posts => {
     res.json(posts);

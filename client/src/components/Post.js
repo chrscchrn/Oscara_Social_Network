@@ -21,7 +21,7 @@ const styles = {
         margin: "0 auto",
         marginBottom: 10,
         marginTop: 10,
-        background: "rgb (240, 245, 245)",
+        background: "rgb(240, 245, 245)",
     },
     image: {
         borderRadius: "180px",
