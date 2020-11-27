@@ -5,20 +5,15 @@ import Post from '../components/Post';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
-
 function UsersPage() {
 
     const [ posts, setPosts ] = useState({});
     const [ user , setUser ] = useState({});
 
-    //get the email first, then the profile info and posts
     useEffect(() => {
-        // var handle = window.location.href.slice(window.location.href.indexOf('x') + 2);
         var handle = window.location.href[window.location.href.length - 1];
-        console.log('START=>', handle);
-        for (let i = window.location.href.length - 2; i > 0, window.location.href[i] != '/'; i--) {
+        for (let i = window.location.href.length - 2; i > 0, window.location.href[i] !== '/'; i--) {
             handle = window.location.href[i] + handle
-            console.log(handle);
         }
         axios.get('/api/userhandle/' + handle)
         .then(res => {
@@ -28,16 +23,17 @@ function UsersPage() {
     
     useEffect(() => {
         axios.get('/api/posts/' + user.email)
-            .then(res => {
-                setPosts({
-                    posts: res.data
-                });
-            }).catch(err => console.log(err));
+        .then(res => {
+            setPosts({
+                posts: res.data
+            });
+        }).catch(err => console.log(err));
     }, [user])
     
     let recentUserPosts = posts.posts ? (
         posts.posts.map(post => <Post post={post} key={post.id} otherUser={true} />)
-    ) : "No Posts Yet!"
+    ) : "No Posts Yet!";
+
     return (
         <>
             <Grid 
@@ -50,7 +46,6 @@ function UsersPage() {
                 <Grid item sm={2}>  
                 </Grid>
                 <Grid item sm={12}>  
-                {/* BUILD PROFILE PAGE FOR OTHER PEOPLE */}
                     <UserProfile userData={user} postData={posts}/>
                 </Grid>
                 <Grid item sm={2}>  

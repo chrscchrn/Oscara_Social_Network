@@ -133,9 +133,9 @@ function NewPostContainer(props) {
                 >   
                     <Avatar 
                         src={configureImage(props.imageName)} 
-                        className={classes.image, "image"} 
+                        className={classes.image + " image"} 
                         key={props.imageName} 
-                        alt={props.imageName}
+                        alt={props.imageName + "'s Profile Picture"}
                         style={{height: "200px", width: "200px"}}
                     />
                 </Grid>        
@@ -170,7 +170,7 @@ function NewPostContainer(props) {
                     alignItems="center"
                     sm={3}
                 >   
-                    <Button className={classes.button, "post-button"} onClick={callAPI} variant="outlined" color="primary">
+                    <Button className={classes.button + " post-button"} onClick={callAPI} variant="outlined" color="primary">
                         Post
                     </Button>
                 </Grid>

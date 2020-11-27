@@ -87,7 +87,7 @@ const userProfile = (props) => {
                     alignItems="center"
                 >
                     <Grid item sm={4} className={classes.image} style={{textAlign: "-webkit-center"}}>
-                        <Avatar className={classes.image, "image"} src={"../" + imageName.img} alt={"@" + props.userData.handle} style={{height: "200px", width: "200px"}} />
+                        <Avatar className={classes.image + " image"} src={"../" + imageName.img} alt={"@" + props.userData.handle} style={{height: "200px", width: "200px"}} />
                         {/* <img className={classes.image, "image"} src={"../" + imageName.img} alt={"@" + props.userData.handle} height="250"/> */}
                     </Grid>
                     <Grid item sm={8}>

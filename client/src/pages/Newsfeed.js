@@ -7,6 +7,17 @@ import Post from '../components/Post'
 
 function Newsfeed(props) {
 
+    let [ loadMoreButton, setLoadMoreButton ] = React.useState(
+        <Button style={{marginBottom: "120px", 
+            marginTop: "50px", 
+            color: "#3d4647", 
+            backgroundColor: "#c8c1c199"}}
+            onClick={HandleLoadMorePosts}
+        >
+            <strong>Load More Posts</strong>
+        </Button>
+    );
+
     const postsPerPage = 15;
     let arrayForHoldingPosts = [];
 
@@ -21,12 +32,11 @@ function Newsfeed(props) {
         })
         .catch(err => console.log(err));
 
-        axios.get('/api/images/all')
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => console.log(err));
-
+        // axios.get('/api/images/all')
+        // .then(res => {
+        //     console.log(res);
+        // })
+        // .catch(err => console.log(err));
     }, [])
 
     React.useEffect(() => {
@@ -37,20 +47,24 @@ function Newsfeed(props) {
         const slicedPosts = allPosts.slice(start, end);
         arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
         setPostsToShow(arrayForHoldingPosts);
-        
     };
 
     function HandleLoadMorePosts() {
-        loopWithSlice(0, next + postsPerPage);
-        setNext(next + postsPerPage);
+        if (allPosts.length === postsToShow.length) {
+            setLoadMoreButton(
+                <Button disabled/>
+            );
+        }  else {
+            loopWithSlice(0, next + postsPerPage);
+            setNext(next + postsPerPage);
+        }
     }
 
-    // React.useEffect(() => {
-    //     console.log(allPosts.length, postsToShow.length)
-    //     if (allPosts.length === postsToShow.length) {
-    //         setLoadMore(null);
-    //     }    
-    // }, [postsToShow])
+    React.useEffect(() => {
+        if (allPosts.length === postsToShow.length) {
+            loadMoreButton = null;
+        }
+    }, [HandleLoadMorePosts])
 
     let recentPosts = postsToShow ? (
         postsToShow.map(post => <Post userHandle={props.handle} post={post} key={post.id}/>)
@@ -94,14 +108,7 @@ function Newsfeed(props) {
                 alignItems="center"
             >
                 <Grid item sm={12} style={{textAlign: "-webkit-center"}}>  
-                    <Button style={{marginBottom: "120px", 
-                        marginTop: "50px", 
-                        color: "#3d4647", 
-                        backgroundColor: "#c8c1c199"}}
-                        onClick={HandleLoadMorePosts}
-                    >
-                        <strong>Load More Posts</strong>
-                    </Button>
+                    {loadMoreButton}
                 </Grid>
             </Grid>
 
@@ -118,7 +125,6 @@ function Newsfeed(props) {
             </Grid>
         </>
     );
-    
 }
 
 export default Newsfeed;

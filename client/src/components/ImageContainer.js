@@ -10,12 +10,10 @@ const ImageContainer = ({ newImage }) => {
         try {
             const res = await axios.get('/api/images');
             if (!res.data.files ) {
-                console.log(res.data.message, "<=HERE");
                 setFallBack(res.data.message);
                 return;
             } else {
                 setImages(res.data.files);
-                console.log(res.data.files);
             }
         } catch (err) {
             console.log(err.message);
