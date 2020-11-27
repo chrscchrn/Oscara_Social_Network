@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
       '& > * + *': {
         marginTop: theme.spacing(2),
       },
+      alignSelf: "center"
     },
 }));
 
@@ -18,7 +19,7 @@ function Loading() {
     return (
         <>
             <div className={classes.root}>
-                <LinearProgress color="secondary" />
+                <CircularProgress />
             </div>
         </>
     );

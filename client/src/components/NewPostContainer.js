@@ -85,8 +85,7 @@ function NewPostContainer(props) {
                         handle: userInfo.handle,
                         image: props.imageName,
                     }).then((response) => {
-                        console.log(response);
-                        window.location.reload();
+                        window.location.reload(); // please change this
                     }).catch((error) => {
                         console.log(error);
                     });
@@ -106,7 +105,6 @@ function NewPostContainer(props) {
         const matches = useMediaQuery(theme.breakpoints.up("sm"));
         
         if (matches) {
-          console.log("this size");
           return (
             <Typography className={classes.typography} variant="h5" color="textPrimary" >
                 <AlternateEmailIcon/>
@@ -114,12 +112,11 @@ function NewPostContainer(props) {
             </Typography>
           );
         } else {
-          console.log("other size");
-          return (
-            <Typography className={classes.typography} variant="subtitle1" color="textPrimary" >
-                <strong>{props.handle}</strong>
-            </Typography>
-          );
+            return (
+                <Typography className={classes.typography} variant="subtitle1" color="textPrimary" >
+                    <strong>{props.handle}</strong>
+                </Typography>
+            );
         }
     }
     

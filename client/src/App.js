@@ -7,6 +7,7 @@ import NoMatch from "./pages/NoMatch";
 import ProfilePage from "./pages/ProfilePage";
 import Front from "./pages/Front";
 import UsersPage from "./pages/UsersPage";
+import Newsfeed from'./pages/Newsfeed';
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
@@ -15,10 +16,7 @@ import "./App.css";
 import { Container } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles/';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-//two new libs
-//polish ui
-//mvc folder structure
-//protect api keys
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -44,9 +42,10 @@ class App extends Component {
           <Top/>
             <BrowserRouter>
               <Switch>
-                <Route exact path="/" component={Front} />
-                <PrivateRoute exact path="/profile" component={ProfilePage} />
-                <PrivateRoute path="/user/" component={UsersPage} />
+                <Route exact path="/" component={Front}/>
+                <Route exact path="/feed" component={Newsfeed}/>
+                <PrivateRoute exact path="/profile" component={ProfilePage}/>
+                <PrivateRoute path="/user/" component={UsersPage}/>
                 <Route component={NoMatch} />
               </Switch>
             </BrowserRouter>

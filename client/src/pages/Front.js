@@ -26,7 +26,6 @@ export default function Front() {
         if (isAuthenticated) {
             axios.get('/api/user/' + user.email)
             .then(res => {
-                console.log(res, "<= test ||");
                 if (res.data.email !== null) {
                     setUserState({
                         ...userState,
@@ -45,7 +44,6 @@ export default function Front() {
         if (isAuthenticated && !isLoading && !userState.new_user) {
             axios.get('/api/user/image/' + user.email)
                 .then(response => {
-                    console.log("moment of truth", response);
                     if (response.data.data === null) {
                         setUserState({...userState, uploadedPic: false });
                     } else {
@@ -59,18 +57,16 @@ export default function Front() {
         }
     }, [userState.new_user]);
 
-    console.log(userState);
-
     if (isLoading) {
         return <Loading/>;
     }
-    if (!isLoading && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated && !userState.new_user && !userState.uploadedPic) {
         return <FrontComponent/>;
     }
-    if (!isLoading && isAuthenticated && userState.new_user) {
+    if (!isLoading && isAuthenticated && userState.new_user === true && !userState.uploadedPic) {
         return <SignupSteps/>;
     }
-    if (!isLoading && isAuthenticated && !userState.new_user && !userState.uploadedPic) {
+    if (!isLoading && isAuthenticated && userState.new_user === false && !userState.uploadedPic) {
         return (
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >
@@ -78,12 +74,12 @@ export default function Front() {
                 </Typography>
                 <ImageHelper email={user.email}/>
                 <Button color="primary" onClick={refresh}>
-                    Add
+                    Done
                 </Button>
             </Card>
         );
     }
-    if (!isLoading && isAuthenticated && !userState.new_user && userState.uploadedPic) {
+    if (!isLoading && isAuthenticated && userState.new_user === false && userState.uploadedPic === true) {
         return <Newsfeed 
             images={SQLImages} 
             imageName={imageName} 
