@@ -68,12 +68,17 @@ app.post("/api/post", (req, res) => {
   db.Post.create({
     body: req.body.body,
     likeCount: req.body.likeCount,
+    replyCount: req.body.replyCount,
     UserId: req.body.UserId,
     handle: req.body.handle,
     image: req.body.image
   }).then((response) => {
     res.json(response);
-  }).catch(err => console.log(err));
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  });
 });
 
 //like Post ========================================================================== LIKES
@@ -84,7 +89,7 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
       id: req.params.id
     }
   }).then( response => {
-    console.log(response.dataValues, "|| STEP 1 ||");
+    // console.log(response.dataValues, "|| STEP 1 ||");
     if (response.dataValues) {
       postData = response.dataValues;
       db.Like.findOne({
@@ -93,20 +98,19 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
           handle: req.params.handle,
         }
       }).then( data => {
-        console.log(data, "|| STEP 2 ||");
+        // console.log(data, "|| STEP 2 ||");
         if (!data) {
           db.Like.create({
             PostId: req.params.id,
             handle: req.params.handle,
           }).then(result => {
-            console.log(result, "|||", postData.likeCount, "|| STEP 3 ||");
+            // console.log(result, "|||", postData.likeCount, "|| STEP 3 ||");
             postData.likeCount += 1;
-            console.log(postData);
             let values = { likeCount: postData.likeCount } 
             let selector = { where: { id: req.params.id } }
             db.Post.update(values, selector)
               .then(responseTwo => {
-                console.log(responseTwo, "|| STEP 4 ||");
+                // console.log(responseTwo, "|| STEP 4 ||");
                 res.json(responseTwo);
               })
               .catch(err => {
@@ -139,12 +143,66 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
   })
 });
 
-//==========================================================================  TEMP
 
-//Get All Posts  LIMIT EVENTUALLY
+//==========================================================================  reply to post
+app.post("/api/reply", (req, res) => {
+  let postData = {};
+  db.Post.findOne({
+    where: {
+      id: req.body.postId,
+    }
+  }).then(postInfo => {
+    postData = postInfo.dataValues;
+    db.Reply.create({
+      body: req.body.body,
+      handle: req.body.handle,
+      PostId: req.body.postId,
+    })
+    .then(response => {
+      res.json(response); //update reply count on posts which is on the post table as well
+    }).then(() => {
+      postData.replyCount += 1;
+      let values = { replyCount: postData.replyCount } 
+      let selector = { where: { id: req.body.postId } }
+      db.Post.update(values, selector)
+      .then(responseTwo => {
+        res.json(responseTwo);
+      }).catch(err => {
+        console.log(err);
+        res.status(500);
+      });
+    }).catch(err => {
+      console.log(err);
+      res.status(500);
+      res.json(err);
+    });
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  })
+});
+
+// delete post, delete comment, unlike
+//get a posts comments
+app.get("/api/reply/:id", (req, res) => {
+  db.Reply.findAll({
+    where: {
+      postId: req.params.id
+    }
+  }).then(resp => {
+    res.json(resp);
+  }).catch(err => {
+    console.log(err);
+    res.status(500);
+    res.json(err);
+  })
+})
+
+//Get All Posts 
 app.get("/api/posts", (req, res) => {
   db.Post.findAll({
-    order: [ ['createdAt', 'DESC'] ] //limit posts here or maybe just do that in the front end ? >:) ?
+    order: [ ['createdAt', 'DESC'] ] 
   })
   .then(posts => {
     res.json(posts);
@@ -157,7 +215,6 @@ app.get("/api/posts", (req, res) => {
 
 //Get specific user posts
 app.get("/api/posts/:email", (req, res) => {
-  console.log(req.params.email);
   db.Post.findAll({
     where: {
       UserId: req.params.email

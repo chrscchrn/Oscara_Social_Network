@@ -52,14 +52,12 @@ export default function SignupSteps() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        console.log(name, value);
         setSetupState({...setupState, [name]: value})
     };
 
     const done = () => {
         //if user leaves the step blank return so they dont mess up functionality
         setSetupState({...setupState, step: setupState.step + 1, })
-        console.log(setupState);
     }
 
     const addUser = () => {

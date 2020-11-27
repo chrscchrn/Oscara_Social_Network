@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Button, Grid, TextField } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -30,9 +31,12 @@ const useStyles = makeStyles((theme) => ({
     }
     }));
 
-    export default function TransitionsModal() {
+    export default function TransitionsModal(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [ open, setOpen ] = React.useState(false);
+    const [ replyBody, setReplyBody ] = React.useState({body: ""});
+
+    const { currentUser, postId } = props;
 
     const handleOpen = () => {
         setOpen(true);
@@ -41,6 +45,25 @@ const useStyles = makeStyles((theme) => ({
     const handleClose = () => {
         setOpen(false);
     };
+
+    let handleInputChange = e => {
+        setReplyBody(e.target.value);
+    }
+
+    let handleReply = e => {
+        if (currentUser) {
+            axios.post("/api/reply", {
+                body: replyBody,
+                handle: currentUser,
+                postId: postId,
+            }).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
+            handleClose();
+        }
+    }
 
     return (
         <div>
@@ -71,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
                     <TextField 
                         className={classes.textfield}
                         multiline 
-                        // onChange={handleInputChange} 
+                        onChange={handleInputChange} 
                         name="body" 
                         id="filled-basic" 
                         label="What would you like to say?" 
@@ -79,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
                         rows={4}
                     />
                 </Grid>
-                <Button type="button" color="primary">
+                <Button type="button" color="primary" onClick={handleReply}>
                     Reply
                 </Button>
             </div>

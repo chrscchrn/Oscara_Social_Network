@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function viewComments() {
+export default function viewComments(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -42,10 +42,12 @@ export default function viewComments() {
         setOpen(false);
     };
 
+    const { replyCount } = props;
+
     return (
         <div>
             <Typography className={classes.typography} onClick={handleOpen} variant="body2" color="textSecondary">
-                No Replies
+                {replyCount} Replies
             </Typography>
             <Modal
                 aria-labelledby="transition-modal-title"

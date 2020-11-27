@@ -66,11 +66,12 @@ function Newsfeed(props) {
         }
     }, [HandleLoadMorePosts])
 
+    let { handle, images, imageName } = props;
     let recentPosts = postsToShow ? (
-        postsToShow.map(post => <Post userHandle={props.handle} post={post} key={post.id}/>)
+    postsToShow.map(post => <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle}/>)
     ) : "No Posts Yet!";
-    
         
+
     return (
         <>
             <Grid 
@@ -82,9 +83,9 @@ function Newsfeed(props) {
             >
                 <Grid item sm={12}  >  
                     <NewPostContainer 
-                        images={props.images} 
-                        imageName={props.imageName} 
-                        handle={props.handle}
+                        images={images} 
+                        imageName={imageName} 
+                        handle={handle}
                     />
                 </Grid>
             </Grid>

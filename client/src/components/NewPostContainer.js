@@ -76,16 +76,16 @@ function NewPostContainer(props) {
         if (!isloading) {
             try {
                 if (props.imageName.includes('.')) {
-                    console.log(props.imageName)
+                    // console.log(props.imageName)
                     axios.post('/api/post', {
                         body: postState.body,
                         likeCount: 0,
-                        commentCount: 0,
+                        replyCount: 0,
                         UserId: user.email,
                         handle: userInfo.handle,
                         image: props.imageName,
                     }).then((response) => {
-                        window.location.reload(); // please change this
+                        window.location.reload(); // please change this // prepend to shown posts
                     }).catch((error) => {
                         console.log(error);
                     });

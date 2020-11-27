@@ -38,7 +38,7 @@ export default function Front() {
             });
         }
     }, [isAuthenticated]);    
-
+    
     useEffect(() => {
         //get profile image here then make a bool to see if they uploaded one yet
         if (isAuthenticated && !isLoading && !userState.new_user) {
@@ -60,7 +60,7 @@ export default function Front() {
     if (isLoading) {
         return <Loading/>;
     }
-    if (!isLoading && !isAuthenticated && !userState.new_user && !userState.uploadedPic) {
+    if (!isLoading && !isAuthenticated) {
         return <FrontComponent/>;
     }
     if (!isLoading && isAuthenticated && userState.new_user === true && !userState.uploadedPic) {
