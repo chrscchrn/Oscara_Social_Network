@@ -19,6 +19,15 @@ body {
   width: 100%;
 }
 
+.lock:hover .icon-unlock,
+.lock .icon-lock {
+    display: none;
+}
+
+.lock:hover .icon-lock {
+    display: inline;
+}
+
 .top-container {
   margin: auto
 }

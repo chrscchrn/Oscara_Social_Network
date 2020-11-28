@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import ViewComments from './viewComments';
 import TransitionComment from './TransitionComment';
+import DeletePost from './DeletePost';
 import Axios from 'axios';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
@@ -12,6 +13,8 @@ import Grid from '@material-ui/core/Grid';
 import { Avatar } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const styles = {
     card: {
@@ -59,10 +62,11 @@ function Post(props) {
     const [ stateReplyCount, setStateReplyCount ] = React.useState();
     const [ replies, setReplies ] = React.useState([]);
     const [ liked, setLiked ] = React.useState(false);
+    const [ open, setOpen ] = React.useState(false);
 
     var timeDate = new Date(createdAt);
     let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
-    
+
     React.useEffect(() => {
         setStateLikeCount(likeCount);
         setStateReplyCount(replyCount);
@@ -72,7 +76,7 @@ function Post(props) {
         if (stateReplyCount > 0) {
             Axios.get("/api/reply/" + id)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 setReplies(res.data);  
             }).catch(err => {
                 console.log(err);
@@ -87,15 +91,15 @@ function Post(props) {
         Axios.get("/api/post/like/" + postId + "/" + currentUser)
         .then(res => {
             if (res.data.error) {
-                alert(res.data.error);
+                setOpen(true);
                 return;
             }
             let likes = stateLikeCount;
             likes += 1;
             setStateLikeCount(likes);
         }).catch(err => {
-            console.log("error: ", err);
-            alert("other error", err);
+            console.log(err);
+            alert("error liking post", err);
         });
         setLiked(true);
     }
@@ -103,12 +107,31 @@ function Post(props) {
     function updateReplyCount() {
         let replies = stateReplyCount;
         replies += 1;
-        console.log('working')
         setStateReplyCount(replies);
     }
 
+    function handleDelete() {
+        //DEL POST
+    }
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
     return (
         <Card className={classes.card} raised>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="info">
+                You've already liked this post!
+                </Alert>
+            </Snackbar>
             <Grid
                 container
                 direction="column"
@@ -144,11 +167,6 @@ function Post(props) {
                             {when}  
                         </strong>
                     </Typography>
-                    {/* <Typography className={classes.typography} variant="body2" color="textSecondary">
-                        <FavoriteBorderIcon color="primary"/>
-                        {stateLikeCount} Likes
-                    </Typography> */}
-                    {/* IF REPLY COUNT IS GREATER THAN 0 DO A GET REQUEST */}
                     {/* <ViewComments replyCount={stateReplyCount} /> */}
                 </CardContent>
             </Grid>
@@ -158,6 +176,7 @@ function Post(props) {
                 justify="center"
                 alignItems="center"
             >   
+                {window.location.pathname === '/profile' ? <DeletePost handleDelete={handleDelete}/> : <p></p>}
                 <form onSubmit={like} id={id} key={id}>
                     <Button type="submit" className={classes.button} color="primary" key={id}>
                         <h2>

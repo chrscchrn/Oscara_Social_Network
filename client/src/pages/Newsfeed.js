@@ -25,7 +25,6 @@ function Newsfeed(props) {
     const [ allPosts, setAllPosts ] = React.useState([]);
     const [ postsToShow, setPostsToShow ] = React.useState([]);
     const [ next, setNext ] = React.useState(15);
-
     
     React.useEffect(() => {
         axios.get('/api/posts')
@@ -50,29 +49,22 @@ function Newsfeed(props) {
         arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
         setPostsToShow(arrayForHoldingPosts);
     };
-
+    console.log(postsToShow)
     function HandleLoadMorePosts() {
-        if (allPosts.length === postsToShow.length) {
-            setLoadMoreButton(
-                <Button disabled/>
-            );
-        }  else {
-            loopWithSlice(0, next + postsPerPage);
-            setNext(next + postsPerPage);
-        }
+        loopWithSlice(0, next + postsPerPage);
+        setNext(next + postsPerPage);
     }
 
-    React.useEffect(() => {
-        if (allPosts.length === postsToShow.length) {
-            loadMoreButton = null;
-        }
-    }, [HandleLoadMorePosts])
+    // React.useEffect(() => {
+    //     if (allPosts.length === postsToShow.length && postsToShow.length > 0) {
+    //         setLoadMoreButton('You\'ve looked at all the posts!');
+    //     }
+    // }, [HandleLoadMorePosts])
 
     let { handle, images, imageName } = props;
     let recentPosts = postsToShow ? (
     postsToShow.map(post => <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle}/>)
     ) : "No Posts Yet!";
-        
 
     return (
         <>
