@@ -31,8 +31,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function viewComments(props) {
+
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [ open, setOpen ] = React.useState(false);
+    const [ replies, setReplies ] = React.useState([]);
 
     const handleOpen = () => {
         setOpen(true);
@@ -43,6 +45,10 @@ export default function viewComments(props) {
     };
 
     const { replyCount } = props;
+
+    React.useEffect(() => {
+        setReplies(props.replies);
+    }, [props.replies])
 
     return (
         <div>
@@ -70,9 +76,8 @@ export default function viewComments(props) {
                             alignItems="center"
                         >
                             <h2 id="transition-modal-title">Replies for X's Status</h2>
-                        <p>Yuh</p>
-                        <p>Reply guy says what</p>
-                        <p>Lol</p>    
+                        {/* {replies}     */}
+                        {replies.map(reply => <><h1>{reply.handle}</h1><p>{reply.body}</p><p>{reply.createdAt}</p><br/></>)}
                         </Grid>
                     </div>
                 </Fade>

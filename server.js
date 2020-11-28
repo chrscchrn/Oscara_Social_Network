@@ -294,7 +294,6 @@ app.get("/api/user/image/:email", (req, res) => {
       res.json({ data: blob });
       return;
     }
-    
     // fs.writeFileSync( __dirname + "/uploads/" + blob.name, blob.data);
     // fs.writeFileSync( __dirname + "/client/public/images/" + blob.name, blob.data);
     let name = blob.dataValues.name;
@@ -323,11 +322,12 @@ app.get("/api/images/all", (req, res) => {
       const userUploadsDirectory = path.join('uploads');
       fs.readdir(userUploadsDirectory, (err, files) => {
         if (err) return res.json({ message: err });
-        if (files.length < blob.length) {
+        if (files.length <= blob.length) {
           for (let i = 0; i < blob.length; i++) {
             fs.writeFileSync( __dirname + "/uploads/" + blob[i].dataValues.name, blob[i].dataValues.data);
           }
         }
+        console.log(files);
         return res.json({ data: files });
       })
   }).catch(err => {

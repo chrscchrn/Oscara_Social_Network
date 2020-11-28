@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     const [ open, setOpen ] = React.useState(false);
     const [ replyBody, setReplyBody ] = React.useState({body: ""});
 
-    const { currentUser, postId } = props;
+    const { currentUser, postId, parentReplyHandler } = props;
 
     const handleOpen = () => {
         setOpen(true);
@@ -62,7 +62,9 @@ const useStyles = makeStyles((theme) => ({
                 console.log(err);
             });
             handleClose();
+            parentReplyHandler('go');
         }
+
     }
 
     return (

@@ -55,6 +55,8 @@ function Post(props) {
     const { otherUser, currentUser, classes, userHandle, post : { body, createdAt, image, handle, likeCount, id, replyCount} } = props;
     const [ stateLikeCount, setStateLikeCount ] = React.useState();
     const [ stateReplyCount, setStateReplyCount ] = React.useState();
+    const [ replies, setReplies ] = React.useState([]);
+
     var timeDate = new Date(createdAt);
     let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
     
@@ -68,13 +70,13 @@ function Post(props) {
             Axios.get("/api/reply/" + id)
             .then(res => {
                 console.log(res);
-                //append to indiv posts      
+                setReplies(res.data);  
             }).catch(err => {
                 console.log(err);
             }) 
         }
-    }, [stateReplyCount])
-
+    }, [stateReplyCount]);
+    
     function like(event) {
         event.preventDefault();
         event.persist();
@@ -92,6 +94,13 @@ function Post(props) {
             console.log("error: ", err);
             alert("other error", err);
         });
+    }
+
+    function updateReplyCount() {
+        let replies = stateReplyCount;
+        replies += 1;
+        console.log('working')
+        setStateReplyCount(replies);
     }
 
     return (
@@ -130,7 +139,7 @@ function Post(props) {
                         {stateLikeCount} Likes
                     </Typography>
                     {/* IF REPLY COUNT IS GREATER THAN 0 DO A GET REQUEST */}
-                    <ViewComments replyCount={replyCount}/>
+                    <ViewComments replyCount={stateReplyCount} replies={replies}/>
                 </CardContent>
             </Grid>
             <Grid
@@ -144,7 +153,7 @@ function Post(props) {
                         Like
                     </Button>
                 </form>
-                <TransitionComment currentUser={currentUser} postId={id}/>
+                <TransitionComment currentUser={currentUser} postId={id} parentReplyHandler={updateReplyCount}/>
             </Grid>
         </Card>
     )

@@ -21,9 +21,10 @@ function Newsfeed(props) {
     const postsPerPage = 15;
     let arrayForHoldingPosts = [];
 
-    const [allPosts, setAllPosts] = React.useState([]);
-    const [postsToShow, setPostsToShow] = React.useState([]);
-    const [next, setNext] = React.useState(15);
+    const [ allPosts, setAllPosts ] = React.useState([]);
+    const [ postsToShow, setPostsToShow ] = React.useState([]);
+    const [ next, setNext ] = React.useState(15);
+
     
     React.useEffect(() => {
         axios.get('/api/posts')
@@ -32,11 +33,11 @@ function Newsfeed(props) {
         })
         .catch(err => console.log(err));
 
-        // axios.get('/api/images/all')
-        // .then(res => {
-        //     console.log(res);
-        // })
-        // .catch(err => console.log(err));
+        axios.get('/api/images/all')
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => console.log(err));
     }, [])
 
     React.useEffect(() => {
