@@ -1,10 +1,10 @@
 import React from 'react'
-import { AppBar, Typography, Toolbar } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Button, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     },
     login: {
         
+    },
+    arrow: {
+        color: "white",
     }
 }));
 
@@ -24,10 +27,18 @@ export default function Top() {
     const { isAuthenticated, isLoading } = useAuth0();
     const classes = useStyles();
 
+    const handleBack = () => {
+        // window.redirect("/");
+        console.log('hello?');
+    }
+
     return (
         <div className={classes.root}>
             <AppBar color="primary">
                 <Toolbar className="top-container">
+                    <Button>
+                        <ArrowBackIcon size="large" className={classes.arrow} onClick={handleBack}/>
+                    </Button>
                     <img src="/images/osccircle.png" width="50" height="50" alt="Oscara Logo"/>
                     <Typography variant="h4" className={classes.title}>
                         SCARA

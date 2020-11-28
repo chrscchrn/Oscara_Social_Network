@@ -35,10 +35,11 @@ const useStyles = makeStyles((theme) => ({
     button: {
         width: "8em",
         height: "5em",
-        marginTop: "2.5em",
-        marginRight: "10",
+        marginTop: "1em",
+        marginRight: "6em",
+        marginLeft: "0",
         padding: "1em, 2em",
-        overflow: "auto",
+        overflow: "hidden",
     },
     image: {
         // borderRadius: "180px",
@@ -107,14 +108,18 @@ function NewPostContainer(props) {
         if (matches) {
           return (
             <Typography className={classes.typography} variant="h5" color="textPrimary" >
-                <AlternateEmailIcon/>
-                <strong>{props.handle}</strong>
+                <AlternateEmailIcon color="primary"/>
+                <strong>
+                    {props.handle}
+                </strong>
             </Typography>
           );
         } else {
             return (
                 <Typography className={classes.typography} variant="subtitle1" color="textPrimary" >
-                    <strong>{props.handle}</strong>
+                    <strong>
+                        {props.handle}
+                    </strong>
                 </Typography>
             );
         }
@@ -170,8 +175,11 @@ function NewPostContainer(props) {
                     alignItems="center"
                     sm={3}
                 >   
-                    <Button className={classes.button + " post-button"} onClick={callAPI} variant="outlined" color="primary">
-                        Post
+                    <Button className={classes.button + " post-button"} onClick={callAPI} color="primary">
+                        <h2>
+                            <strong>Post</strong>
+                        </h2>
+                        
                     </Button>
                 </Grid>
             </Card>

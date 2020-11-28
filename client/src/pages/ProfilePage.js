@@ -24,58 +24,55 @@ function ProfilePage() {
         }
     }, [user, isLoading])
     
+    let recentUserPostsMarkup = posts.posts ? (
+        posts.posts.map(post => <Post post={post} />)
+    ) : "No Posts Yet!"
 
-    
-
-        let recentUserPostsMarkup = posts.posts ? (
-            posts.posts.map(post => <Post post={post} />)
-        ) : "No Posts Yet!"
-
-        return (
-            <>
-                <Grid 
-                container 
-                spacing={0}
-                direction="row" 
-                justify="space-between"
-                alignItems="flex-start"
-                >
-                    <Grid item sm={2}>  
-                    </Grid>
-                    <Grid item sm={12}>  
-                        <Profile />
-                    </Grid>
-                    <Grid item sm={2}>  
-                    </Grid>
+    return (
+        <>
+            <Grid 
+            container 
+            spacing={0}
+            direction="row" 
+            justify="space-between"
+            alignItems="flex-start"
+            >
+                <Grid item sm={2}>  
                 </Grid>
-                <Grid 
-                container 
-                spacing={0}
-                direction="row" 
-                justify="space-between"
-                alignItems="flex-start"
-                >
-                    <Grid item sm={2}>  
-                    </Grid>
-                    <Grid item sm={12}>  
-                        {recentUserPostsMarkup}
-                    </Grid>
-                    <Grid item sm={2}>  
-                    </Grid>
+                <Grid item sm={12}>  
+                    <Profile />
                 </Grid>
-                <Grid 
-                container 
-                spacing={0}
-                direction="row" 
-                justify="center"
-                alignItems="flex-end"
-                >
-                    <Grid item sm={6}>    
-                        <Nav />     
-                    </Grid>
+                <Grid item sm={2}>  
                 </Grid>
-            </>
-        );
+            </Grid>
+            <Grid 
+            container 
+            spacing={0}
+            direction="row" 
+            justify="space-between"
+            alignItems="flex-start"
+            >
+                <Grid item sm={2}>  
+                </Grid>
+                <Grid item sm={12}>  
+                    {recentUserPostsMarkup}
+                </Grid>
+                <Grid item sm={2}>  
+                </Grid>
+            </Grid>
+            <Grid 
+            container 
+            spacing={0}
+            direction="row" 
+            justify="center"
+            alignItems="flex-end"
+            >
+                <Grid item sm={6}>    
+                    <Nav />     
+                </Grid>
+            </Grid>
+        </>
+    );
 }
 
 export default ProfilePage;

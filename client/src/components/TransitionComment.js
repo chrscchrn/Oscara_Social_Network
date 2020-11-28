@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Button, Grid, TextField } from '@material-ui/core';
+import ChatIcon from '@material-ui/icons/Chat';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     const [ open, setOpen ] = React.useState(false);
     const [ replyBody, setReplyBody ] = React.useState({body: ""});
 
-    const { currentUser, postId, parentReplyHandler } = props;
+    const { currentUser, postId, parentReplyHandler, replyCount } = props;
 
     const handleOpen = () => {
         setOpen(true);
@@ -69,47 +70,50 @@ const useStyles = makeStyles((theme) => ({
 
     return (
         <div>
-        <Button type="button" color="primary" onClick={handleOpen}>
-            Reply
-        </Button>
-        <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-            timeout: 500,
-            }}
-        >
-            <Fade in={open}>
-            <div className={classes.paper}>
-                <Grid
-                    container
-                    direction="column"
-                    justify="space-evenly"
-                    alignItems="center"
-                >
-                    <h2 id="transition-modal-title">Reply to User's Status</h2>
-                    <TextField 
-                        className={classes.textfield}
-                        multiline 
-                        onChange={handleInputChange} 
-                        name="body" 
-                        id="filled-basic" 
-                        label="What would you like to say?" 
-                        variant="filled"
-                        rows={4}
-                    />
-                </Grid>
-                <Button type="button" color="primary" onClick={handleReply}>
-                    Reply
-                </Button>
-            </div>
-            </Fade>
-        </Modal>
+            <Button type="button" color="primary" onClick={handleOpen}>
+                <h2>
+                    {replyCount}
+                    <ChatIcon color="primary"/>
+                </h2>
+            </Button>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                <div className={classes.paper}>
+                    <Grid
+                        container
+                        direction="column"
+                        justify="space-evenly"
+                        alignItems="center"
+                    >
+                        <h2 id="transition-modal-title">Reply to User's Status</h2>
+                        <TextField 
+                            className={classes.textfield}
+                            multiline 
+                            onChange={handleInputChange} 
+                            name="body" 
+                            id="filled-basic" 
+                            label="What would you like to say?" 
+                            variant="filled"
+                            rows={4}
+                        />
+                    </Grid>
+                    <Button type="button" color="primary" onClick={handleReply}>
+                        Reply
+                    </Button>
+                </div>
+                </Fade>
+            </Modal>
         </div>
     );
 }

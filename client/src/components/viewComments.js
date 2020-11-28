@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -53,6 +54,7 @@ export default function viewComments(props) {
     return (
         <div>
             <Typography className={classes.typography} onClick={handleOpen} variant="body2" color="textSecondary">
+                <ChatIcon color="primary"/>
                 {replyCount} Replies
             </Typography>
             <Modal

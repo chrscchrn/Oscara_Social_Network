@@ -16,7 +16,7 @@ body {
 }
 
 .post-form {
-  width: 115%;
+  width: 100%;
 }
 
 .top-container {
@@ -29,7 +29,8 @@ body {
 }
 
 #one-point-one-rem:hover {
-  color: #aa1836
+  color: #aa1836;
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 636px) {

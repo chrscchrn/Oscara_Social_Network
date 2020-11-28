@@ -10,7 +10,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-function refresh() {
+function finishSetup() {
     window.location.reload();
 }
 
@@ -22,8 +22,9 @@ export default function Front() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     
     useEffect(() => {
-        
+        console.log(user)
         if (isAuthenticated) {
+            console.log('hello?', user.email)
             axios.get('/api/user/' + user.email)
             .then(res => {
                 if (res.data.email !== null) {
@@ -31,10 +32,15 @@ export default function Front() {
                         ...userState,
                         new_user: false,
                         handle: res.data.handle
-                    })
+                    });
                 }
             }).catch(err => {
                 console.log(err);
+                setUserState({
+                    ...userState,
+                    new_user: true,
+                    uploadedPic: false,
+                });
             });
         }
     }, [isAuthenticated]);    
@@ -57,23 +63,20 @@ export default function Front() {
         }
     }, [userState.new_user]);
 
-    if (isLoading) {
-        return <Loading/>;
-    }
     if (!isLoading && !isAuthenticated) {
         return <FrontComponent/>;
     }
-    if (!isLoading && isAuthenticated && userState.new_user === true && !userState.uploadedPic) {
+    if (!isLoading && isAuthenticated && userState.new_user === true && userState.uploadedPic === false) {
         return <SignupSteps/>;
     }
-    if (!isLoading && isAuthenticated && userState.new_user === false && !userState.uploadedPic) {
+    if (!isLoading && isAuthenticated && userState.new_user === false && userState.uploadedPic === false) {
         return (
             <Card raised>
                 <Typography variant="h5" color="textPrimary" >
                     Add a Profile Picture
                 </Typography>
                 <ImageHelper email={user.email}/>
-                <Button color="primary" onClick={refresh}>
+                <Button color="primary" onClick={finishSetup}>
                     Done
                 </Button>
             </Card>
@@ -86,4 +89,5 @@ export default function Front() {
             handle={userState.handle}
         />;
     }
+    return <Loading/>;
 }

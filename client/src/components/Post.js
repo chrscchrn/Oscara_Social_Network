@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
+// import ViewComments from './viewComments';
 import TransitionComment from './TransitionComment';
 import Axios from 'axios';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -9,7 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Avatar } from '@material-ui/core';
-import ViewComments from './viewComments';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const styles = {
     card: {
@@ -38,7 +40,7 @@ const styles = {
         height: "5em",
         marginTop: "2.5em",
         padding: "1em, 2em",
-        overflow: "auto",
+        overflow: "hidden",
     },
     typography: {
         padding: 5,
@@ -56,6 +58,7 @@ function Post(props) {
     const [ stateLikeCount, setStateLikeCount ] = React.useState();
     const [ stateReplyCount, setStateReplyCount ] = React.useState();
     const [ replies, setReplies ] = React.useState([]);
+    const [ liked, setLiked ] = React.useState(false);
 
     var timeDate = new Date(createdAt);
     let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
@@ -81,7 +84,7 @@ function Post(props) {
         event.preventDefault();
         event.persist();
         let postId = event.target.id;
-        Axios.get("/api/post/like/" + postId + "/" + userHandle)
+        Axios.get("/api/post/like/" + postId + "/" + currentUser)
         .then(res => {
             if (res.data.error) {
                 alert(res.data.error);
@@ -94,6 +97,7 @@ function Post(props) {
             console.log("error: ", err);
             alert("other error", err);
         });
+        setLiked(true);
     }
 
     function updateReplyCount() {
@@ -129,17 +133,23 @@ function Post(props) {
                             <strong id="one-point-one-rem">{handle}</strong>
                         </Typography>
                     </Link>
-                    <Typography className={classes.typography} variant="body2" color="textSecondary">
-                        {when}
-                    </Typography>
                     <Typography className={classes.typography} variant="body1">
-                        {body}
+                        <strong>
+                            {body}
+                        </strong>
                     </Typography>
+                    <br/><br/>
                     <Typography className={classes.typography} variant="body2" color="textSecondary">
-                        {stateLikeCount} Likes
+                        <strong>
+                            {when}  
+                        </strong>
                     </Typography>
+                    {/* <Typography className={classes.typography} variant="body2" color="textSecondary">
+                        <FavoriteBorderIcon color="primary"/>
+                        {stateLikeCount} Likes
+                    </Typography> */}
                     {/* IF REPLY COUNT IS GREATER THAN 0 DO A GET REQUEST */}
-                    <ViewComments replyCount={stateReplyCount} replies={replies}/>
+                    {/* <ViewComments replyCount={stateReplyCount} /> */}
                 </CardContent>
             </Grid>
             <Grid
@@ -150,10 +160,19 @@ function Post(props) {
             >   
                 <form onSubmit={like} id={id} key={id}>
                     <Button type="submit" className={classes.button} color="primary" key={id}>
-                        Like
+                        <h2>
+                            {stateLikeCount} 
+                        </h2>
+                        {liked ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color="primary"/>}
                     </Button>
                 </form>
-                <TransitionComment currentUser={currentUser} postId={id} parentReplyHandler={updateReplyCount}/>
+                <TransitionComment 
+                    currentUser={currentUser} 
+                    postId={id} 
+                    parentReplyHandler={updateReplyCount} 
+                    replyCount={stateReplyCount} 
+                    replies={replies}
+                />
             </Grid>
         </Card>
     )

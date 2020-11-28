@@ -13,6 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
 import { Avatar } from '@material-ui/core';
 
+
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'center',
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   largeIcon: {
     width: "40px",
     height: "40px",
+  }, 
+  bio: {
+    marginLeft: "25px"
   }
 }));
 
@@ -70,14 +74,14 @@ const Profile = () => {
     if (matches) {
       return (
         <Typography variant="h3" color="textPrimary">
-          <AlternateEmailIcon className={classes.largeIcon} size="large"/>
+          <AlternateEmailIcon className={classes.largeIcon} size="large" color="primary"/>
           {userInfo.handle}
         </Typography>
       );
     } else {
       return (
       <Typography variant="h5" color="textPrimary">
-        <AlternateEmailIcon/>
+        <AlternateEmailIcon color="primary"/>
         {userInfo.handle}
       </Typography>
       );
@@ -102,11 +106,19 @@ const Profile = () => {
             <CardContent className={classes.content}>
               {BreakpointHelper()}
               <Typography variant="body1" color="textSecondary">
-                <LocationOnIcon color="disabled"/>
-                {userInfo.location}
+                <LocationOnIcon color="primary"/>
+                <strong>
+                  {userInfo.location}
+                </strong>
               </Typography>
-              <Typography variant="h5" color="textPrimary">Bio: </Typography>
-              <Typography variant="body1">{userInfo.bio}</Typography>
+              <Typography variant="h5" color="textPrimary"></Typography>
+              <br/>
+              <br/>
+              <Typography variant="body1" className={classes.bio}>
+                <strong>
+                  {userInfo.bio}
+                </strong>
+              </Typography>
             </CardContent>
           </Grid>
         </Grid>
