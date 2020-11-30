@@ -230,8 +230,8 @@ app.get("/api/posts/:email", (req, res) => {
   });
 });
 
+//Delete post and associated replies
 app.delete("/api/posts/:id", (req, res) => {
-  //del replies first
   db.Reply.destroy({
     where: {
       PostId: req.params.id,

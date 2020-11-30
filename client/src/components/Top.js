@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
 import { AppBar, Typography, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -26,19 +27,20 @@ export default function Top() {
 
     const { isAuthenticated, isLoading } = useAuth0();
     const classes = useStyles();
+    let history = useHistory();
 
     const handleBack = () => {
-        // window.redirect("/");
-        console.log('hello?');
+        window.redirect("/");
     }
 
     return (
         <div className={classes.root}>
             <AppBar color="primary">
                 <Toolbar className="top-container">
-                    {/* <Button>
-                        <ArrowBackIcon size="large" className={classes.arrow} onClick={handleBack}/>
-                    </Button> */}
+                    {/* {window.location.pathname.slice(0, 5) === '/user' ? 
+                    <Button onClick={() => history.goBack()}>
+                        <ArrowBackIcon size="large" className={classes.arrow}/>
+                    </Button> : null} */}
                     <img src="/images/osccircle.png" width="50" height="50" alt="Oscara Logo"/>
                     <Typography variant="h4" className={classes.title}>
                         SCARA

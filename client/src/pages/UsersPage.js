@@ -61,7 +61,9 @@ function UsersPage() {
                 <Grid item sm={2}>  
                 </Grid>
                 <Grid item sm={12}>  
-                    {recentUserPosts}
+                    <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+                        {recentUserPosts}
+                    </ul>
                 </Grid>
                 <Grid item sm={2}>  
                 </Grid>
