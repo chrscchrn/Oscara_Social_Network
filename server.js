@@ -112,8 +112,7 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
               .then( responseTwo => {
                 // console.log(responseTwo, "|| STEP 4 ||");
                 res.json(responseTwo);
-              })
-              .catch(err => {
+              }).catch(err => {
                 console.log(err);
                 res.status(500);
                 res.json(err);
