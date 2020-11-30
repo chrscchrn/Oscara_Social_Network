@@ -9,7 +9,6 @@ const multer = require('multer');
 
 // ** del uploads before pushing to heroku **
 
-// Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
@@ -18,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-//USER ROUTES ============================================================= USER ROUTES
+//User routes
 app.post("/api/adduser", (req, res) => {
   db.User.create({
     email: req.body.email,
@@ -252,16 +251,14 @@ app.delete("/api/posts/:id", (req, res) => {
 
 //Image storage config
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads')
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname)
-  }
-});
-
+    destination: (req, file, cb) => {
+      cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname)
+    }
+  });
 const uploads = multer({ storage });
-
 app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
   let imageData; 
