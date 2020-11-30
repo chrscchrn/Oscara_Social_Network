@@ -51,7 +51,6 @@ function Newsfeed(props) {
     };
 
     function HandleLoadMorePosts() {
-        console.log("handle", allPosts)
         if (allPosts.length === postsToShow.length) {
             setLoadMoreButton( <Button disabled/> );
         }  else {
@@ -91,7 +90,9 @@ function Newsfeed(props) {
                 alignItems="center"
             >
                 <Grid item sm={12}>  
-                    {recentPosts}
+                    <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+                        {recentPosts}
+                    </ul>    
                 </Grid>
             </Grid>
             <Grid 

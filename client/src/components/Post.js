@@ -71,13 +71,22 @@ function Post(props) {
     const [ stateLikeCount, setStateLikeCount ] = React.useState();
     const [ stateReplyCount, setStateReplyCount ] = React.useState();
     const [ replies, setReplies ] = React.useState([]);
-    const [ liked, setLiked ] = React.useState(false);
     const [ open, setOpen ] = React.useState(false);
     const [ showReplies, setShowReplies ] = React.useState(false);
     
     const container = React.useRef(null);
     const handleShowReplies = () => {
         setShowReplies(!showReplies);
+    }
+    const handleDelete = () => {
+        Axios.delete("/api/posts/" + id)
+            .then(res => {
+                alert("Post Deleted");
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+                alert("error deleting post");
+            });
     }
 
     var timeDate = new Date(createdAt);
@@ -90,12 +99,12 @@ function Post(props) {
     React.useEffect(() => {
         if (stateReplyCount > 0) {
             Axios.get("/api/reply/" + id)
-            .then(res => {
-                // console.log(res);
-                setReplies(res.data);  
-            }).catch(err => {
-                console.log(err);
-            }) 
+                .then(res => {
+                    // console.log(res);
+                    setReplies(res.data);  
+                }).catch(err => {
+                    console.log(err);
+                }) 
         }
     }, [stateReplyCount]);
     
@@ -116,15 +125,11 @@ function Post(props) {
             console.log(err);
             alert("error liking post", err);
         });
-        setLiked(true);
     }
     function updateReplyCount() {
         let replyNum = stateReplyCount;
         replyNum += 1;
         setStateReplyCount(replyNum);
-    }
-    function handleDelete() {
-        alert("no");
     }
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -155,10 +160,10 @@ function Post(props) {
     ) : null;
 
     return (
-        <>
+        <li key={id}>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success">
-                    You've already liked this post!
+                    You've already liked this post
                 </Alert>
             </Snackbar>
             <Card className={classes.card} raised>
@@ -169,9 +174,9 @@ function Post(props) {
                     alignItems="center"
                 >
                     {otherUser ? 
-                    <Avatar alt={image} src={"../" + image} className={classes.avatar}/>
+                    <Avatar alt={image} src={"../" + image} className={classes.avatar} key={image}/>
                     :
-                    <Avatar alt={image} src={image} className={classes.avatar}/>}
+                    <Avatar alt={image} src={image} className={classes.avatar} key={image}/>}
                 </Grid>
 
                 <Grid
@@ -209,12 +214,13 @@ function Post(props) {
                 >   
                     {window.location.pathname === '/profile' ? <DeletePost handleDelete={handleDelete}/> : <p></p>}
                     <form onSubmit={like} id={id} key={id}>
-                        <Button type="submit" className={classes.button} color="primary" key={id}>
+                        <Button type="submit" className={classes.button + " lock"} color="primary" key={id}>
                             <h2>
                                 {stateLikeCount}
                             </h2>
                             
-                            {liked ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color="primary"/>}
+                            <FavoriteIcon color="primary" className="icon-lock"/>
+                            <FavoriteBorderIcon color="primary" className="icon-unlock"/>
                         </Button>
                     </form>
                     <TransitionComment 
@@ -239,7 +245,7 @@ function Post(props) {
                 I think that there should be a view replies button that will present the replies in a tiny card under the post.
                 Also, the feedback is already there so right when a user replies to a post we can trigger the view comments section!
             */}
-        </>
+        </li>
     )
 }
 

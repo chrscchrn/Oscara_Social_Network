@@ -230,6 +230,34 @@ app.get("/api/posts/:email", (req, res) => {
   });
 });
 
+app.delete("/api/posts/:id", (req, res) => {
+  //del replies first
+  db.Reply.destroy({
+    where: {
+      PostId: req.params.id,
+    }
+  }).then(dbReplies => {
+    console.log(dbReplies);
+    res.json(dbReplies);
+    db.Post.destroy({
+      where: {
+        id: req.params.id,
+      }
+    }).then(dbPost => {
+      console.log(dbPost);
+      res.json(dbPost);
+    }).catch(err => {
+      console.log(err);
+      res.status(400);
+      res.json(err);
+    })
+  }).catch(err => {
+    console.log(err);
+    res.status(400);
+    res.json(err);
+  })
+})
+
 //Image storage config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

@@ -5,6 +5,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Button, Grid, TextField } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -70,10 +71,11 @@ const useStyles = makeStyles((theme) => ({
 
     return (
         <div>
-            <Button type="button" color="primary" onClick={handleOpen}>
+            <Button type="button" color="primary" onClick={handleOpen} className="lock">
                 <h2>
                     {replyCount}
-                    <ChatIcon color="primary"/>
+                    <ChatIcon color="primary" className="icon-lock"/>
+                    <ChatBubbleOutlineIcon color="primary" className="icon-unlock"/>
                 </h2>
             </Button>
             <Modal

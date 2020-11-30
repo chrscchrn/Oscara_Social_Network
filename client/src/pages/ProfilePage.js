@@ -55,7 +55,9 @@ function ProfilePage() {
                 <Grid item sm={2}>  
                 </Grid>
                 <Grid item sm={12}>  
-                    {recentUserPostsMarkup}
+                    <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+                        {recentUserPostsMarkup}
+                    </ul>
                 </Grid>
                 <Grid item sm={2}>  
                 </Grid>

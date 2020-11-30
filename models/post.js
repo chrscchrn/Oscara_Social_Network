@@ -35,6 +35,14 @@ module.exports = function (sequelize, DataTypes) {
         },
         targetKey: "email"
       });
+
+      Post.hasMany(models.Like, {
+        onDelete: "cascade"
+      });
+
+      Post.hasMany(models.Reply, {
+        onDelete: "cascade"
+      });
     };
 
     return Post;
