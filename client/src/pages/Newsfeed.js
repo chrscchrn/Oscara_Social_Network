@@ -5,11 +5,11 @@ import axios from 'axios';
 import { Button, Grid } from '@material-ui/core';
 import Post from '../components/Post'
 
-
 function Newsfeed(props) {
 
-    let [ loadMoreButton, setLoadMoreButton ] = React.useState(
-        <Button style={{marginBottom: "120px", 
+    const [ loadMoreButton, setLoadMoreButton ] = React.useState(
+        <Button style={{
+            marginBottom: "120px", 
             marginTop: "50px", 
             color: "#3d4647", 
             backgroundColor: "#c8c1c199"}}
@@ -20,46 +20,45 @@ function Newsfeed(props) {
     );
 
     const postsPerPage = 15;
-    let arrayForHoldingPosts = [];
+    // let arrayForHoldingPosts = [];
 
     const [ allPosts, setAllPosts ] = React.useState([]);
     const [ postsToShow, setPostsToShow ] = React.useState([]);
-    const [ next, setNext ] = React.useState(15);
-    
+    const [ next, setNext ] = React.useState(postsPerPage);
+
     React.useEffect(() => {
         axios.get('/api/posts')
-        .then(res => {
-            setAllPosts(res.data)
-        })
-        .catch(err => console.log(err));
-
+            .then(res => {
+                setAllPosts(res.data)
+            })
+            .catch(err => console.log(err));
         axios.get('/api/images/all')
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => console.log(err));
-    }, [])
+            .then(res => {
+                console.log("imgs");
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     React.useEffect(() => {
         loopWithSlice(0, postsPerPage);
-    }, [allPosts])
+    }, [allPosts]);
     
     const loopWithSlice = (start, end) => {
         const slicedPosts = allPosts.slice(start, end);
-        arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
-        setPostsToShow(arrayForHoldingPosts);
+        // arrayForHoldingPosts = [];
+        setPostsToShow(...postsToShow, slicedPosts);
+        console.log(allPosts, "Hello?");
     };
-    console.log(postsToShow)
-    function HandleLoadMorePosts() {
-        loopWithSlice(0, next + postsPerPage);
-        setNext(next + postsPerPage);
-    }
 
-    // React.useEffect(() => {
-    //     if (allPosts.length === postsToShow.length && postsToShow.length > 0) {
-    //         setLoadMoreButton('You\'ve looked at all the posts!');
-    //     }
-    // }, [HandleLoadMorePosts])
+    function HandleLoadMorePosts() {
+        console.log("handle", allPosts)
+        if (allPosts.length === postsToShow.length) {
+            setLoadMoreButton( <Button disabled/> );
+        }  else {
+            loopWithSlice(0, next + postsPerPage);
+            setNext(next + postsPerPage);
+        }
+    }
 
     let { handle, images, imageName } = props;
     let recentPosts = postsToShow ? (

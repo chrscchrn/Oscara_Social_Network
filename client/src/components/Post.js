@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import ViewComments from './viewComments';
 import TransitionComment from './TransitionComment';
 import DeletePost from './DeletePost';
 import Axios from 'axios';
@@ -15,18 +14,31 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Portal from '@material-ui/core/Portal';
 
 const styles = {
     card: {
         '& > *': {
             width: '55%',
-          },
+        },
         padding: 5,
         display: 'flex',
         margin: "0 auto",
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 8,
+        marginTop: 8,
         background: "rgb(240, 245, 245)",
+    },
+    replyCard: {
+        width: "35%",
+        paddingLeft: "13%",
+        paddingRight: "10%",
+        textAlignLast: "start",
+        marginTop: 5
+    },
+    ul: {
+        paddingInlineStart: "0px",
+        listStyleType: "none",
+        textAlign: "-webkit-center",
     },
     image: {
         borderRadius: "180px",
@@ -37,11 +49,13 @@ const styles = {
     content: {
         width: "-webkit-fill-available",
         minWidth: 120,
+        maxWidth: 240,
+        padding: 0,
+        // alignItems: "justify"
     },
     button: {
         width: "7em",
         height: "5em",
-        marginTop: "2.5em",
         padding: "1em, 2em",
         overflow: "hidden",
     },
@@ -49,20 +63,22 @@ const styles = {
         padding: 5,
         textDecoration: "none",
     },
-    large: {
-        width: "200px",
-        height: "200px",
-    },
 }
 
 function Post(props) {
-
-    const { otherUser, currentUser, classes, userHandle, post : { body, createdAt, image, handle, likeCount, id, replyCount} } = props;
+//userHandle
+    const { otherUser, currentUser, classes, post : { body, createdAt, image, handle, likeCount, id, replyCount} } = props;
     const [ stateLikeCount, setStateLikeCount ] = React.useState();
     const [ stateReplyCount, setStateReplyCount ] = React.useState();
     const [ replies, setReplies ] = React.useState([]);
     const [ liked, setLiked ] = React.useState(false);
     const [ open, setOpen ] = React.useState(false);
+    const [ showReplies, setShowReplies ] = React.useState(false);
+    
+    const container = React.useRef(null);
+    const handleShowReplies = () => {
+        setShowReplies(!showReplies);
+    }
 
     var timeDate = new Date(createdAt);
     let when = timeDate.getMonth() + "-" + (timeDate.getDate()) + "-" + timeDate.getFullYear();
@@ -71,7 +87,6 @@ function Post(props) {
         setStateLikeCount(likeCount);
         setStateReplyCount(replyCount);
     }, []);
-
     React.useEffect(() => {
         if (stateReplyCount > 0) {
             Axios.get("/api/reply/" + id)
@@ -103,99 +118,127 @@ function Post(props) {
         });
         setLiked(true);
     }
-
     function updateReplyCount() {
-        let replies = stateReplyCount;
-        replies += 1;
-        setStateReplyCount(replies);
+        let replyNum = stateReplyCount;
+        replyNum += 1;
+        setStateReplyCount(replyNum);
     }
-
     function handleDelete() {
-        //DEL POST
+        alert("no");
     }
-
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setOpen(false);
     };
+    
+    let replyComponents = replies.length > 0 ? replies.map(reply => 
+        <li key={`${reply.id}:${reply.PostId}`}>
+            <Card className={classes.replyCard}>
+                <h3>
+                    {reply.handle}
+                </h3>
+                <Typography className={classes.typography} variant="body1">
+                    <strong>{reply.body}</strong>
+                </Typography>
+                <Typography className={classes.typography} variant="body2" color="textSecondary">
+                    <strong>{reply.createdAt}</strong>
+                </Typography>
+            </Card>
+        </li> 
+    ) : null;
 
     return (
-        <Card className={classes.card} raised>
+        <>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="info">
-                You've already liked this post!
+                <Alert onClose={handleClose} severity="success">
+                    You've already liked this post!
                 </Alert>
             </Snackbar>
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-            >
-                {otherUser ? 
-                <Avatar alt={image} src={"../" + image} className={classes.large}/>
-                :
-                <Avatar alt={image} src={image} className={classes.large}/>}
-            </Grid>
+            <Card className={classes.card} raised>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    {otherUser ? 
+                    <Avatar alt={image} src={"../" + image} className={classes.avatar}/>
+                    :
+                    <Avatar alt={image} src={image} className={classes.avatar}/>}
+                </Grid>
 
-            <Grid
-                container
-                direction="column"
-                justify="space-around"
-                alignItems="baseline"
-            >
-                <CardContent className={classes.content}>
-                    <Link to={"/user/" + handle} className={classes.typography}>
-                        <Typography variant="h5" color="textPrimary">
-                            <strong id="one-point-one-rem">{handle}</strong>
+                <Grid
+                    container
+                    direction="column"
+                    justify="space-around"
+                    alignItems="stretch"
+                >
+                    <CardContent className={classes.content}>
+                        <Link to={"/user/" + handle} className={classes.typography}>
+                            <Typography variant="h5" color="textPrimary">
+                                <strong id="one-point-one-rem">{handle}</strong>
+                            </Typography>
+                        </Link>
+                        <Typography className={classes.typography} variant="body1">
+                            <strong>{body}</strong>
                         </Typography>
-                    </Link>
-                    <Typography className={classes.typography} variant="body1">
-                        <strong>
-                            {body}
-                        </strong>
-                    </Typography>
-                    <br/><br/>
-                    <Typography className={classes.typography} variant="body2" color="textSecondary">
-                        <strong>
-                            {when}  
-                        </strong>
-                    </Typography>
-                    {/* <ViewComments replyCount={stateReplyCount} /> */}
-                </CardContent>
-            </Grid>
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-            >   
-                {window.location.pathname === '/profile' ? <DeletePost handleDelete={handleDelete}/> : <p></p>}
-                <form onSubmit={like} id={id} key={id}>
-                    <Button type="submit" className={classes.button} color="primary" key={id}>
-                        <h2>
-                            {stateLikeCount} 
-                        </h2>
-                        {liked ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color="primary"/>}
-                    </Button>
-                </form>
-                <TransitionComment 
-                    currentUser={currentUser} 
-                    postId={id} 
-                    parentReplyHandler={updateReplyCount} 
-                    replyCount={stateReplyCount} 
-                    replies={replies}
-                />
-            </Grid>
-        </Card>
+                        <Typography className={classes.typography} variant="body2" color="textSecondary">
+                            <strong>{when}</strong>
+                        </Typography>
+                        {replies.length > 0 ? 
+                            <Button type="button" onClick={handleShowReplies} color="primary">
+                                {showReplies ? 'Hide Replies' : "Show Replies"}
+                            </Button>
+                        :
+                            null
+                        }
+                    </CardContent>
+                </Grid>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >   
+                    {window.location.pathname === '/profile' ? <DeletePost handleDelete={handleDelete}/> : <p></p>}
+                    <form onSubmit={like} id={id} key={id}>
+                        <Button type="submit" className={classes.button} color="primary" key={id}>
+                            <h2>
+                                {stateLikeCount}
+                            </h2>
+                            
+                            {liked ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color="primary"/>}
+                        </Button>
+                    </form>
+                    <TransitionComment 
+                        currentUser={currentUser} 
+                        postId={id} 
+                        parentReplyHandler={updateReplyCount} 
+                        replyCount={stateReplyCount} 
+                        replies={replies}
+                    />
+                </Grid>
+            </Card>
+            {showReplies ? (
+                <Portal container={container.current}>
+                    <ul className={classes.ul}>
+                        {replyComponents}
+                    </ul>
+                </Portal>
+            ) : null}
+            <div className={classes.alert} ref={container} />
+            {/*     
+                I like the idea of the pop up but it should deter the user away from the screen.
+                I think that there should be a view replies button that will present the replies in a tiny card under the post.
+                Also, the feedback is already there so right when a user replies to a post we can trigger the view comments section!
+            */}
+        </>
     )
-    
 }
 
 export default withStyles(styles)(Post);

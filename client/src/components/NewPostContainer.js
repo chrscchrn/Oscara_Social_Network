@@ -42,10 +42,8 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden",
     },
     image: {
-        // borderRadius: "180px",
         maxHeight: "200px",
         maxWidth: "200px",
-        // objectFit: "cover",
     },
     typography: {
         padding: 5,
@@ -134,14 +132,12 @@ function NewPostContainer(props) {
                     justify="center"
                     alignItems="center"
                     sm={4}
-                    style={{height: "200px", width: "200px"}}
                 >   
                     <Avatar 
                         src={configureImage(props.imageName)} 
                         className={classes.image + " image"} 
                         key={props.imageName} 
                         alt={props.imageName + "'s Profile Picture"}
-                        style={{height: "200px", width: "200px"}}
                     />
                 </Grid>        
 

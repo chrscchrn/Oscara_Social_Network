@@ -37,6 +37,24 @@ body {
   width: 100px;
 }
 
+.MuiAvatar-img {
+  object-fit: cover;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.MuiAvatar-root.MuiAvatar-circle {
+  height: inherit;
+  width: inherit;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 5px;
+}
+
+.MuiTypography-root {
+  word-break: break-word;
+}
+
 #one-point-one-rem:hover {
   color: #aa1836;
   text-decoration: underline;

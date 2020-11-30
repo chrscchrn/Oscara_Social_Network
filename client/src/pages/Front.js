@@ -22,9 +22,7 @@ export default function Front() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     
     useEffect(() => {
-        console.log(user)
         if (isAuthenticated) {
-            console.log('hello?', user.email)
             axios.get('/api/user/' + user.email)
             .then(res => {
                 if (res.data.email !== null) {

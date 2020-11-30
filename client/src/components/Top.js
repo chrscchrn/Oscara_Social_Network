@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Typography, Toolbar, Button, Link } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import LoginButton from './LoginButton';
@@ -36,9 +36,9 @@ export default function Top() {
         <div className={classes.root}>
             <AppBar color="primary">
                 <Toolbar className="top-container">
-                    <Button>
+                    {/* <Button>
                         <ArrowBackIcon size="large" className={classes.arrow} onClick={handleBack}/>
-                    </Button>
+                    </Button> */}
                     <img src="/images/osccircle.png" width="50" height="50" alt="Oscara Logo"/>
                     <Typography variant="h4" className={classes.title}>
                         SCARA

@@ -20,14 +20,14 @@ if (process.env.NODE_ENV === "production") {
 
 //USER ROUTES ============================================================= USER ROUTES
 app.post("/api/adduser", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   db.User.create({
     email: req.body.email,
     handle: req.body.handle,
     bio: req.body.bio,
     location: req.body.location
   }).then((response) => {
-    console.log(response);
+    // console.log(response);
     res.status(200);
   }).catch(err => {
     console.error(err);
@@ -89,7 +89,7 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
       id: req.params.id
     }
   }).then( response => {
-    console.log(response.dataValues, "|| STEP 1 ||");
+    // console.log(response.dataValues, "|| STEP 1 ||");
     if (response.dataValues) {
       postData = response.dataValues;
       db.Like.findOne({
@@ -98,19 +98,19 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
           handle: req.params.handle,
         }
       }).then( data => {
-        console.log(data, "|| STEP 2 ||");
+        // console.log(data, "|| STEP 2 ||");
         if (!data) {
           db.Like.create({
             PostId: req.params.id,
             handle: req.params.handle,
-          }).then(result => {
-            console.log(result, "|||", postData.likeCount, "|| STEP 3 ||");
+          }).then( result => {
+            // console.log(result, "|||", postData.likeCount, "|| STEP 3 ||");
             postData.likeCount += 1;
             let values = { likeCount: postData.likeCount } 
             let selector = { where: { id: req.params.id } }
             db.Post.update(values, selector)
-              .then(responseTwo => {
-                console.log(responseTwo, "|| STEP 4 ||");
+              .then( responseTwo => {
+                // console.log(responseTwo, "|| STEP 4 ||");
                 res.json(responseTwo);
               })
               .catch(err => {
@@ -159,7 +159,7 @@ app.post("/api/reply", (req, res) => {
       PostId: req.body.postId,
     })
     .then(response => {
-      res.json(response); //update reply count on posts which is on the post table as well
+      res.json(response); 
     }).then(() => {
       postData.replyCount += 1;
       let values = { replyCount: postData.replyCount } 
