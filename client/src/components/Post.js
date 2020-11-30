@@ -135,6 +135,8 @@ function Post(props) {
         }
         setOpen(false);
     };
+
+
     
     let replyComponents = replies.length > 0 ? replies.map(reply => 
         <li key={`${reply.id}:${reply.PostId}`}>
@@ -146,7 +148,7 @@ function Post(props) {
                     <strong>{reply.body}</strong>
                 </Typography>
                 <Typography className={classes.typography} variant="body2" color="textSecondary">
-                    <strong>{reply.createdAt}</strong>
+                    <strong>{new Date(reply.createdAt).getMonth() + "-" + new Date(reply.createdAt).getDate() + "-" + new Date(reply.createdAt).getFullYear()}</strong>
                 </Typography>
             </Card>
         </li> 

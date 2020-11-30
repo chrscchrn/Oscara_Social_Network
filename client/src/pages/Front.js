@@ -41,7 +41,7 @@ export default function Front() {
                 });
             });
         }
-    }, [isAuthenticated]);    
+    }, [isAuthenticated]);
     
     useEffect(() => {
         //get profile image here then make a bool to see if they uploaded one yet
