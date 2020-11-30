@@ -240,11 +240,6 @@ function Post(props) {
                 </Portal>
             ) : null}
             <div className={classes.alert} ref={container} />
-            {/*     
-                I like the idea of the pop up but it should deter the user away from the screen.
-                I think that there should be a view replies button that will present the replies in a tiny card under the post.
-                Also, the feedback is already there so right when a user replies to a post we can trigger the view comments section!
-            */}
         </li>
     )
 }
