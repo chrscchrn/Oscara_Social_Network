@@ -133,8 +133,9 @@ function NewPostContainer(props) {
                     alignItems="center"
                     sm={4}
                 >   
+                {console.log(props)}
                     <Avatar 
-                        src={configureImage(props.imageName)} 
+                        src={props.imageName} 
                         className={classes.image + " image"} 
                         key={props.imageName} 
                         alt={props.imageName + "'s Profile Picture"}
