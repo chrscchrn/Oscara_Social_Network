@@ -1,15 +1,25 @@
 {
-  "short_name": "oscara",
-  "name": "Oscara, the New Social Network",
+  "short_name": "Oscara",
+  "name": "Oscara Social Network",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "48x48",
       "type": "image/png"
+    },
+    {
+      "src": "images/osc.png",
+      "sizes": "612x792",
+      "type": "image/png"
+    },
+    {
+      "src": "images/osccircle.png",
+      "sizes": "516x516",
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
-  "display": "standalone",
+  "display": "minimal-ui",
   "theme_color": "#aa1836",
   "background_color": "#1f5e63"
 }
