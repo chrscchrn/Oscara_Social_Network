@@ -2,7 +2,6 @@ import React from 'react'
 import { useHistory } from "react-router-dom";
 import { AppBar, Typography, Toolbar, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -41,9 +40,8 @@ export default function Top() {
                     <Button onClick={() => history.goBack()}>
                         <ArrowBackIcon size="large" className={classes.arrow}/>
                     </Button> : null} */}
-                    <img src="/images/osccircle.png" width="50" height="50" alt="Oscara Logo"/>
                     <Typography variant="h4" className={classes.title}>
-                        SCARA
+                        OSCARA
                     </Typography>
                     {!isLoading && isAuthenticated ? <LogoutButton className={classes.logout} color="inherit"/> :
                     !isLoading && !isAuthenticated ? <LoginButton className={classes.login} color="inherit"/> : null}

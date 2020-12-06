@@ -229,17 +229,30 @@ app.delete("/api/posts/:id", (req, res) => {
     }
   }).then(dbReplies => {
     console.log(dbReplies);
-    db.Post.destroy({
+    // destroy likes as well
+    db.Like.destroy({
       where: {
-        id: req.params.id,
+        PostId: req.params.id,
       }
-    }).then(dbPost => {
-      console.log(dbPost);
-      res.json(dbPost);
+    }).then(res2 => {
+      console.log(res2);
+      res.json(res2);
+      db.Post.destroy({
+        where: {
+          id: req.params.id,
+        }
+      }).then(dbPost => {
+        console.log(dbPost);
+        res.json(dbPost);
+      }).catch(err => {
+        console.log(err);
+        res.status(400);
+        res.json(err);
+      });
     }).catch(err => {
       console.log(err);
       res.status(400);
-      res.json(err);
+      res.json(err);  
     })
   }).catch(err => {
     console.log(err);
@@ -247,6 +260,8 @@ app.delete("/api/posts/:id", (req, res) => {
     res.json(err);
   })
 })
+
+
 
 //Image storage config
 const storage = multer.diskStorage({

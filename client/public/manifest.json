@@ -6,16 +6,6 @@
       "src": "favicon.ico",
       "sizes": "48x48",
       "type": "image/png"
-    },
-    {
-      "src": "images/osc.png",
-      "sizes": "612x792",
-      "type": "image/png"
-    },
-    {
-      "src": "images/osccircle.png",
-      "sizes": "516x516",
-      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
