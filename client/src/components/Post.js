@@ -26,7 +26,7 @@ const styles = {
         margin: "0 auto",
         marginBottom: 8,
         marginTop: 8,
-        background: "rgb(240, 245, 245)",
+        // background: "rgb(240, 245, 245)",
     },
     replyCard: {
         width: "35%",
