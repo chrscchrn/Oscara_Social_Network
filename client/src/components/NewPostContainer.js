@@ -95,9 +95,9 @@ function NewPostContainer(props) {
         }
     }
 
-    const configureImage = image => {
-        return API_URL + "/" + image;
-    }
+    // const configureImage = image => {
+    //     return API_URL + "/" + image;
+    // }
 
     const BreakpointHelper = () => {
         const theme = useTheme();
