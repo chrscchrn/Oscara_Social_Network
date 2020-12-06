@@ -229,7 +229,6 @@ app.delete("/api/posts/:id", (req, res) => {
     }
   }).then(dbReplies => {
     console.log(dbReplies);
-    res.json(dbReplies);
     db.Post.destroy({
       where: {
         id: req.params.id,
