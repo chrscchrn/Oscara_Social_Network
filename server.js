@@ -229,14 +229,12 @@ app.delete("/api/posts/:id", (req, res) => {
     }
   }).then(dbReplies => {
     console.log(dbReplies);
-    // destroy likes as well
     db.Like.destroy({
       where: {
         PostId: req.params.id,
       }
     }).then(res2 => {
       console.log(res2);
-      res.json(res2);
       db.Post.destroy({
         where: {
           id: req.params.id,
