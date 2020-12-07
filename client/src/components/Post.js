@@ -147,7 +147,7 @@ function Post(props) {
                 <Grid
                     container
                     direction="row"
-                    justify="space-evenly"
+                    justify="center"
                     alignItems="center"
                 >
                     <Grid item xs={4} sm={4}>
