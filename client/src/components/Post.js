@@ -145,10 +145,11 @@ function Post(props) {
         <li key={`${reply.id}:${reply.PostId}`}>
             <Card className={classes.replyCard}>
                 <Grid
-                container
-                direction="row"
-                justify="space-around"
-                alignItems="center">
+                    container
+                    direction="row"
+                    justify="space-around"
+                    alignItems="center"
+                >
                     <Grid item xs={4} sm={4}>
                         <img src={reply.imageName} alt={reply.handle} className="replyAvatar"/>
                     </Grid>

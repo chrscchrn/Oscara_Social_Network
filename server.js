@@ -145,6 +145,7 @@ app.post("/api/reply", (req, res) => {
     }
   }).then(postInfo => {
     postData = postInfo.dataValues;
+    console.log(req.body.imageName);
     db.Reply.create({
       body: req.body.body,
       handle: req.body.handle,

@@ -53,8 +53,8 @@ export default function TransitionsModal(props) {
     }
 
     let handleReply = e => {
-        console.log(imageName)
         if (currentUser && imageName) {
+            console.log(imageName);
             axios.post("/api/reply", {
                 body: replyBody,
                 handle: currentUser,
