@@ -148,10 +148,8 @@ app.post("/api/reply", (req, res) => {
     db.Reply.create({
       body: req.body.body,
       handle: req.body.handle,
+      imageName: req.body.imageName,
       PostId: req.body.postId,
-    })
-    .then(response => {
-      res.json(response); 
     }).then(() => {
       postData.replyCount += 1;
       let values = { replyCount: postData.replyCount } 

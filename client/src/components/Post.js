@@ -29,9 +29,9 @@ const styles = {
         // background: "rgb(240, 245, 245)",
     },
     replyCard: {
-        width: "35%",
-        paddingLeft: "13%",
-        paddingRight: "10%",
+        width: "50%",
+        paddingLeft: "5%",
+        paddingRight: "5%",
         textAlignLast: "start",
         marginTop: 5
     },
@@ -51,7 +51,6 @@ const styles = {
         minWidth: 120,
         maxWidth: 240,
         padding: 0,
-        // alignItems: "justify"
     },
     button: {
         width: "7em",
@@ -67,7 +66,7 @@ const styles = {
 
 function Post(props) {
 //userHandle
-    const { otherUser, currentUser, classes, post : { body, createdAt, image, handle, likeCount, id, replyCount} } = props;
+    const { imageName, otherUser, currentUser, classes, post : { body, createdAt, image, handle, likeCount, id, replyCount} } = props;
     const [ stateLikeCount, setStateLikeCount ] = React.useState();
     const [ stateReplyCount, setStateReplyCount ] = React.useState();
     const [ replies, setReplies ] = React.useState([]);
@@ -100,7 +99,6 @@ function Post(props) {
         if (stateReplyCount > 0) {
             Axios.get("/api/reply/" + id)
                 .then(res => {
-                    // console.log(res);
                     setReplies(res.data);  
                 }).catch(err => {
                     console.log(err);
@@ -146,15 +144,26 @@ function Post(props) {
     let replyComponents = replies.length > 0 ? replies.map(reply => 
         <li key={`${reply.id}:${reply.PostId}`}>
             <Card className={classes.replyCard}>
-                <h3>
-                    {reply.handle}
-                </h3>
-                <Typography className={classes.typography} variant="body1">
-                    <strong>{reply.body}</strong>
-                </Typography>
-                <Typography className={classes.typography} variant="body2" color="textSecondary">
-                    <strong>{new Date(reply.createdAt).getMonth() + "-" + new Date(reply.createdAt).getDate() + "-" + new Date(reply.createdAt).getFullYear()}</strong>
-                </Typography>
+                <Grid
+                container
+                direction="row"
+                justify="space-around"
+                alignItems="center">
+                    <Grid item xs={4} sm={4}>
+                        <img src={reply.imageName} alt={reply.handle} className="replyAvatar"/>
+                    </Grid>
+                    <Grid item xs={8} sm={8}>
+                        <Typography className={classes.typography} variant="h6">
+                            <strong>{reply.handle}</strong>
+                        </Typography>
+                        <Typography className={classes.typography} variant="body1">
+                            <strong>{reply.body}</strong>
+                        </Typography>
+                        <Typography className={classes.typography} variant="body2" color="textSecondary">
+                            <strong>{new Date(reply.createdAt).getMonth() + "-" + new Date(reply.createdAt).getDate() + "-" + new Date(reply.createdAt).getFullYear()}</strong>
+                        </Typography>
+                    </Grid>
+                </Grid>    
             </Card>
         </li> 
     ) : null;
@@ -229,6 +238,7 @@ function Post(props) {
                         parentReplyHandler={updateReplyCount} 
                         replyCount={stateReplyCount} 
                         replies={replies}
+                        imageName={imageName}
                     />
                 </Grid>
             </Card>

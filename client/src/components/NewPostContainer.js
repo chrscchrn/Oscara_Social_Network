@@ -95,9 +95,20 @@ function NewPostContainer(props) {
         }
     }
 
-    // const configureImage = image => {
-    //     return API_URL + "/" + image;
-    // }
+    const configureImage = image => {
+        return API_URL + "/" + image;
+    }
+
+    function imageExists(image_url){
+
+        var http = new XMLHttpRequest();
+    
+        http.open('HEAD', image_url, false);
+        http.send();
+    
+        return http.status != 404;
+    
+    }
 
     const BreakpointHelper = () => {
         const theme = useTheme();
@@ -122,7 +133,16 @@ function NewPostContainer(props) {
             );
         }
     }
-    
+    let avatar = imageExists(configureImage(props.imageName)) ? 
+    <Avatar 
+        src={props.imageName} 
+        className={classes.image + " image"} 
+        key={props.imageName} 
+        alt={props.handle + "'s Profile Picture"}
+        /> 
+        :
+        null // write funciton that waits 1 second and renders again
+    ;
     return (
         <div className={classes.root}>
             <Card className={classes.card} raised>
@@ -133,13 +153,7 @@ function NewPostContainer(props) {
                     alignItems="center"
                     sm={4}
                 >   
-                {console.log(props)}
-                    <Avatar 
-                        src={props.imageName} 
-                        className={classes.image + " image"} 
-                        key={props.imageName} 
-                        alt={props.imageName + "'s Profile Picture"}
-                    />
+                    {avatar}
                 </Grid>        
 
                 <Grid

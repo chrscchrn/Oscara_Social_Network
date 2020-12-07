@@ -61,7 +61,7 @@ function Newsfeed(props) {
 
     let { handle, images, imageName } = props;
     let recentPosts = postsToShow ? (
-    postsToShow.map(post => <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle}/>)
+    postsToShow.map(post => <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle} imageName={imageName}/>)
     ) : "No Posts Yet!";
 
     return (

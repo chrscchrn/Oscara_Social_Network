@@ -52,7 +52,12 @@ body {
 }
 
 .MuiTypography-root {
-  word-break: break-word;
+  word-break: break-word
+}
+
+.replyAvatar {
+  max-height: 60px;
+  border-radius: 5px;
 }
 
 #one-point-one-rem:hover {

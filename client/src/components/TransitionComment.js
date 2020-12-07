@@ -33,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
     }
     }));
 
-    export default function TransitionsModal(props) {
+export default function TransitionsModal(props) {
     const classes = useStyles();
     const [ open, setOpen ] = React.useState(false);
     const [ replyBody, setReplyBody ] = React.useState({body: ""});
 
-    const { currentUser, postId, parentReplyHandler, replyCount } = props;
+    const { currentUser, postId, parentReplyHandler, replyCount, imageName } = props;
 
     const handleOpen = () => {
         setOpen(true);
@@ -53,10 +53,12 @@ const useStyles = makeStyles((theme) => ({
     }
 
     let handleReply = e => {
-        if (currentUser) {
+        console.log(imageName)
+        if (currentUser && imageName) {
             axios.post("/api/reply", {
                 body: replyBody,
                 handle: currentUser,
+                imageName: imageName,
                 postId: postId,
             }).then(res => {
                 console.log(res);
