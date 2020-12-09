@@ -14,15 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   if (process.env.NODE_ENV === 'production') {
-      if (req.headers['x-forwarded-proto'] !== 'https') {
-        return res.redirect('https://' + req.headers.host + req.url);
-      } else {
-        next();
-      }
-  } else {
-    return next();
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      console.log('https://' + req.headers.host + req.url);
+      return res.redirect('https://' + req.headers.host + req.url);
+    }
   }
 });
 
