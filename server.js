@@ -16,12 +16,14 @@ app.use(express.static('uploads'));
 
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === 'production') {
-      if (req.headers['x-forwarded-proto'] !== 'https')
-          return res.redirect('https://' + req.headers.host + req.url);
-      else
-          return next();
-  } else
-      return next();
+      if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect('https://' + req.headers.host + req.url);
+      } else {
+        next();
+      }
+  } else {
+    return next();
+  }
 });
 
 function shouldCompress (req, res) {
