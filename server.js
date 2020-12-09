@@ -14,13 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
 
-app.use((req, res) => {
-  if (process.env.NODE_ENV === 'production') {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      console.log('https://' + req.headers.host + req.url);
-      return res.redirect('https://' + req.headers.host + req.url);
-    }
+var forceSsl = (req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
+  return next();
+};
+
+app.configure(() => {      
+  if (env === 'production') app.use(forceSsl);
 });
 
 function shouldCompress (req, res) {
