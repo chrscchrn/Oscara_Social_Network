@@ -1,3 +1,4 @@
+var compression = require("compression");
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -8,10 +9,20 @@ const fs = require("fs");
 const multer = require('multer');
 
 // ** del uploads before pushing to heroku **
-
+app.use(compression({ filter: shouldCompress }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
+
+function shouldCompress (req, res) {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false
+  }
+ 
+  // fallback to standard filter function
+  return compression.filter(req, res)
+}
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -339,7 +350,6 @@ app.get("/api/user/image/:email", (req, res) => {
 
 //get ALL images and write them to the uploads dir
 app.get("/api/images/all", (req, res) => {
-  console.log("|||get all images|||")
   db.Image.findAll({})
     .then(blob => {
       const userUploadsDirectory = path.join('uploads');
@@ -350,7 +360,6 @@ app.get("/api/images/all", (req, res) => {
             fs.writeFileSync( __dirname + "/uploads/" + blob[i].dataValues.name, blob[i].dataValues.data);
           }
         }
-        console.log(files);
         return res.json({ data: files });
       })
   }).catch(err => {
