@@ -1,6 +1,6 @@
-var compression = require("compression");
 const express = require("express");
 const app = express();
+var compression = require("compression");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
@@ -14,16 +14,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
 
-var forceSsl = (req, res, next) => {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  return next();
-};
+//purchase ssl cert for http => https 
+// var forceSsl = (req, res, next) => {
+//   if (req.headers['x-forwarded-proto'] !== 'https') {
+//       return res.redirect(['https://', req.get('Host'), req.url].join(''));
+//   }
+//   return next();
+// };
 
-app.configure(() => {      
-  if (env === 'production') app.use(forceSsl);
-});
+// app.configure(() => {      
+//   if (env === 'production') app.use(forceSsl);
+// });
 
 function shouldCompress (req, res) {
   if (req.headers['x-no-compression']) return false;
