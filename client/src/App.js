@@ -5,9 +5,6 @@ import Loading from "./components/Loading";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
 import NoMatch from "./pages/NoMatch";
-import ProfilePage from "./pages/ProfilePage";
-import Front from "./pages/Front";
-import UsersPage from "./pages/UsersPage";
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
@@ -16,6 +13,10 @@ import "./App.css";
 import { Container } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles/';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+
+const ProfilePage = React.lazy(() => import("./pages/ProfilePage"));
+const Front = React.lazy(() => import("./pages/Front"));
+const UsersPage = React.lazy(() => import("./pages/UsersPage"));
 
 const theme = createMuiTheme({
   palette: {
@@ -41,12 +42,14 @@ class App extends Component {
           <Container maxWidth="lg">
           <Top/>
             <BrowserRouter>
-              <Switch>
-                <Route exact path="/" component={Front}/>
-                <PrivateRoute exact path="/profile" component={ProfilePage}/>
-                <PrivateRoute path="/user/" component={UsersPage}/>
-                <Route component={NoMatch} />
-              </Switch>
+              <Suspense fallback={<Loading/>}>
+                <Switch>
+                  <Route exact path="/" component={Front}/>
+                  <PrivateRoute exact path="/profile" component={ProfilePage}/>
+                  <PrivateRoute path="/user/" component={UsersPage}/>
+                  <Route component={NoMatch} />
+                </Switch>
+              </Suspense>
             </BrowserRouter>
           </Container>
       </MuiThemeProvider>

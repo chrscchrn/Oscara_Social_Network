@@ -14,18 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('uploads'));
 
-//purchase ssl cert for http => https 
-// var forceSsl = (req, res, next) => {
-//   if (req.headers['x-forwarded-proto'] !== 'https') {
-//       return res.redirect(['https://', req.get('Host'), req.url].join(''));
-//   }
-//   return next();
-// };
-
-// app.configure(() => {      
-//   if (env === 'production') app.use(forceSsl);
-// });
-
 function shouldCompress (req, res) {
   if (req.headers['x-no-compression']) return false;
   return compression.filter(req, res);
@@ -74,7 +62,6 @@ app.get("/api/userhandle/:handle", (req, res) => {
     res.json(err);
   });
 });
-
 
 //New Post
 app.post("/api/post", (req, res) => {
@@ -150,7 +137,6 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
     res.status(500);
   })
 });
-
 
 // reply to post
 app.post("/api/reply", (req, res) => {
@@ -273,8 +259,6 @@ app.delete("/api/posts/:id", (req, res) => {
     res.json(err);
   })
 })
-
-
 
 //Image storage config
 const storage = multer.diskStorage({

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
 import axios from 'axios';
 import { Button, Grid } from '@material-ui/core';
-import Post from '../components/Post'
+import Loading from "../components/Loading";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const Post = React.lazy(() => import('../components/Post'));
 
 function Newsfeed(props) {
 
@@ -20,7 +23,7 @@ function Newsfeed(props) {
     );
 
     const postsPerPage = 15;
-    // let arrayForHoldingPosts = [];
+    let arrayForHoldingPosts = [];
 
     const [ allPosts, setAllPosts ] = React.useState([]);
     const [ postsToShow, setPostsToShow ] = React.useState([]);
@@ -34,7 +37,7 @@ function Newsfeed(props) {
             .catch(err => console.log(err));
         axios.get('/api/images/all')
             .then(res => {
-                console.log("imgs");
+                console.log("images loaded");
             })
             .catch(err => console.log(err));
     }, []);
@@ -45,9 +48,8 @@ function Newsfeed(props) {
     
     const loopWithSlice = (start, end) => {
         const slicedPosts = allPosts.slice(start, end);
-        // arrayForHoldingPosts = [];
+        arrayForHoldingPosts = [];
         setPostsToShow(...postsToShow, slicedPosts);
-        console.log(allPosts, "Hello?");
     };
 
     function HandleLoadMorePosts() {
@@ -60,8 +62,12 @@ function Newsfeed(props) {
     }
 
     let { handle, images, imageName } = props;
-    let recentPosts = postsToShow ? (
-    postsToShow.map(post => <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle} imageName={imageName}/>)
+    let recentPosts = postsToShow ? ( // suspense refactor
+    postsToShow.map(post => (
+        <Suspense fallback={<CircularProgress/>}>
+            <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle} imageName={imageName}/>
+        </Suspense>
+    ))
     ) : "No Posts Yet!";
 
     return (

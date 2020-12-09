@@ -16,7 +16,6 @@ function ProfilePage() {
         if (!isLoading && isAuthenticated) {
             axios.get('/api/posts/' + user.email)
             .then(res => {
-                console.log(res);
                 setPosts({
                     posts: res.data
                 })
