@@ -30,6 +30,8 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
  - Material UI
  - JSON Web Tokens
  - Multer for uploading profile pictures
+ - Sharp for image compression
+ - React.Lazy and suspense
  - Service Worker and Manifest
 
 ## Database
