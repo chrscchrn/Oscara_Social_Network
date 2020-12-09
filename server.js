@@ -15,20 +15,13 @@ app.use(express.json());
 app.use(express.static('uploads'));
 
 function shouldCompress (req, res) {
-  if (req.headers['x-no-compression']) {
-    // don't compress responses with this request header
-    return false
-  }
- 
-  // fallback to standard filter function
-  return compression.filter(req, res)
+  if (req.headers['x-no-compression']) return false;
+  return compression.filter(req, res);
 }
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+if (process.env.NODE_ENV === "production") app.use(express.static("client/build"));
 
-//User routes
+//add User
 app.post("/api/adduser", (req, res) => {
   db.User.create({
     email: req.body.email,
@@ -89,7 +82,7 @@ app.post("/api/post", (req, res) => {
   });
 });
 
-//like Post ========================================================================== LIKES
+//like Post
 app.get("/api/post/like/:id/:handle", (req, res) => {
   let postData = {};
   db.Post.findOne({
@@ -147,7 +140,7 @@ app.get("/api/post/like/:id/:handle", (req, res) => {
 });
 
 
-//==========================================================================  reply to post
+// reply to post
 app.post("/api/reply", (req, res) => {
   let postData = {};
   db.Post.findOne({
@@ -231,7 +224,7 @@ app.get("/api/posts/:email", (req, res) => {
   });
 });
 
-//Delete post and associated replies
+//Delete post and associated replies/likes
 app.delete("/api/posts/:id", (req, res) => {
   db.Reply.destroy({
     where: {

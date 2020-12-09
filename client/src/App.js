@@ -1,13 +1,13 @@
 //https://community.auth0.com/t/react-with-auth0-spa-looses-login-after-refresh/35461
 //React Specific
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
+import Loading from "./components/Loading";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
 import NoMatch from "./pages/NoMatch";
 import ProfilePage from "./pages/ProfilePage";
 import Front from "./pages/Front";
 import UsersPage from "./pages/UsersPage";
-import Newsfeed from'./pages/Newsfeed';
 //Components
 import PrivateRoute from "./components/private";
 import Top from './components/Top';
@@ -43,7 +43,6 @@ class App extends Component {
             <BrowserRouter>
               <Switch>
                 <Route exact path="/" component={Front}/>
-                <Route exact path="/feed" component={Newsfeed}/>
                 <PrivateRoute exact path="/profile" component={ProfilePage}/>
                 <PrivateRoute path="/user/" component={UsersPage}/>
                 <Route component={NoMatch} />

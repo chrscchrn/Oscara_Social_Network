@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import FrontComponent from '../components/FrontComponent';
+import React, { useState, useEffect, Suspense } from "react";
 import Loading from "../components/Loading";
-import ImageHelper from "../components/ImageHelper";
-import Newsfeed from "./Newsfeed";
-import SignupSteps from "./SignupSteps";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
-import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+
+const FrontComponent = React.lazy(() => import('../components/FrontComponent'));
+const SignupSteps = React.lazy(() => import("./SignupSteps"));
+const AddImage = React.lazy(() => import("../components/AddImage"));
+const Newsfeed = React.lazy(() => import("./Newsfeed"));
 
 function finishSetup() {
     window.location.reload();
@@ -44,7 +42,6 @@ export default function Front() {
     }, [isAuthenticated]);
     
     useEffect(() => {
-        //get profile image here then make a bool to see if they uploaded one yet
         if (isAuthenticated && !isLoading && !userState.new_user) {
             axios.get('/api/user/image/' + user.email)
                 .then(response => {
@@ -62,30 +59,36 @@ export default function Front() {
     }, [userState.new_user]);
 
     if (!isLoading && !isAuthenticated) {
-        return <FrontComponent/>;
+        return (
+            <Suspense fallback={<Loading/>}>
+                <FrontComponent/>
+            </Suspense>
+        );
     }
     if (!isLoading && isAuthenticated && userState.new_user === true && userState.uploadedPic === false) {
-        return <SignupSteps/>;
+        return (
+            <Suspense fallback={<Loading/>}>
+                <SignupSteps/>
+            </Suspense>
+        );
     }
     if (!isLoading && isAuthenticated && userState.new_user === false && userState.uploadedPic === false) {
-        return (
-            <Card raised>
-                <Typography variant="h5" color="textPrimary" >
-                    Add a Profile Picture
-                </Typography>
-                <ImageHelper email={user.email}/>
-                <Button color="primary" onClick={finishSetup}>
-                    Done
-                </Button>
-            </Card>
+        return ( // refactor
+            <Suspense fallback={<Loading/>}>
+                <AddImage email={user.email} finishSetup={finishSetup}/>
+            </Suspense>    
         );
     }
     if (!isLoading && isAuthenticated && userState.new_user === false && userState.uploadedPic === true) {
-        return <Newsfeed 
-            images={SQLImages} 
-            imageName={imageName} 
-            handle={userState.handle}
-        />;
+        return (
+            <Suspense fallback={<Loading/>}>
+                <Newsfeed 
+                    images={SQLImages} 
+                    imageName={imageName} 
+                    handle={userState.handle}
+                />
+            </Suspense>
+        );
     }
     return <Loading/>;
 }
