@@ -7,6 +7,7 @@ const db = require("./models");
 require("dotenv").config();
 const fs = require("fs");
 const multer = require('multer');
+const sharp = require('sharp');
 
 // ** del uploads before pushing to heroku **
 app.use(compression({ filter: shouldCompress }));
@@ -272,7 +273,24 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   const image = req.file.path;
-  let imageData; 
+
+  let imageBuffer;
+  try {
+    imageBuffer = fs.readFileSync(__dirname + "/" + image);
+  } catch (error) {
+    console.log(error);
+  }
+
+  sharp(imageBuffer)
+    .resize({ height: 210 })
+    .toBuffer()
+    .then(data => {
+      fs.writeFileSync( __dirname + '/' + image, data);
+    }).catch(err => {
+      console.log(err, 'sharp error');
+    });
+
+  let imageData;
   try {
     imageData = fs.readFileSync(__dirname + "/" + image);
   } catch (error) {
