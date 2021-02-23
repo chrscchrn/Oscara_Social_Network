@@ -14,6 +14,7 @@ function ProfilePage() {
 
     useEffect(() => {
         if (!isLoading && isAuthenticated) {
+
             API.getUsersPosts(user.email)
                 .then(res => setPosts({ posts: res.data }))
                 .catch(err => console.log(err));
@@ -27,26 +28,22 @@ function ProfilePage() {
     return (
         <>
             <Grid 
-            container 
-            spacing={0}
-            direction="row" 
-            justify="space-between"
-            alignItems="flex-start"
+                container 
+                spacing={0}
+                direction="row" 
+                justify="space-between"
+                alignItems="flex-start"
             >
-                <Grid item sm={2}>  
-                </Grid>
-                <Grid item sm={12}>  
-                    <Profile />
-                </Grid>
-                <Grid item sm={2}>  
-                </Grid>
+                <Grid item sm={2}></Grid>
+                <Grid item sm={12}><Profile/></Grid>
+                <Grid item sm={2}></Grid>
             </Grid>
             <Grid 
-            container 
-            spacing={0}
-            direction="row" 
-            justify="space-between"
-            alignItems="flex-start"
+                container 
+                spacing={0}
+                direction="row" 
+                justify="space-between"
+                alignItems="flex-start"
             >
                 <Grid item sm={2}>  
                 </Grid>
@@ -59,11 +56,11 @@ function ProfilePage() {
                 </Grid>
             </Grid>
             <Grid 
-            container 
-            spacing={0}
-            direction="row" 
-            justify="center"
-            alignItems="flex-end"
+                container 
+                spacing={0}
+                direction="row" 
+                justify="center"
+                alignItems="flex-end"
             >
                 <Grid item sm={6}>    
                     <Nav />     

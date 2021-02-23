@@ -16,8 +16,8 @@ export default {
     makePost: post => {
         return axios.post('/api/posts', post);
     },
-    getUsersPosts: () => {
-        return axios.get('/api/posts/');
+    getUsersPosts: data => {
+        return axios.get('/api/posts/' + data);
     },
     removePost: id => {
         return axios.delete('/api/posts/' + id);
