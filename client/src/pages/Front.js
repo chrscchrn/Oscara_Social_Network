@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import Loading from "../components/Loading";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
+import API from "../Util/API";
 
 const FrontComponent = React.lazy(() => import('../components/FrontComponent'));
 const SignupSteps = React.lazy(() => import("./SignupSteps"));
@@ -21,7 +22,7 @@ export default function Front() {
     
     useEffect(() => {
         if (isAuthenticated) {
-            axios.get('/api/user/' + user.email)
+            API.getUserByEmail(user.email)
             .then(res => {
                 if (res.data.email !== null) {
                     setUserState({

@@ -7,6 +7,7 @@ import { Button, Grid, TextField } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import axios from 'axios';
+import API from '../Util/API';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -54,17 +55,16 @@ export default function TransitionsModal(props) {
 
     let handleReply = e => {
         if (currentUser && imageName) {
-            console.log(imageName);
-            axios.post("/api/posts/reply", {
+            
+            API.replyToPost({
                 body: replyBody,
                 handle: currentUser,
                 imageName: imageName,
                 postId: postId,
-            }).then(res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err);
-            });
+            })
+                .then(res => console.log(res) )
+                .catch(err => console.log(err) );
+
             handleClose();
             parentReplyHandler('go');
         }

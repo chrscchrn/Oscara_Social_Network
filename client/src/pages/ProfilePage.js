@@ -3,8 +3,8 @@ import Nav from '../components/Nav';
 import Profile from "../components/Profile";
 import Post from '../components/Post';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
+import API from "../Util/API";
 
 
 function ProfilePage() {
@@ -14,12 +14,9 @@ function ProfilePage() {
 
     useEffect(() => {
         if (!isLoading && isAuthenticated) {
-            axios.get('/api/posts/' + user.email)
-            .then(res => {
-                setPosts({
-                    posts: res.data
-                })
-            }).catch(err => console.log(err));
+            API.getUsersPosts(user.email)
+                .then(res => setPosts({ posts: res.data }))
+                .catch(err => console.log(err));
         }
     }, [user, isLoading])
     

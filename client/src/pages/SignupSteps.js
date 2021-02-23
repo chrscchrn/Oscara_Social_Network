@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Card from "@material-ui/core/Card";
 import Axios from "axios";
+import API from "../Util/API";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,11 +69,10 @@ export default function SignupSteps() {
             location: setupState.location,
             email: user.email
         } 
-        Axios.post('/api/user/add', newUser)
+        API.addUser(newUser)
             .then(res => console.log(res))
-            .catch(err => {
-                console.log(err);
-            });
+            .catch(err => console.log(err));
+            
         //metadata
         const domain = "christophernc.us.auth0.com";
         let accessToken;

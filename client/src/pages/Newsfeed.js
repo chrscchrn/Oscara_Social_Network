@@ -3,7 +3,7 @@ import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
 import axios from 'axios';
 import { Button, Grid } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import API from "../Util/API";
 
 const Post = React.lazy(() => import('../components/Post'));
 
@@ -30,11 +30,10 @@ function Newsfeed(props) {
     const [ next, setNext ] = React.useState(postsPerPage);
 
     React.useEffect(() => {
-        axios.get('/api/posts')
-            .then(res => {
-                setAllPosts(res.data)
-            })
+        API.getPosts()
+            .then(res => setAllPosts(res.data))
             .catch(err => console.log(err));
+            
         axios.get('/api/images/all')
             .then(res => {
                 console.log("images loaded");

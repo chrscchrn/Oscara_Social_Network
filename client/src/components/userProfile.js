@@ -21,12 +21,6 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden",
         padding: 5,
     },
-    // image: {
-    //     // borderRadius: "180px",
-    //     maxHeight: "350px",
-    //     maxWidth: "350px",
-    //     // objectFit: "cover",
-    // },
     content: {
         padding: 5,
     },

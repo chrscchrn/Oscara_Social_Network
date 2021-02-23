@@ -13,13 +13,13 @@ import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
 import { Avatar } from '@material-ui/core';
+import API from "../Util/API";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         overflow: "hidden",
         boxShadow: "0px 0px 20px 0px #252525db",
         borderRadius: 4,
-        // background: "rgb(240, 245, 245)",
         marginBottom: 10,
         marginTop: 10,
     },
@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
         width: "120%",
     },
     card: {
-        // width: "100%",
         padding: 5,
         marginTop: "auto",
         display: 'flex',
@@ -57,12 +56,9 @@ function NewPostContainer(props) {
     const [ userInfo, setUserInfo ] = useState({});
 
     useEffect(() => {
-        axios.get('/api/user/' + user.email)
-        .then(res  => {
-          setUserInfo(res.data);
-        }).catch(err => {
-          console.log(err);
-        });
+        API.getUserByEmail(user.email)
+        .then(res  => setUserInfo(res.data))
+        .catch(err => console.log(err));
     }, []);
 
     const handleInputChange = (event) => {
@@ -75,14 +71,13 @@ function NewPostContainer(props) {
         if (!isloading) {
             try {
                 if (props.imageName.includes('.')) {
-                    // console.log(props.imageName)
-                    axios.post('/api/posts', {
+                    API.makePost({
                         body: postState.body,
                         likeCount: 0,
                         replyCount: 0,
                         UserId: user.email,
                         handle: userInfo.handle,
-                        image: props.imageName,
+                        image: props.imageName
                     }).then((response) => {
                         props.setNewPost({
                             body: response.data.body,

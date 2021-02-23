@@ -12,6 +12,7 @@ import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
 import { Avatar } from '@material-ui/core';
+import API from "../Util/API";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,18 +53,14 @@ const Profile = () => {
   //get profile pic
   useEffect(() => {
     if (isAuthenticated) {
+      
       axios.get('/api/image/' + user.email)
-        .then(response => {
-          setImageName({ img: response.data.fileName });
-        }).catch(err => {
-          console.log(err);
-        });
-      axios.get('/api/user/' + user.email)
-        .then(res  => {
-          setUserInfo(res.data);
-        }).catch(err => {
-          console.log(err);
-        });
+        .then(response => setImageName({ img: response.data.fileName }))
+        .catch(err => console.log(err));
+
+      API.getUserByEmail(user.email)
+        .then(res  => setUserInfo(res.data))
+        .catch(err => console.log(err));
     }
   }, [isAuthenticated, isLoading]);
 

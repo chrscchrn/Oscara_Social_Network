@@ -4,6 +4,7 @@ import UserProfile from '../components/userProfile';
 import Post from '../components/Post';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import API from "../Util/API";
 
 function UsersPage() {
 
@@ -15,19 +16,15 @@ function UsersPage() {
         for (let i = window.location.href.length - 2; i > 0, window.location.href[i] !== '/'; i--) {
             handle = window.location.href[i] + handle
         }
-        axios.get('/api/user/handle/' + handle)
-        .then(res => {
-            setUser(res.data);
-        }).catch(err => console.log(err));
+        API.getUserByHandle(handle)
+            .then(res => setUser(res.data))
+            .catch(err => console.log(err));
     }, []);
     
     useEffect(() => {
-        axios.get('/api/posts/' + user.email)
-        .then(res => {
-            setPosts({
-                posts: res.data
-            });
-        }).catch(err => console.log(err));
+        API.getUsersPosts(user.email)
+            .then(res => { setPosts({ posts: res.data }) })
+            .catch(err => console.log(err));
     }, [user])
     
     let recentUserPosts = posts.posts ? (

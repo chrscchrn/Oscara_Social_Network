@@ -15,6 +15,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Portal from '@material-ui/core/Portal';
+import API from '../Util/API';
 
 const styles = {
     card: {
@@ -78,7 +79,7 @@ function Post(props) {
         setShowReplies(!showReplies);
     }
     const handleDelete = () => {
-        Axios.delete("/api/posts/" + id)
+        API.removePost(id)
             .then(res => {
                 alert("Post Deleted");
                 console.log(res);
@@ -95,14 +96,13 @@ function Post(props) {
         setStateLikeCount(likeCount);
         setStateReplyCount(replyCount);
     }, []);
+
     React.useEffect(() => {
         if (stateReplyCount > 0) {
-            Axios.get("/api/posts/reply/" + id)
-                .then(res => {
-                    setReplies(res.data);  
-                }).catch(err => {
-                    console.log(err);
-                }) 
+
+            API.getReplies(id)
+                .then(res => setReplies(res.data))
+                .catch(err => console.log(err)) 
         }
     }, [stateReplyCount]);
     
@@ -110,19 +110,19 @@ function Post(props) {
         event.preventDefault();
         event.persist();
         let postId = event.target.id;
-        Axios.get("/api/posts/" + postId + "/" + currentUser)
-        .then(res => {
-            if (res.data.error) {
-                setOpen(true);
-                return;
-            }
-            let likes = stateLikeCount;
-            likes += 1;
-            setStateLikeCount(likes);
-        }).catch(err => {
-            console.log(err);
-            alert("error liking post", err);
-        });
+        API.likePost(postId, currentUser)
+            .then(res => {
+                if (res.data.error) {
+                    setOpen(true);
+                    return;
+                }
+                let likes = stateLikeCount;
+                likes += 1;
+                setStateLikeCount(likes);
+            }).catch(err => {
+                console.log(err);
+                alert("error liking post", err);
+            });
     }
     function updateReplyCount() {
         let replyNum = stateReplyCount;
