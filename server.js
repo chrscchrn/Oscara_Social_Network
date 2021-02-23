@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const PORT = process.env.PORT || 3001;
 const routes = require("./routes");
 var compression = require("compression");
 require("dotenv").config();
@@ -9,6 +8,8 @@ const db = require("./models");
 const fs = require("fs");
 const multer = require('multer');
 const sharp = require('sharp');
+
+const PORT = process.env.PORT || 3001;
 
 // ** del uploads before pushing to heroku **
 app.use(compression({ filter: shouldCompress }));
@@ -25,7 +26,7 @@ if (process.env.NODE_ENV === "production") app.use(express.static("client/build"
 
 app.use(routes);
 
-//Image storage config
+// Image storage config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads')
@@ -95,8 +96,8 @@ app.get("/api/images", (req, res) => {
   })
 });
 
-//get single image, might be useless...
-app.get("/api/user/image/:email", (req, res) => {
+//get single image by email
+app.get("/api/image/:email", (req, res) => {
   db.Image.findOne({
     where: { UserId: req.params.email }
   }).then(blob => {

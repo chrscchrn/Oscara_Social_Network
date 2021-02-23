@@ -43,7 +43,7 @@ export default function Front() {
     
     useEffect(() => {
         if (isAuthenticated && !isLoading && !userState.new_user) {
-            axios.get('/api/user/image/' + user.email)
+            axios.get('/api/image/' + user.email)
                 .then(response => {
                     if (response.data.data === null) {
                         setUserState({...userState, uploadedPic: false });

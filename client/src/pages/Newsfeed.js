@@ -24,6 +24,7 @@ function Newsfeed(props) {
     const postsPerPage = 15;
     // let arrayForHoldingPosts = [];
 
+    const [ newPost, setNewPost ]  = React.useState({});
     const [ allPosts, setAllPosts ] = React.useState([]);
     const [ postsToShow, setPostsToShow ] = React.useState([]);
     const [ next, setNext ] = React.useState(postsPerPage);
@@ -61,13 +62,21 @@ function Newsfeed(props) {
     }
 
     let { handle, images, imageName } = props;
-    let recentPosts = postsToShow ? ( // suspense refactor
+    let recentPosts = postsToShow ? (
     postsToShow.map(post => (
-        <Suspense fallback={<CircularProgress/>}>
+        <Suspense>
             <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle} imageName={imageName}/>
         </Suspense>
     ))
     ) : "No Posts Yet!";
+
+    // let newPostMarkup;
+    // React.useEffect(() => {
+    //     let post = newPost;
+    //     newPostMarkup = (<Suspense fallback={<CircularProgress/>}>
+    //                         <Post userHandle={post.handle} post={post} key={post.id} currentUser={handle} imageName={imageName}/>
+    //                     </Suspense>)
+    // }, [newPost]);
 
     return (
         <>
@@ -83,6 +92,7 @@ function Newsfeed(props) {
                         images={images} 
                         imageName={imageName} 
                         handle={handle}
+                        setNewPost={setNewPost}
                     />
                 </Grid>
             </Grid>
@@ -96,6 +106,7 @@ function Newsfeed(props) {
             >
                 <Grid item sm={12}>  
                     <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+                        {/* {newPostMarkup ? newPostMarkup : null} */}
                         {recentPosts}
                     </ul>    
                 </Grid>

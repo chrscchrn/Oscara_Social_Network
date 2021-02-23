@@ -84,7 +84,16 @@ function NewPostContainer(props) {
                         handle: userInfo.handle,
                         image: props.imageName,
                     }).then((response) => {
-                        console.log(response)
+                        props.setNewPost({
+                            body: response.data.body,
+                            likeCount: response.data,
+                            replyCount: response.data,
+                            UserId: response.data.email,
+                            handle: response.data.handle,
+                            image: response.data.image,
+                            id: response.data.id,
+                            createdAt: response.data.createdAt,
+                        });
                         window.location.reload(); // please change this // prepend to shown posts
                     }).catch((error) => {
                         console.log(error);

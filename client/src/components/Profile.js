@@ -52,7 +52,7 @@ const Profile = () => {
   //get profile pic
   useEffect(() => {
     if (isAuthenticated) {
-      axios.get('/api/user/image/' + user.email)
+      axios.get('/api/image/' + user.email)
         .then(response => {
           setImageName({ img: response.data.fileName });
         }).catch(err => {

@@ -47,7 +47,7 @@ const userProfile = (props) => {
 
     useEffect(() => {
         if (isAuthenticated && props.userData.email) {
-            axios.get('/api/user/image/' + props.userData.email)
+            axios.get('/api/image/' + props.userData.email)
             .then(response => {
                 setImageName({ img: response.data.fileName });
             }).catch(err => {
