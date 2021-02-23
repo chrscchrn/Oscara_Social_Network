@@ -51,7 +51,7 @@ module.exports = {
             where: {
               PostId: req.params.id,
             }
-        }).then(dbReplies => {
+        }).then(() => {
             db.Like.destroy({
                 where: {
                     PostId: req.params.id,
@@ -100,7 +100,7 @@ module.exports = {
                         db.Like.create({
                             PostId: req.params.id,
                             handle: req.params.handle,
-                        }).then( result => {
+                        }).then( () => {
                             postData.likeCount += 1;
                             let values = { likeCount: postData.likeCount } 
                             let selector = { where: { id: req.params.id } }
