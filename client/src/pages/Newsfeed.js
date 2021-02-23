@@ -3,7 +3,6 @@ import Nav from '../components/Nav';
 import NewPostContainer from '../components/NewPostContainer';
 import axios from 'axios';
 import { Button, Grid } from '@material-ui/core';
-import Loading from "../components/Loading";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Post = React.lazy(() => import('../components/Post'));
@@ -23,7 +22,7 @@ function Newsfeed(props) {
     );
 
     const postsPerPage = 15;
-    let arrayForHoldingPosts = [];
+    // let arrayForHoldingPosts = [];
 
     const [ allPosts, setAllPosts ] = React.useState([]);
     const [ postsToShow, setPostsToShow ] = React.useState([]);
@@ -48,7 +47,7 @@ function Newsfeed(props) {
     
     const loopWithSlice = (start, end) => {
         const slicedPosts = allPosts.slice(start, end);
-        arrayForHoldingPosts = [];
+        // arrayForHoldingPosts = [];
         setPostsToShow(...postsToShow, slicedPosts);
     };
 

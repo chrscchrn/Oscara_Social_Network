@@ -76,7 +76,7 @@ function NewPostContainer(props) {
             try {
                 if (props.imageName.includes('.')) {
                     // console.log(props.imageName)
-                    axios.post('/api/post', {
+                    axios.post('/api/posts', {
                         body: postState.body,
                         likeCount: 0,
                         replyCount: 0,
@@ -84,6 +84,7 @@ function NewPostContainer(props) {
                         handle: userInfo.handle,
                         image: props.imageName,
                     }).then((response) => {
+                        console.log(response)
                         window.location.reload(); // please change this // prepend to shown posts
                     }).catch((error) => {
                         console.log(error);
@@ -106,7 +107,7 @@ function NewPostContainer(props) {
         http.open('HEAD', image_url, false);
         http.send();
     
-        return http.status != 404;
+        return http.status !== 404;
     
     }
 

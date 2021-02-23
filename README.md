@@ -31,8 +31,7 @@ After signing up, the user is taken to the sign-up-steps page where they can exp
  - JSON Web Tokens
  - Multer for uploading profile pictures
  - Sharp for image compression
- - React.Lazy and suspense
- - Service Worker and Manifest
+ - Service Worker, Manifest, and Code Splitting
 
 ## Database
 Sequelize is used throughout this project. While it is not needed, the sequelize cli is very useful for setting up your local development environment:

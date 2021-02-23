@@ -1,6 +1,6 @@
 import React from 'react'
-import { useHistory } from "react-router-dom";
-import { AppBar, Typography, Toolbar, Button } from '@material-ui/core';
+// import { useHistory } from "react-router-dom";
+import { AppBar, Typography, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
@@ -26,11 +26,11 @@ export default function Top() {
 
     const { isAuthenticated, isLoading } = useAuth0();
     const classes = useStyles();
-    let history = useHistory();
+    // let history = useHistory();
 
-    const handleBack = () => {
-        window.redirect("/");
-    }
+    // const handleBack = () => {
+    //     window.redirect("/");
+    // }
 
     return (
         <div className={classes.root}>

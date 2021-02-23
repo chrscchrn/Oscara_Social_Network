@@ -97,7 +97,7 @@ function Post(props) {
     }, []);
     React.useEffect(() => {
         if (stateReplyCount > 0) {
-            Axios.get("/api/reply/" + id)
+            Axios.get("/api/posts/reply/" + id)
                 .then(res => {
                     setReplies(res.data);  
                 }).catch(err => {
@@ -110,7 +110,7 @@ function Post(props) {
         event.preventDefault();
         event.persist();
         let postId = event.target.id;
-        Axios.get("/api/post/like/" + postId + "/" + currentUser)
+        Axios.get("/api/posts/" + postId + "/" + currentUser)
         .then(res => {
             if (res.data.error) {
                 setOpen(true);

@@ -68,7 +68,7 @@ export default function SignupSteps() {
             location: setupState.location,
             email: user.email
         } 
-        Axios.post('/api/addUser', newUser)
+        Axios.post('/api/user/add', newUser)
             .then(res => console.log(res))
             .catch(err => {
                 console.log(err);

@@ -15,7 +15,7 @@ function UsersPage() {
         for (let i = window.location.href.length - 2; i > 0, window.location.href[i] !== '/'; i--) {
             handle = window.location.href[i] + handle
         }
-        axios.get('/api/userhandle/' + handle)
+        axios.get('/api/user/handle/' + handle)
         .then(res => {
             setUser(res.data);
         }).catch(err => console.log(err));
