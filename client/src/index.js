@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { getConfig } from "./config";
+// import { getConfig } from "./config";
 
 // const config = getConfig();
 
