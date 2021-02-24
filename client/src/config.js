@@ -1,4 +1,4 @@
-import configJson from "./auth_config.json";
+if (process.env.NODE_ENV === "production") import configJson from "./auth_config.json";
 
 export function getConfig() {
 
