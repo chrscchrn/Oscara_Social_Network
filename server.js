@@ -44,47 +44,50 @@ app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
   let imageBuffer;
   try {
     imageBuffer = fs.readFileSync(__dirname + "/" + image);
+    console.log("1")
   } catch (error) {
     console.log(error);
   }
-
+  let imageData;
   sharp(imageBuffer)
     .resize({ height: 210 })
     .toBuffer()
     .then(data => {
-      console.log(data)
+      console.log("2")
       fs.writeFileSync( __dirname + '/' + image, data);
+      try {
+        imageData = fs.readFileSync(__dirname + "/" + image);
+        console.log("3")
+      } catch (error) {
+        console.log(error);
+      }
+
+      if (imageData) {
+        db.Image.create({
+          type: req.file.mimetype,
+          name: req.file.originalname, 
+          UserId: req.params.email,
+          data: imageData,
+        }).then((img) => {
+          try {
+            fs.writeFileSync( __dirname + "\/" + image, img.data);
+            console.log("4")  
+            res.json({ message: 'image successfully created' });
+          } catch (error) {
+            console.log(error);
+            res.json(error);
+          }
+        }).catch(err => {
+          console.log(err);
+          res.status(500);
+          res.json(err);
+        });
+      }
+
     }).catch(err => {
       console.log(err, 'sharp error');
     });
 
-  let imageData;
-  try {
-    imageData = fs.readFileSync(__dirname + "/" + image);
-  } catch (error) {
-    console.log(error);
-  }
-
-  if (imageData) {
-    db.Image.create({
-      type: req.file.mimetype,
-      name: req.file.originalname, 
-      UserId: req.params.email,
-      data: imageData,
-    }).then((img) => {
-      try {
-        fs.writeFileSync( __dirname + "\/" + image, img.data);  
-        res.json({ message: 'image successfully created' });
-      } catch (error) {
-        console.log(error);
-        res.json(error);
-      }
-    }).catch(err => {
-      console.log(err);
-      res.status(500);
-      res.json(err);
-    });
-  }
 });
 
 //preview images
