@@ -3,7 +3,6 @@ const app = express();
 const path = require("path");
 const routes = require("./routes");
 var compression = require("compression");
-require("dotenv").config();
 const db = require("./models");
 const fs = require("fs");
 const multer = require('multer');
@@ -22,7 +21,11 @@ function shouldCompress (req, res) {
   return compression.filter(req, res);
 }
 
-if (process.env.NODE_ENV === "production") app.use(express.static("client/build"));
+require("dotenv").config();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.use(routes);
 
