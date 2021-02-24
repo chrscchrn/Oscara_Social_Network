@@ -4,16 +4,23 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { getConfig } from "./config";
+// import { getConfig } from "./config";
 
-const config = getConfig();
+// const config = getConfig();
+
+// const providerConfig = {
+//     domain: process.env.DOMAIN || config.domain,
+//     clientId: process.env.CLIENTID || config.clientId,
+//     ...(process.env.AUDIENCE ? { audience: process.env.AUDIENCE } : { audience: config.audience }),
+//     redirectUri: window.location.origin,
+// };
 
 const providerConfig = {
-    domain: process.env.DOMAIN || config.domain,
-    clientId: process.env.CLIENTID || config.clientId,
-    ...(process.env.AUDIENCE ? { audience: process.env.AUDIENCE } : { audience: config.audience }),
+    domain: process.env.DOMAIN,
+    clientId: process.env.CLIENTID,
+    audience: process.env.AUDIENCE,
     redirectUri: window.location.origin,
-};
+}
 
 ReactDOM.render (
     <Auth0Provider {...providerConfig}>
