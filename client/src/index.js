@@ -13,7 +13,7 @@ const providerConfig = {
     clientId: config.clientId,
     ...(config.audience ? { audience: config.audience } : null),
     redirectUri: window.location.origin,
-  };
+};
 
 ReactDOM.render (
     <Auth0Provider {...providerConfig}>
