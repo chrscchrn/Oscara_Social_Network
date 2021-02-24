@@ -22,7 +22,7 @@ const providerConfig = {
     redirectUri: window.location.origin,
 }
 
-console.log(process.env.REACT_APP_AUTH0_AUDIENCE, process.env.REACT_APP_AUTH0_CLIENT_ID)
+console.log(process.env.REACT_APP_AUTH0_AUDIENCE, REACT_APP_AUTH0_CLIENT_ID)
 
 ReactDOM.render (
     <Auth0Provider {...providerConfig}>
