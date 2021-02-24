@@ -9,9 +9,9 @@ import { getConfig } from "./config";
 const config = getConfig();
 
 const providerConfig = {
-    domain: config.domain,
-    clientId: config.clientId,
-    ...(config.audience ? { audience: config.audience } : null),
+    domain: process.env.DOMAIN || config.domain,
+    clientId: process.env.CLIENTID || config.clientId,
+    ...(process.env.AUDIENCE ? { audience: process.env.AUDIENCE } : { audience: config.audience }),
     redirectUri: window.location.origin,
 };
 

@@ -24,7 +24,7 @@ function Newsfeed(props) {
     const postsPerPage = 15;
     // let arrayForHoldingPosts = [];
 
-    // const [ newPost, setNewPost ]  = React.useState({});
+    const [ newPost, setNewPost ]  = React.useState({});
     const [ allPosts, setAllPosts ] = React.useState([]);
     const [ postsToShow, setPostsToShow ] = React.useState([]);
     const [ next, setNext ] = React.useState(postsPerPage);

@@ -52,6 +52,7 @@ app.post('/api/image/:email', uploads.single('image'), async (req, res) => {
     .resize({ height: 210 })
     .toBuffer()
     .then(data => {
+      console.log(data)
       fs.writeFileSync( __dirname + '/' + image, data);
     }).catch(err => {
       console.log(err, 'sharp error');
