@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import Loading from "./Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { makeStyles } from '@material-ui/core/styles';

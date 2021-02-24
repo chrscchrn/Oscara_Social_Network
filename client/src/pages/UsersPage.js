@@ -3,7 +3,6 @@ import Nav from '../components/Nav';
 import UserProfile from '../components/userProfile';
 import Post from '../components/Post';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
 import API from "../Util/API";
 
 function UsersPage() {

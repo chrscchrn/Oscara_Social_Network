@@ -1,0 +1,15 @@
+{
+  "short_name": "Oscara",
+  "name": "Oscara Social Network",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "minimal-ui",
+  "theme_color": "#aa1836",
+  "background_color": "#1f5e63"
+}

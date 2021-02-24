@@ -6,7 +6,6 @@ import Fade from '@material-ui/core/Fade';
 import { Button, Grid, TextField } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import axios from 'axios';
 import API from '../Util/API';
 
 const useStyles = makeStyles((theme) => ({
