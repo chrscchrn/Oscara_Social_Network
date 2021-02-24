@@ -11,13 +11,13 @@ router.route("/:email")
 router.route("/:id")
     .delete(postController.remove);
 
-router.route("/:id/:handle")
-    .get(postController.like);
-
 router.route("/reply")
     .post(postController.reply);
 
 router.route("/reply/:id")
     .get(postController.getReplies)
+
+router.route("/:id/:handle")
+    .get(postController.like);
 
 module.exports = router;
