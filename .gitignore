@@ -119,3 +119,7 @@ dist
 .pnp.*
 
 /build
+
+# Auth0
+auth_config.json
+config.js
