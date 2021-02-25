@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden",
         boxShadow: "0px 0px 20px 0px #252525db",
         borderRadius: 4,
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 0,
+        marginTop: 0,
     },
     grid: {
         width: "120%",

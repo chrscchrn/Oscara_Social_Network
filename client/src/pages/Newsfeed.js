@@ -86,7 +86,7 @@ function Newsfeed(props) {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item sm={12}  >  
+                <Grid item sm={10}  >  
                     <NewPostContainer 
                         images={images} 
                         imageName={imageName} 
@@ -103,8 +103,8 @@ function Newsfeed(props) {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item sm={12}>  
-                    <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+                <Grid item sm={10}>  
+                    <ul style={{listStyleType: "none", paddingInlineStart: "0px", marginBlockStart: "0em"}}>
                         {/* {newPostMarkup ? newPostMarkup : null} */}
                         {recentPosts}
                     </ul>    
@@ -117,7 +117,7 @@ function Newsfeed(props) {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item sm={12} style={{textAlign: "-webkit-center"}}>  
+                <Grid item sm={12} style={{ textAlign: "-webkit-center" }}>  
                     {loadMoreButton}
                 </Grid>
             </Grid>
