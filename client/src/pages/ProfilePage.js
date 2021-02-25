@@ -31,28 +31,22 @@ function ProfilePage() {
                 container 
                 spacing={0}
                 direction="row" 
-                justify="space-between"
-                alignItems="flex-start"
+                justify="center"
+                alignItems="center"
             >
-                <Grid item sm={2}></Grid>
-                <Grid item sm={12}><Profile/></Grid>
-                <Grid item sm={2}></Grid>
+                <Grid item sm={10}><Profile/></Grid>
             </Grid>
             <Grid 
                 container 
                 spacing={0}
                 direction="row" 
-                justify="space-between"
-                alignItems="flex-start"
+                justify="center"
+                alignItems="center"
             >
-                <Grid item sm={2}>  
-                </Grid>
-                <Grid item sm={12}>  
-                    <ul style={{listStyleType: "none", paddingInlineStart: "0px"}}>
+                <Grid item sm={10}>  
+                    <ul style={{listStyleType: "none", paddingInlineStart: "0px", marginBlockStart: "0em"}}>
                         {recentUserPostsMarkup}
                     </ul>
-                </Grid>
-                <Grid item sm={2}>  
                 </Grid>
             </Grid>
             <Grid 

@@ -115,9 +115,7 @@ function Post(props) {
                     setOpen(true);
                     return;
                 }
-                let likes = stateLikeCount;
-                likes += 1;
-                setStateLikeCount(likes);
+                setStateLikeCount(stateLikeCount+1);
             }).catch(err => {
                 console.log(err);
                 alert("error liking post", err);
@@ -128,13 +126,11 @@ function Post(props) {
         replyNum += 1;
         setStateReplyCount(replyNum);
     }
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    function Alert(props2) {
+        return <MuiAlert elevation={6} variant="filled" {...props2} />;
     }
     const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+        if (reason === 'clickaway') return;
         setOpen(false);
     };
 

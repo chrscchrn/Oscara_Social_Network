@@ -18,8 +18,8 @@ import API from "../Util/API";
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'center',
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 0,
+    marginTop: 0,
     overflow: "hidden",
     padding: 5,
   },
@@ -96,7 +96,7 @@ const Profile = () => {
         alignItems="center"
         >
           <Grid item sm={4} className={classes.image} style={{textAlign: "-webkit-center"}}>
-            <Avatar className={classes.image + " image"} src={imageName.img} alt={user.name} style={{height: "200px", width: "200px"}} />
+            <Avatar className={classes.image + " image"} src={imageName.img} alt={user.name} style={{ width: "200px" }}/>
             {/* <img className={classes.image, "image"} src={imageName.img} alt={user.name} height="250"/> */}
           </Grid>
           <Grid item sm={8}>

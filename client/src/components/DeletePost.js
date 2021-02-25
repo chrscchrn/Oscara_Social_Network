@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core';
 export default function DeletePost(props) {
     return (
         <div>
-            <Button onClick={props.handleDelete} className="lock" color="primary" style={{ marginTop: "50px" }}>
+            <Button onClick={props.handleDelete} className="lock" color="primary" style={{ marginTop: "4px" }}>
                 <DeleteOutlineIcon className="icon-unlock"/>
                 <DeleteIcon className="icon-lock"/>            
             </Button>
